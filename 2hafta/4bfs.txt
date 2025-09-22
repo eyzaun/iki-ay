@@ -1,0 +1,494 @@
+# BFS (Breadth-First Search) ve Graph Yapıları
+
+## BFS Nedir? DFS'den Farkı Ne?
+
+BFS, **seviye seviye (level-by-level)** gezinme tekniğidir. Tıpkı **taş havuza atıldığında** oluşan dalgalar gibi - merkez noktadan başlayıp dışa doğru genişler.
+
+### Gerçek Hayattan Benzetme: Salgın Yayılımı
+Düşün ki bir şehirde salgın başladı:
+- **BFS:** Salgın önce **komşu mahallelere**, sonra **daha uzak bölgelere** yayılır
+- **DFS:** Salgın **bir yol takip ederek** şehrin en ucuna gider, sonra geri dönüp başka yolları dener
+
+### Görsel Karşılaştırma:
+```
+Tree:
+       1
+      / \
+     2   3
+    / \ / \
+   4 5 6  7
+
+DFS (Preorder): 1 → 2 → 4 → 5 → 3 → 6 → 7  (Derinlemesine)
+BFS (Level):    1 → 2 → 3 → 4 → 5 → 6 → 7  (Seviye seviye)
+```
+
+## BFS'in Kalbi: Queue Kullanımı
+
+BFS **her zaman Queue** kullanır! DFS Stack kullanırken, BFS Queue kullanır.
+
+```csharp
+// BFS - Level Order Traversal
+public List<int> BFS(TreeNode root)
+{
+    List<int> result = new List<int>();
+    if (root == null) return result;
+    
+    Queue<TreeNode> queue = new Queue<TreeNode>();
+    queue.Enqueue(root);
+    
+    while (queue.Count > 0)
+    {
+        TreeNode current = queue.Dequeue(); // FIFO - İlk giren ilk çıkar
+        result.Add(current.Val);
+        
+        // Çocukları kuyruğa ekle (sol önce, sağ sonra)
+        if (current.Left != null)
+            queue.Enqueue(current.Left);
+        if (current.Right != null)
+            queue.Enqueue(current.Right);
+    }
+    
+    return result;
+}
+```
+
+## Level-Order Traversal Variations
+
+### 1. Seviyeli BFS (Her Seviyeyi Ayrı Listede)
+```csharp
+public List<List<int>> LevelOrder(TreeNode root)
+{
+    List<List<int>> result = new List<List<int>>();
+    if (root == null) return result;
+    
+    Queue<TreeNode> queue = new Queue<TreeNode>();
+    queue.Enqueue(root);
+    
+    while (queue.Count > 0)
+    {
+        int levelSize = queue.Count; // Mevcut seviyedeki node sayısı
+        List<int> currentLevel = new List<int>();
+        
+        // Bu seviyedeki tüm node'ları işle
+        for (int i = 0; i < levelSize; i++)
+        {
+            TreeNode current = queue.Dequeue();
+            currentLevel.Add(current.Val);
+            
+            // Sonraki seviyenin node'larını ekle
+            if (current.Left != null)
+                queue.Enqueue(current.Left);
+            if (current.Right != null)
+                queue.Enqueue(current.Right);
+        }
+        
+        result.Add(currentLevel);
+    }
+    
+    return result;
+}
+
+// Örnek çıktı: [[1], [2,3], [4,5,6,7]]
+```
+
+### 2. Zigzag Level Order
+```csharp
+public List<List<int>> ZigzagLevelOrder(TreeNode root)
+{
+    List<List<int>> result = new List<List<int>>();
+    if (root == null) return result;
+    
+    Queue<TreeNode> queue = new Queue<TreeNode>();
+    queue.Enqueue(root);
+    bool leftToRight = true;
+    
+    while (queue.Count > 0)
+    {
+        int levelSize = queue.Count;
+        List<int> currentLevel = new List<int>();
+        
+        for (int i = 0; i < levelSize; i++)
+        {
+            TreeNode current = queue.Dequeue();
+            
+            if (leftToRight)
+                currentLevel.Add(current.Val);
+            else
+                currentLevel.Insert(0, current.Val); // Başa ekle (reverse)
+            
+            if (current.Left != null)
+                queue.Enqueue(current.Left);
+            if (current.Right != null)
+                queue.Enqueue(current.Right);
+        }
+        
+        result.Add(currentLevel);
+        leftToRight = !leftToRight; // Yön değiştir
+    }
+    
+    return result;
+}
+
+// Örnek çıktı: [[1], [3,2], [4,5,6,7]]
+```
+
+### 3. Right Side View
+```csharp
+// Tree'nin sağdan görünümü
+public List<int> RightSideView(TreeNode root)
+{
+    List<int> result = new List<int>();
+    if (root == null) return result;
+    
+    Queue<TreeNode> queue = new Queue<TreeNode>();
+    queue.Enqueue(root);
+    
+    while (queue.Count > 0)
+    {
+        int levelSize = queue.Count;
+        
+        for (int i = 0; i < levelSize; i++)
+        {
+            TreeNode current = queue.Dequeue();
+            
+            // Son node (sağdaki) görünür
+            if (i == levelSize - 1)
+                result.Add(current.Val);
+            
+            if (current.Left != null)
+                queue.Enqueue(current.Left);
+            if (current.Right != null)
+                queue.Enqueue(current.Right);
+        }
+    }
+    
+    return result;
+}
+```
+
+## Graph Veri Yapısı
+
+Graph, **node'ların (vertex) edge'lerle bağlandığı** yapıdır. Tree'nin genelleştirilmiş hali!
+
+### Graph vs Tree:
+- **Tree:** Cycle yok, connected, n-1 edge
+- **Graph:** Cycle olabilir, disconnected olabilir, any number of edges
+
+### Graph Türleri:
+1. **Directed/Undirected:** Ok yönlü mü?
+2. **Weighted/Unweighted:** Kenar ağırlıkları var mı?
+3. **Connected/Disconnected:** Tüm node'lar erişilebilir mi?
+
+## Graph Representation (Temsil Yöntemleri)
+
+### 1. Adjacency List (En Yaygın)
+```csharp
+// Adjacency List ile Graph
+public class Graph
+{
+    private Dictionary<int, List<int>> adjList;
+    
+    public Graph()
+    {
+        adjList = new Dictionary<int, List<int>>();
+    }
+    
+    public void AddVertex(int vertex)
+    {
+        if (!adjList.ContainsKey(vertex))
+            adjList[vertex] = new List<int>();
+    }
+    
+    public void AddEdge(int source, int destination)
+    {
+        AddVertex(source);
+        AddVertex(destination);
+        
+        adjList[source].Add(destination);
+        // Undirected graph için:
+        // adjList[destination].Add(source);
+    }
+    
+    public List<int> GetNeighbors(int vertex)
+    {
+        return adjList.ContainsKey(vertex) ? adjList[vertex] : new List<int>();
+    }
+}
+```
+
+### 2. Adjacency Matrix
+```csharp
+// Matrix ile Graph
+public class GraphMatrix
+{
+    private int[,] matrix;
+    private int vertices;
+    
+    public GraphMatrix(int vertices)
+    {
+        this.vertices = vertices;
+        matrix = new int[vertices, vertices];
+    }
+    
+    public void AddEdge(int source, int destination, int weight = 1)
+    {
+        matrix[source, destination] = weight;
+        // Undirected için:
+        // matrix[destination, source] = weight;
+    }
+    
+    public bool HasEdge(int source, int destination)
+    {
+        return matrix[source, destination] != 0;
+    }
+}
+```
+
+## Graph'ta BFS Implementation
+
+```csharp
+// Graph'ta BFS - En kısa yol bulur (unweighted)
+public List<int> BFSGraph(Graph graph, int startVertex)
+{
+    List<int> result = new List<int>();
+    HashSet<int> visited = new HashSet<int>();
+    Queue<int> queue = new Queue<int>();
+    
+    queue.Enqueue(startVertex);
+    visited.Add(startVertex);
+    
+    while (queue.Count > 0)
+    {
+        int current = queue.Dequeue();
+        result.Add(current);
+        
+        // Komşuları kontrol et
+        foreach (int neighbor in graph.GetNeighbors(current))
+        {
+            if (!visited.Contains(neighbor))
+            {
+                visited.Add(neighbor);
+                queue.Enqueue(neighbor);
+            }
+        }
+    }
+    
+    return result;
+}
+```
+
+## Graph'ta DFS Implementation
+
+```csharp
+// Graph'ta DFS - Recursive
+public List<int> DFSGraph(Graph graph, int startVertex, HashSet<int> visited = null)
+{
+    if (visited == null)
+        visited = new HashSet<int>();
+    
+    List<int> result = new List<int>();
+    
+    visited.Add(startVertex);
+    result.Add(startVertex);
+    
+    foreach (int neighbor in graph.GetNeighbors(startVertex))
+    {
+        if (!visited.Contains(neighbor))
+        {
+            result.AddRange(DFSGraph(graph, neighbor, visited));
+        }
+    }
+    
+    return result;
+}
+
+// DFS - Iterative (Stack kullanarak)
+public List<int> DFSIterative(Graph graph, int startVertex)
+{
+    List<int> result = new List<int>();
+    HashSet<int> visited = new HashSet<int>();
+    Stack<int> stack = new Stack<int>();
+    
+    stack.Push(startVertex);
+    
+    while (stack.Count > 0)
+    {
+        int current = stack.Pop();
+        
+        if (!visited.Contains(current))
+        {
+            visited.Add(current);
+            result.Add(current);
+            
+            // Komşuları ters sırada ekle (düzen için)
+            var neighbors = graph.GetNeighbors(current);
+            for (int i = neighbors.Count - 1; i >= 0; i--)
+            {
+                if (!visited.Contains(neighbors[i]))
+                    stack.Push(neighbors[i]);
+            }
+        }
+    }
+    
+    return result;
+}
+```
+
+## BFS'in Gerçek Hayat Uygulamaları
+
+### 1. Shortest Path (En Kısa Yol)
+```csharp
+// Unweighted graph'ta en kısa yol
+public int ShortestPath(Graph graph, int start, int target)
+{
+    if (start == target) return 0;
+    
+    Queue<int> queue = new Queue<int>();
+    HashSet<int> visited = new HashSet<int>();
+    Dictionary<int, int> distance = new Dictionary<int, int>();
+    
+    queue.Enqueue(start);
+    visited.Add(start);
+    distance[start] = 0;
+    
+    while (queue.Count > 0)
+    {
+        int current = queue.Dequeue();
+        
+        foreach (int neighbor in graph.GetNeighbors(current))
+        {
+            if (!visited.Contains(neighbor))
+            {
+                visited.Add(neighbor);
+                distance[neighbor] = distance[current] + 1;
+                queue.Enqueue(neighbor);
+                
+                if (neighbor == target)
+                    return distance[neighbor];
+            }
+        }
+    }
+    
+    return -1; // Path bulunamadı
+}
+```
+
+### 2. Connected Components
+```csharp
+// Graph'taki bağlı bileşen sayısı
+public int CountConnectedComponents(Graph graph, List<int> allVertices)
+{
+    HashSet<int> visited = new HashSet<int>();
+    int components = 0;
+    
+    foreach (int vertex in allVertices)
+    {
+        if (!visited.Contains(vertex))
+        {
+            BFSComponent(graph, vertex, visited);
+            components++;
+        }
+    }
+    
+    return components;
+}
+
+private void BFSComponent(Graph graph, int start, HashSet<int> visited)
+{
+    Queue<int> queue = new Queue<int>();
+    queue.Enqueue(start);
+    visited.Add(start);
+    
+    while (queue.Count > 0)
+    {
+        int current = queue.Dequeue();
+        
+        foreach (int neighbor in graph.GetNeighbors(current))
+        {
+            if (!visited.Contains(neighbor))
+            {
+                visited.Add(neighbor);
+                queue.Enqueue(neighbor);
+            }
+        }
+    }
+}
+```
+
+### 3. Level Distance (Belirli Mesafedeki Node'lar)
+```csharp
+// Belirli mesafedeki tüm node'ları bul
+public List<int> NodesAtDistance(Graph graph, int start, int targetDistance)
+{
+    List<int> result = new List<int>();
+    Queue<int> queue = new Queue<int>();
+    HashSet<int> visited = new HashSet<int>();
+    Dictionary<int, int> distance = new Dictionary<int, int>();
+    
+    queue.Enqueue(start);
+    visited.Add(start);
+    distance[start] = 0;
+    
+    while (queue.Count > 0)
+    {
+        int current = queue.Dequeue();
+        
+        if (distance[current] == targetDistance)
+        {
+            result.Add(current);
+        }
+        
+        if (distance[current] < targetDistance)
+        {
+            foreach (int neighbor in graph.GetNeighbors(current))
+            {
+                if (!visited.Contains(neighbor))
+                {
+                    visited.Add(neighbor);
+                    distance[neighbor] = distance[current] + 1;
+                    queue.Enqueue(neighbor);
+                }
+            }
+        }
+    }
+    
+    return result;
+}
+```
+
+## BFS vs DFS - Ne Zaman Hangisi?
+
+| Özellik | BFS | DFS |
+|---------|-----|-----|
+| **Veri Yapısı** | Queue | Stack/Recursion |
+| **Memory** | O(branching factor) | O(depth) |
+| **Shortest Path** | ✅ Garanti | ❌ Garanti yok |
+| **Space Complexity** | Genelde daha fazla | Genelde daha az |
+| **Use Cases** | Level-order, shortest path | Path finding, topological sort |
+
+## BFS vs DFS Kullanım Alanları
+
+### ✅ BFS Kullan Eğer:
+- **Shortest path** (unweighted) buluyorsan
+- **Level-order** işlem gerekiyorsa
+- **Minimum steps** problemi çözüyorsan
+- **Connected components** sayıyorsan
+
+### ✅ DFS Kullan Eğer:
+- **Path existence** kontrol ediyorsan
+- **Cycle detection** yapıyorsan
+- **Topological sorting** gerekiyorsa
+- **Memory** sınırlı ise
+
+## Complexity Analizi
+
+### Time Complexity: **O(V + E)**
+- V = vertex (node) sayısı
+- E = edge sayısı
+- Her vertex ve edge bir kez ziyaret edilir
+
+### Space Complexity:
+- **BFS:** O(V) - Queue için
+- **DFS:** O(V) - Stack/Recursion için
+
+Next: Sorting Algorithms (MergeSort, QuickSort)! 🔄

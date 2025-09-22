@@ -1,0 +1,460 @@
+# Greedy Algorithms - Lokal Optimal Seçimler
+
+## Greedy Algorithm Nedir?
+
+Greedy, **her adımda en iyi görünen seçimi** yapan algoritmadır. **"Şu anda elimdeki en iyi seçeneği al, gerisini düşünme"** mantığı.
+
+### Gerçek Hayattan Benzetme: Restoran Seçimi
+Düşün ki açsın ve restoran arıyorsun:
+- **DP yaklaşımı:** Tüm rotaları hesapla, en optimal yolu bul → Karmaşık ama optimal
+- **Greedy yaklaşımı:** Her kavşakta en yakın/güzel görünen restorana git → Basit ama her zaman optimal değil
+
+### Greedy'nin Temel Özelliği:
+**"Local optimal choice'lar global optimal solution'a götürür"** - Ama bu **her problem için geçerli değil**!
+
+## Greedy vs DP - Temel Fark
+
+```csharp
+// DP: Tüm seçenekleri değerlendir
+int dp(state) {
+    if (baseCase) return value;
+    
+    int best = worst_value;
+    for (choice in all_possible_choices) {
+        best = Math.Max(best, choice + dp(new_state));
+    }
+    return best;
+}
+
+// Greedy: En iyi görüneni seç, devam et
+int greedy(problem) {
+    int result = 0;
+    while (problem_not_solved) {
+        choice = find_best_local_choice();
+        result += choice;
+        update_problem_state();
+    }
+    return result;
+}
+```
+
+## Classic Greedy Problems
+
+### 1. Activity Selection Problem
+**Problem:** Maximum sayıda activity seç (overlapping olamazlar)
+
+```csharp
+public class ActivitySelection
+{
+    public class Activity
+    {
+        public int Start { get; set; }
+        public int End { get; set; }
+        public string Name { get; set; }
+    }
+    
+    // Greedy Strategy: En erken biten activity'yi seç
+    public List<Activity> SelectActivities(List<Activity> activities)
+    {
+        // 1. End time'a göre sırala - KEY INSIGHT!
+        activities.Sort((a, b) => a.End.CompareTo(b.End));
+        
+        List<Activity> result = new List<Activity>();
+        
+        if (activities.Count > 0)
+        {
+            result.Add(activities[0]); // İlk activity'yi seç
+            int lastEndTime = activities[0].End;
+            
+            // 2. Greedy choice: En erken biten uyumlu activity'yi seç
+            for (int i = 1; i < activities.Count; i++)
+            {
+                if (activities[i].Start >= lastEndTime) // Overlap yok
+                {
+                    result.Add(activities[i]);
+                    lastEndTime = activities[i].End;
+                }
+            }
+        }
+        
+        return result;
+    }
+}
+
+// Örnek:
+// Activities: [(1,3), (2,5), (4,6), (6,7), (5,8), (8,9)]
+// Sorted by end: [(1,3), (2,5), (4,6), (6,7), (5,8), (8,9)]
+// Greedy seçim: (1,3), (4,6), (6,7), (8,9) → 4 activity
+```
+
+### 2. Fractional Knapsack
+**Problem:** Items'i bölebilirsin, maximum value elde et
+
+```csharp
+public class FractionalKnapsack
+{
+    public class Item
+    {
+        public int Weight { get; set; }
+        public int Value { get; set; }
+        public double Ratio => (double)Value / Weight; // Value per weight
+    }
+    
+    // Greedy Strategy: En yüksek value/weight ratio'yu seç
+    public double GetMaxValue(List<Item> items, int capacity)
+    {
+        // 1. Value/weight ratio'ya göre sırala - KEY INSIGHT!
+        items.Sort((a, b) => b.Ratio.CompareTo(a.Ratio));
+        
+        double totalValue = 0;
+        int remainingCapacity = capacity;
+        
+        foreach (var item in items)
+        {
+            if (remainingCapacity <= 0) break;
+            
+            if (item.Weight <= remainingCapacity)
+            {
+                // Tüm item'i al
+                totalValue += item.Value;
+                remainingCapacity -= item.Weight;
+            }
+            else
+            {
+                // Item'in bir kısmını al (fractional)
+                double fraction = (double)remainingCapacity / item.Weight;
+                totalValue += item.Value * fraction;
+                remainingCapacity = 0;
+            }
+        }
+        
+        return totalValue;
+    }
+}
+```
+
+### 3. Coin Change (Greedy Version)
+**Problem:** Minimum coin sayısıyla amount'ı yap (sadece standard coins için çalışır!)
+
+```csharp
+public class CoinChangeGreedy
+{
+    // Greedy Strategy: En büyük coin'i mümkün olduğunca kullan
+    public List<int> GetMinCoins(int[] coins, int amount)
+    {
+        // 1. Coins'i büyükten küçüğe sırala
+        Array.Sort(coins, (a, b) => b.CompareTo(a));
+        
+        List<int> result = new List<int>();
+        
+        foreach (int coin in coins)
+        {
+            while (amount >= coin)
+            {
+                result.Add(coin);
+                amount -= coin;
+            }
+        }
+        
+        return amount == 0 ? result : new List<int>(); // Impossible ise empty list
+    }
+}
+
+// NOT: Bu sadece standard coin systems için çalışır!
+// [1,5,10,25] → Works perfectly
+// [1,3,4] amount=6 → Greedy: [4,1,1] (3 coins), Optimal: [3,3] (2 coins)
+```
+
+### 4. Meeting Rooms
+**Problem:** Minimum meeting room sayısı
+
+```csharp
+public class MeetingRooms
+{
+    public class Meeting
+    {
+        public int Start { get; set; }
+        public int End { get; set; }
+    }
+    
+    // Greedy Strategy: En erken biten meeting'i track et
+    public int MinMeetingRooms(List<Meeting> meetings)
+    {
+        if (meetings.Count == 0) return 0;
+        
+        // Start ve end time'ları ayrı ayrı sırala
+        var startTimes = meetings.Select(m => m.Start).OrderBy(x => x).ToList();
+        var endTimes = meetings.Select(m => m.End).OrderBy(x => x).ToList();
+        
+        int rooms = 0;
+        int maxRooms = 0;
+        int startPtr = 0, endPtr = 0;
+        
+        while (startPtr < startTimes.Count)
+        {
+            if (startTimes[startPtr] < endTimes[endPtr])
+            {
+                // Meeting başlıyor, room gerekli
+                rooms++;
+                startPtr++;
+                maxRooms = Math.Max(maxRooms, rooms);
+            }
+            else
+            {
+                // Meeting bitiyor, room boşalıyor
+                rooms--;
+                endPtr++;
+            }
+        }
+        
+        return maxRooms;
+    }
+    
+    // Alternative: Priority Queue ile
+    public int MinMeetingRoomsWithHeap(List<Meeting> meetings)
+    {
+        if (meetings.Count == 0) return 0;
+        
+        // Start time'a göre sırala
+        meetings.Sort((a, b) => a.Start.CompareTo(b.Start));
+        
+        // Min heap: En erken biten meeting'i track et
+        var endTimes = new PriorityQueue<int, int>();
+        
+        foreach (var meeting in meetings)
+        {
+            // Biten meeting'leri temizle
+            while (endTimes.Count > 0 && endTimes.Peek() <= meeting.Start)
+            {
+                endTimes.Dequeue();
+            }
+            
+            // Yeni meeting'i ekle
+            endTimes.Enqueue(meeting.End, meeting.End);
+        }
+        
+        return endTimes.Count; // Concurrent meeting sayısı
+    }
+}
+```
+
+## Advanced Greedy Examples
+
+### 5. Jump Game
+**Problem:** Array'in sonuna ulaşabilir misin? (Her element max jump distance)
+
+```csharp
+public class JumpGame
+{
+    // Greedy Strategy: En uzağa ulaşabildiğin noktayı track et
+    public bool CanJump(int[] nums)
+    {
+        int maxReach = 0;
+        
+        for (int i = 0; i < nums.Length; i++)
+        {
+            if (i > maxReach) return false; // Bu noktaya ulaşamıyoruz
+            
+            maxReach = Math.Max(maxReach, i + nums[i]); // En uzağa ulaşabileceğimiz nokta
+            
+            if (maxReach >= nums.Length - 1) return true; // Sona ulaştık
+        }
+        
+        return maxReach >= nums.Length - 1;
+    }
+    
+    // Jump Game II: Minimum jump sayısı
+    public int Jump(int[] nums)
+    {
+        int jumps = 0;
+        int currentEnd = 0;    // Current jump'ın ulaşabileceği son nokta
+        int farthest = 0;      // Şimdiye kadar ulaşabildiğimiz en uzak nokta
+        
+        for (int i = 0; i < nums.Length - 1; i++)
+        {
+            farthest = Math.Max(farthest, i + nums[i]);
+            
+            if (i == currentEnd) // Current jump'ın sınırına ulaştık
+            {
+                jumps++;
+                currentEnd = farthest; // Yeni jump'la ulaşabileceğimiz nokta
+            }
+        }
+        
+        return jumps;
+    }
+}
+```
+
+### 6. Gas Station
+**Problem:** Circular route'da tüm gas station'ları ziyaret edebilir misin?
+
+```csharp
+public class GasStation
+{
+    // Greedy Strategy: Negative balance olursa start noktasını değiştir
+    public int CanCompleteCircuit(int[] gas, int[] cost)
+    {
+        int totalGas = 0, totalCost = 0;
+        int currentGas = 0, startIndex = 0;
+        
+        for (int i = 0; i < gas.Length; i++)
+        {
+            totalGas += gas[i];
+            totalCost += cost[i];
+            currentGas += gas[i] - cost[i];
+            
+            // Negative olursa bu start point çalışmaz
+            if (currentGas < 0)
+            {
+                startIndex = i + 1; // Yeni start point dene
+                currentGas = 0;      // Reset
+            }
+        }
+        
+        // Total gas yetmiyorsa impossible
+        return totalGas >= totalCost ? startIndex : -1;
+    }
+}
+```
+
+## String Greedy Problems
+
+### 7. Remove K Digits
+**Problem:** K digit sil, minimum sayıyı elde et
+
+```csharp
+public class RemoveKDigits
+{
+    // Greedy Strategy: Monotonic stack - büyük digit'i gördüğünde önceki küçükleri sil
+    public string RemoveKdigits(string num, int k)
+    {
+        Stack<char> stack = new Stack<char>();
+        int toRemove = k;
+        
+        foreach (char digit in num)
+        {
+            // Stack'teki son digit daha büyükse ve hala silme hakkımız varsa
+            while (toRemove > 0 && stack.Count > 0 && stack.Peek() > digit)
+            {
+                stack.Pop();
+                toRemove--;
+            }
+            
+            stack.Push(digit);
+        }
+        
+        // Hala silme hakkımız varsa sondan sil
+        while (toRemove > 0 && stack.Count > 0)
+        {
+            stack.Pop();
+            toRemove--;
+        }
+        
+        // Result'ı oluştur
+        var result = new string(stack.Reverse().ToArray());
+        
+        // Leading zero'ları temizle
+        result = result.TrimStart('0');
+        
+        return string.IsNullOrEmpty(result) ? "0" : result;
+    }
+}
+```
+
+## Greedy Algorithm'ın Doğruluğunu Kanıtlama
+
+### 1. Greedy Choice Property
+**"Local optimal choice, global optimal'a götürür"**
+
+### 2. Optimal Substructure
+**"Problem'in optimal solution'ı, subproblem'lerin optimal solution'larını içerir"**
+
+### Proof Technique: Exchange Argument
+```
+1. Optimal solution OPT olsun
+2. Greedy'nin ilk choice'ı GREEDY olsun  
+3. GREEDY ≠ OPT.first ise:
+   - OPT'deki first choice'ı GREEDY ile değiştir
+   - Yeni solution OPT'den daha kötü değil
+   - Contradiction: OPT optimal değilmiş
+4. Sonuç: Greedy choice optimal
+```
+
+## Greedy vs DP Decision Matrix
+
+### ✅ Greedy Kullan Eğer:
+- **Greedy choice property** var
+- **Local optimal → global optimal**
+- **Simple, fast solution** gerekiyor
+- **Matroid structure** var
+
+### ❌ Greedy Kullanma Eğer:
+- **Overlapping subproblems** var
+- **Local optimal ≠ global optimal**
+- **Future decisions** önceki seçimleri etkiliyor
+
+### Problem Examples:
+```
+Greedy Works:
+✅ Activity Selection
+✅ Fractional Knapsack  
+✅ Huffman Coding
+✅ Minimum Spanning Tree (Kruskal, Prim)
+
+Greedy Fails:
+❌ 0/1 Knapsack (need DP)
+❌ Longest Common Subsequence (need DP)
+❌ Coin Change (non-standard coins)
+```
+
+## Common Greedy Patterns
+
+### 1. Sorting + Greedy
+```csharp
+// Pattern: Sort by some criteria, then greedy choice
+var sorted = items.OrderBy(item => some_criteria);
+foreach (var item in sorted) {
+    if (can_take(item)) {
+        take(item);
+    }
+}
+```
+
+### 2. Two Pointers + Greedy
+```csharp
+// Pattern: Start from both ends, greedy choice
+int left = 0, right = array.Length - 1;
+while (left < right) {
+    if (some_condition) {
+        // Greedy choice
+        left++;
+    } else {
+        right--;
+    }
+}
+```
+
+### 3. Stack + Greedy
+```csharp
+// Pattern: Monotonic stack for greedy choices
+Stack<int> stack = new Stack<int>();
+foreach (var item in items) {
+    while (stack.Count > 0 && should_remove(stack.Peek(), item)) {
+        stack.Pop(); // Greedy removal
+    }
+    stack.Push(item);
+}
+```
+
+## Greedy Algorithm Complexity
+
+### Time Complexity:
+- Genelde **O(n log n)** (sorting dominant)
+- Sometimes **O(n)** (linear scan)
+
+### Space Complexity:
+- Genelde **O(1)** (in-place)
+- Sometimes **O(n)** (extra data structures)
+
+Greedy algorithms, **simple ve elegant** çözümler sunar. Trick, **doğru greedy choice**'ı bulmak! 🎯💚

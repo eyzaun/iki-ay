@@ -1,0 +1,492 @@
+# Dynamic Programming - Optimization'ın Süper Silahı
+
+## Dynamic Programming Nedir?
+
+DP, **"aynı alt problemleri tekrar tekrar çözmek yerine sonuçları saklayıp tekrar kullanma"** tekniğidir. **"Akıllı deneme yanılma"** desek abartmış olmayız.
+
+### Gerçek Hayattan Benzetme: Matematik Sınavı
+Düşün ki çok zor bir matematik sınavında benzer hesapları sürekli yapıyorsun:
+- **Naif yaklaşım:** Her seferinde aynı hesabı tekrar yap → Çok yavaş
+- **DP yaklaşım:** Bir kez hesapla, sonucu not al, sonra tekrar kullan → Çok hızlı!
+
+### DP'nin 2 Temel Özelliği:
+1. **Optimal Substructure:** Problemi küçük parçalara bölebilirsin
+2. **Overlapping Subproblems:** Aynı alt problemler tekrar tekrar çıkıyor
+
+## Fibonacci - DP'yi Anlamanın En İyi Yolu
+
+### Naive Recursive (Çok Yavaş - O(2ⁿ))
+```csharp
+// Fibonacci naive - Her hesabı tekrar yapıyor!
+public int FibonacciNaive(int n)
+{
+    if (n <= 1) return n;
+    
+    return FibonacciNaive(n - 1) + FibonacciNaive(n - 2);
+    // Aynı değerleri tekrar tekrar hesaplıyor!
+}
+
+// Fib(5) hesaplarken:
+// Fib(3)'ü 2 kez, Fib(2)'yi 3 kez, Fib(1)'i 5 kez hesaplıyor!
+```
+
+### Memoization - Top Down DP (O(n))
+```csharp
+// Memoization: Hesapladığını kaydet, tekrar kullan
+public class FibonacciMemo
+{
+    private Dictionary<int, int> memo = new Dictionary<int, int>();
+    
+    public int Fibonacci(int n)
+    {
+        if (n <= 1) return n;
+        
+        if (memo.ContainsKey(n))
+            return memo[n]; // Daha önce hesapladık!
+        
+        memo[n] = Fibonacci(n - 1) + Fibonacci(n - 2);
+        return memo[n];
+    }
+}
+```
+
+### Tabulation - Bottom Up DP (O(n))
+```csharp
+// Tabulation: Küçükten büyüğe doğru table doldur
+public int FibonacciTabulation(int n)
+{
+    if (n <= 1) return n;
+    
+    int[] dp = new int[n + 1];
+    dp[0] = 0;
+    dp[1] = 1;
+    
+    for (int i = 2; i <= n; i++)
+    {
+        dp[i] = dp[i - 1] + dp[i - 2]; // Önceki sonuçları kullan
+    }
+    
+    return dp[n];
+}
+
+// Space optimized version - O(1) space
+public int FibonacciOptimized(int n)
+{
+    if (n <= 1) return n;
+    
+    int prev2 = 0, prev1 = 1;
+    
+    for (int i = 2; i <= n; i++)
+    {
+        int current = prev1 + prev2;
+        prev2 = prev1;
+        prev1 = current;
+    }
+    
+    return prev1;
+}
+```
+
+## Memoization vs Tabulation
+
+| Özellik | Memoization (Top-Down) | Tabulation (Bottom-Up) |
+|---------|------------------------|------------------------|
+| **Yaklaşım** | Recursive + Cache | Iterative + Table |
+| **Memory** | Function call stack | Only table |
+| **Intuitive** | Daha natural | Daha efficient |
+| **Space** | O(n) stack + O(n) table | O(n) table only |
+| **Debugging** | Kolay trace | Harder trace |
+
+## Classic DP Problems
+
+### 1. Climbing Stairs
+**Problem:** n basamaklı merdiveni çıkmak için kaç farklı yol var? (1 veya 2 adım atabilirsin)
+
+```csharp
+// Memoization version
+public class ClimbingStairs
+{
+    private Dictionary<int, int> memo = new Dictionary<int, int>();
+    
+    public int ClimbStairs(int n)
+    {
+        if (n <= 2) return n;
+        
+        if (memo.ContainsKey(n))
+            return memo[n];
+        
+        memo[n] = ClimbStairs(n - 1) + ClimbStairs(n - 2);
+        return memo[n];
+    }
+    
+    // Tabulation version
+    public int ClimbStairsTabulation(int n)
+    {
+        if (n <= 2) return n;
+        
+        int[] dp = new int[n + 1];
+        dp[1] = 1; // 1 basamak: 1 yol
+        dp[2] = 2; // 2 basamak: 2 yol
+        
+        for (int i = 3; i <= n; i++)
+        {
+            dp[i] = dp[i - 1] + dp[i - 2]; // Fibonacci pattern!
+        }
+        
+        return dp[n];
+    }
+}
+```
+
+### 2. House Robber
+**Problem:** Evleri soyacaksın ama yan yana 2 evi soyamazsın. Maximum para ne kadar?
+
+```csharp
+public class HouseRobber
+{
+    // Memoization
+    private Dictionary<int, int> memo = new Dictionary<int, int>();
+    
+    public int Rob(int[] nums)
+    {
+        return RobHelper(nums, 0);
+    }
+    
+    private int RobHelper(int[] nums, int index)
+    {
+        if (index >= nums.Length) return 0;
+        
+        if (memo.ContainsKey(index))
+            return memo[index];
+        
+        // 2 seçenek: Bu evi soy vs soyma
+        int robThis = nums[index] + RobHelper(nums, index + 2); // Bu evi soy + 2 sonrakinden devam
+        int skipThis = RobHelper(nums, index + 1);              // Bu evi soyma + 1 sonrakinden devam
+        
+        memo[index] = Math.Max(robThis, skipThis);
+        return memo[index];
+    }
+    
+    // Tabulation - daha efficient
+    public int RobTabulation(int[] nums)
+    {
+        if (nums.Length == 0) return 0;
+        if (nums.Length == 1) return nums[0];
+        
+        int[] dp = new int[nums.Length];
+        dp[0] = nums[0];                           // İlk ev
+        dp[1] = Math.Max(nums[0], nums[1]);        // İlk 2 evden max
+        
+        for (int i = 2; i < nums.Length; i++)
+        {
+            dp[i] = Math.Max(
+                nums[i] + dp[i - 2],  // Bu evi soy + 2 önceki max
+                dp[i - 1]             // Bu evi soyma, önceki max
+            );
+        }
+        
+        return dp[nums.Length - 1];
+    }
+    
+    // Space optimized O(1)
+    public int RobOptimized(int[] nums)
+    {
+        int prev2 = 0, prev1 = 0;
+        
+        foreach (int num in nums)
+        {
+            int current = Math.Max(num + prev2, prev1);
+            prev2 = prev1;
+            prev1 = current;
+        }
+        
+        return prev1;
+    }
+}
+```
+
+### 3. Coin Change
+**Problem:** Belirli coinlerle amount'ı yapmak için minimum coin sayısı?
+
+```csharp
+public class CoinChange
+{
+    // Memoization
+    private Dictionary<int, int> memo = new Dictionary<int, int>();
+    
+    public int CoinChangeRecursive(int[] coins, int amount)
+    {
+        if (amount == 0) return 0;
+        if (amount < 0) return -1;
+        
+        if (memo.ContainsKey(amount))
+            return memo[amount];
+        
+        int minCoins = int.MaxValue;
+        
+        foreach (int coin in coins)
+        {
+            int result = CoinChangeRecursive(coins, amount - coin);
+            if (result != -1) // Valid solution
+            {
+                minCoins = Math.Min(minCoins, result + 1);
+            }
+        }
+        
+        memo[amount] = minCoins == int.MaxValue ? -1 : minCoins;
+        return memo[amount];
+    }
+    
+    // Tabulation
+    public int CoinChangeTabulation(int[] coins, int amount)
+    {
+        int[] dp = new int[amount + 1];
+        Array.Fill(dp, amount + 1); // Impossible value
+        dp[0] = 0; // 0 amount için 0 coin
+        
+        for (int i = 1; i <= amount; i++)
+        {
+            foreach (int coin in coins)
+            {
+                if (coin <= i) // Coin kullanılabilir
+                {
+                    dp[i] = Math.Min(dp[i], dp[i - coin] + 1);
+                }
+            }
+        }
+        
+        return dp[amount] > amount ? -1 : dp[amount];
+    }
+}
+```
+
+## 2D DP Problems
+
+### Unique Paths
+**Problem:** Grid'de sol üstten sağ alta kaç farklı yol var? (Sadece sağ/aşağı hareket)
+
+```csharp
+public class UniquePaths
+{
+    // Memoization
+    private Dictionary<string, int> memo = new Dictionary<string, int>();
+    
+    public int UniquePathsRecursive(int m, int n)
+    {
+        return PathHelper(0, 0, m, n);
+    }
+    
+    private int PathHelper(int row, int col, int m, int n)
+    {
+        // Base cases
+        if (row >= m || col >= n) return 0; // Out of bounds
+        if (row == m - 1 && col == n - 1) return 1; // Reached destination
+        
+        string key = $"{row},{col}";
+        if (memo.ContainsKey(key))
+            return memo[key];
+        
+        memo[key] = PathHelper(row + 1, col, m, n) + // Aşağı git
+                    PathHelper(row, col + 1, m, n);   // Sağa git
+        
+        return memo[key];
+    }
+    
+    // Tabulation
+    public int UniquePathsTabulation(int m, int n)
+    {
+        int[,] dp = new int[m, n];
+        
+        // İlk satır ve sütunu 1'le doldur (tek yol var)
+        for (int i = 0; i < m; i++) dp[i, 0] = 1;
+        for (int j = 0; j < n; j++) dp[0, j] = 1;
+        
+        for (int i = 1; i < m; i++)
+        {
+            for (int j = 1; j < n; j++)
+            {
+                dp[i, j] = dp[i - 1, j] + dp[i, j - 1]; // Yukarıdan + soldan
+            }
+        }
+        
+        return dp[m - 1, n - 1];
+    }
+}
+```
+
+## Subsequence DP Pattern
+
+### Longest Common Subsequence (LCS)
+**Problem:** İki string'in en uzun ortak subsequence'i ne kadar?
+
+```csharp
+public class LongestCommonSubsequence
+{
+    // Memoization
+    private Dictionary<string, int> memo = new Dictionary<string, int>();
+    
+    public int LCSRecursive(string text1, string text2)
+    {
+        return LCSHelper(text1, text2, 0, 0);
+    }
+    
+    private int LCSHelper(string text1, string text2, int i, int j)
+    {
+        if (i >= text1.Length || j >= text2.Length) return 0;
+        
+        string key = $"{i},{j}";
+        if (memo.ContainsKey(key))
+            return memo[key];
+        
+        int result;
+        if (text1[i] == text2[j])
+        {
+            result = 1 + LCSHelper(text1, text2, i + 1, j + 1); // Match!
+        }
+        else
+        {
+            result = Math.Max(
+                LCSHelper(text1, text2, i + 1, j),     // Skip char in text1
+                LCSHelper(text1, text2, i, j + 1)      // Skip char in text2
+            );
+        }
+        
+        memo[key] = result;
+        return result;
+    }
+    
+    // Tabulation
+    public int LCSTabulation(string text1, string text2)
+    {
+        int m = text1.Length, n = text2.Length;
+        int[,] dp = new int[m + 1, n + 1];
+        
+        for (int i = 1; i <= m; i++)
+        {
+            for (int j = 1; j <= n; j++)
+            {
+                if (text1[i - 1] == text2[j - 1])
+                {
+                    dp[i, j] = 1 + dp[i - 1, j - 1]; // Characters match
+                }
+                else
+                {
+                    dp[i, j] = Math.Max(dp[i - 1, j], dp[i, j - 1]); // Take max
+                }
+            }
+        }
+        
+        return dp[m, n];
+    }
+}
+```
+
+## DP Problem Solving Pattern
+
+### 1. Problem'i Tanı:
+- **Optimization** problem mi? (min/max)
+- **Counting** problem mi? (kaç yol)
+- **Decision** problem mi? (possible/impossible)
+
+### 2. State Definition:
+```csharp
+// dp[i] = "i'de ending optimal solution"
+// dp[i][j] = "i,j position'daki optimal solution"
+// dp[i][j][k] = "i,j position'da k constraint'le optimal solution"
+```
+
+### 3. Recurrence Relation:
+```csharp
+// Genelde şu formda:
+// dp[i] = Math.Max/Min(dp[i-1] + something, dp[i-2] + something_else)
+```
+
+### 4. Base Cases:
+```csharp
+// dp[0], dp[1] gibi başlangıç değerleri
+```
+
+### 5. Answer:
+```csharp
+// Genelde dp[n-1] veya dp[m][n]
+```
+
+## Knapsack Pattern
+
+### 0/1 Knapsack
+**Problem:** W capacity'li çantada maximum value ne olur?
+
+```csharp
+public class Knapsack
+{
+    public int KnapsackRecursive(int[] weights, int[] values, int capacity, int index = 0)
+    {
+        // Base case
+        if (index >= weights.Length || capacity <= 0) return 0;
+        
+        // Item çok ağırsa skip et
+        if (weights[index] > capacity)
+            return KnapsackRecursive(weights, values, capacity, index + 1);
+        
+        // 2 seçenek: item'i al vs alma
+        int include = values[index] + KnapsackRecursive(weights, values, capacity - weights[index], index + 1);
+        int exclude = KnapsackRecursive(weights, values, capacity, index + 1);
+        
+        return Math.Max(include, exclude);
+    }
+    
+    // Tabulation
+    public int KnapsackTabulation(int[] weights, int[] values, int capacity)
+    {
+        int n = weights.Length;
+        int[,] dp = new int[n + 1, capacity + 1];
+        
+        for (int i = 1; i <= n; i++)
+        {
+            for (int w = 1; w <= capacity; w++)
+            {
+                if (weights[i - 1] <= w) // Item fits
+                {
+                    dp[i, w] = Math.Max(
+                        values[i - 1] + dp[i - 1, w - weights[i - 1]], // Include item
+                        dp[i - 1, w]                                    // Exclude item
+                    );
+                }
+                else
+                {
+                    dp[i, w] = dp[i - 1, w]; // Can't include, copy previous
+                }
+            }
+        }
+        
+        return dp[n, capacity];
+    }
+}
+```
+
+## DP Complexity Analysis
+
+### Time Complexity:
+- **Memoization:** O(unique states × work per state)
+- **Tabulation:** O(state space size)
+
+### Space Complexity:
+- **Memoization:** O(recursion depth + memoization table)
+- **Tabulation:** O(state space), often optimizable to O(1) or O(n)
+
+## DP vs Greedy vs Divide & Conquer
+
+| Approach | When to Use | Example |
+|----------|-------------|---------|
+| **DP** | Overlapping subproblems + optimal substructure | Fibonacci, LCS |
+| **Greedy** | Local optimal → global optimal | Activity Selection |
+| **Divide & Conquer** | Independent subproblems | MergeSort, QuickSort |
+
+## Common DP Mistakes
+
+1. **Wrong state definition:** State tüm necessary info'yu contain etmeli
+2. **Missing base cases:** Edge case'leri handle etmeyi unutma
+3. **Wrong recurrence:** Transition logic'i doğru olmalı
+4. **Space optimization too early:** Önce correctness, sonra optimization
+
+DP, **problem solving'in en güçlü araçlarından** biri. Pattern'i yakaladığında çok karmaşık problemleri elegant şekilde çözebilirsin! 🧠💎

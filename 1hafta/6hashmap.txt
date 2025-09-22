@@ -1,0 +1,419 @@
+# HashMap (HashTable) - Hızlı Arama Veri Yapısı
+
+## HashMap Nedir? Sihirli Hızı Nereden Geliyor?
+
+HashMap'i **devasa kütüphanenin sihirli katalogu** gibi düşün. Normal kütüphanede kitap arasan rafa rafa bakarsın (O(n)). Ama HashMap'te **hash function** dediğimiz sihirli formül, kitabın tam hangi rafta olduğunu direkt söylüyor (O(1))!
+
+### Gerçek Hayattan Benzetme: Telefon Rehberi
+Eski zamanlarda telefon rehberi alfabetik sıralıydı. "Mehmet"i aradığın zaman M harfinden başlayıp sırayla bakardın. 
+
+HashMap'te ise sihirli bir formül var:
+- **"Mehmet"** → Hash Function → **Index 47**
+- Direkt 47. kutuya gidip numarayı alıyorsun!
+
+### Neden Bu Kadar Hızlı?
+- **Array'in hızı:** Index ile direkt erişim O(1)
+- **Hash function'ın gücü:** Key'den index'i hemen hesaplıyor
+- **Smart organization:** Veriler akıllıca dağıtılıyor
+
+## HashMap'in Temel Bileşenleri
+
+### 1. Hash Function (Sihirli Formül)
+```csharp
+// Basit hash function örneği
+public int SimpleHash(string key, int tableSize)
+{
+    int hash = 0;
+    
+    foreach (char c in key)
+    {
+        hash += (int)c;  // Karakterlerin ASCII değerlerini topla
+    }
+    
+    return hash % tableSize;  // Table boyutuna göre index
+}
+
+// Örnek:
+// "Ali" → A(65) + l(108) + i(105) = 278
+// 278 % 10 = 8 → Index 8'e koy
+```
+
+### 2. Collision (Çarpışma) Problemi
+İki farklı key aynı index'i verse ne olur?
+
+```
+"Ali"  → Hash → Index 8
+"Bob"  → Hash → Index 8  ← Aynı index! COLLISION!
+```
+
+### 3. Collision Resolution (Çarpışma Çözümü)
+
+#### Separate Chaining (Ayrı Zincirleme)
+```csharp
+// Her index'te LinkedList tutuyoruz
+public class HashMapWithChaining
+{
+    private LinkedList<KeyValuePair<string, int>>[] buckets;
+    private int size;
+    
+    public HashMapWithChaining(int capacity)
+    {
+        buckets = new LinkedList<KeyValuePair<string, int>>[capacity];
+        for (int i = 0; i < capacity; i++)
+        {
+            buckets[i] = new LinkedList<KeyValuePair<string, int>>();
+        }
+        size = 0;
+    }
+    
+    private int Hash(string key)
+    {
+        int hash = 0;
+        foreach (char c in key)
+        {
+            hash = (hash * 31 + c) % buckets.Length;
+        }
+        return Math.Abs(hash);
+    }
+    
+    // Put - O(1) average case
+    public void Put(string key, int value)
+    {
+        int index = Hash(key);
+        var bucket = buckets[index];
+        
+        // Aynı key var mı kontrol et
+        foreach (var kvp in bucket)
+        {
+            if (kvp.Key == key)
+            {
+                // Değeri güncelle
+                bucket.Remove(kvp);
+                bucket.AddLast(new KeyValuePair<string, int>(key, value));
+                return;
+            }
+        }
+        
+        // Yeni key, listeye ekle
+        bucket.AddLast(new KeyValuePair<string, int>(key, value));
+        size++;
+    }
+    
+    // Get - O(1) average case
+    public int Get(string key)
+    {
+        int index = Hash(key);
+        var bucket = buckets[index];
+        
+        foreach (var kvp in bucket)
+        {
+            if (kvp.Key == key)
+            {
+                return kvp.Value;
+            }
+        }
+        
+        throw new KeyNotFoundException($"Key '{key}' bulunamadı!");
+    }
+    
+    // Contains - O(1) average case
+    public bool ContainsKey(string key)
+    {
+        try
+        {
+            Get(key);
+            return true;
+        }
+        catch (KeyNotFoundException)
+        {
+            return false;
+        }
+    }
+}
+```
+
+## Görsel HashMap İşleyişi
+
+```
+Hash Table (size=5):
+
+Index 0: [ ]
+Index 1: ["Alice", 25] → ["Bob", 30]  ← Collision, chaining
+Index 2: [ ]  
+Index 3: ["Charlie", 35]
+Index 4: ["David", 40]
+
+Put("Eve", 28):
+"Eve" → Hash → Index 1
+Index 1: ["Alice", 25] → ["Bob", 30] → ["Eve", 28]
+
+Get("Bob"):
+"Bob" → Hash → Index 1 → LinkedList'te ara → 30 döndür
+```
+
+## .NET'te Dictionary<TKey, TValue> Kullanımı
+
+```csharp
+// .NET'in hash table implementasyonu
+Dictionary<string, int> ages = new Dictionary<string, int>();
+
+// Ekleme - O(1) average
+ages["Alice"] = 25;
+ages["Bob"] = 30;
+ages.Add("Charlie", 35);  // Alternative syntax
+
+// Erişim - O(1) average  
+int aliceAge = ages["Alice"];  // 25
+
+// Güvenli erişim
+if (ages.TryGetValue("David", out int davidAge))
+{
+    Console.WriteLine($"David'in yaşı: {davidAge}");
+}
+else
+{
+    Console.WriteLine("David bulunamadı");
+}
+
+// Kontrol - O(1) average
+bool hasAlice = ages.ContainsKey("Alice");  // true
+bool hasAge25 = ages.ContainsValue(25);     // true
+
+// Silme - O(1) average
+bool removed = ages.Remove("Bob");
+
+// Iteration
+foreach (var kvp in ages)
+{
+    Console.WriteLine($"{kvp.Key}: {kvp.Value}");
+}
+
+// Keys ve Values
+var names = ages.Keys;    // Tüm key'ler
+var allAges = ages.Values; // Tüm value'lar
+```
+
+## HashMap'in Gerçek Hayat Uygulamaları
+
+### 1. Frequency Counting (Frekans Sayma)
+```csharp
+public Dictionary<char, int> CountCharacters(string text)
+{
+    Dictionary<char, int> frequencies = new Dictionary<char, int>();
+    
+    foreach (char c in text.ToLower())
+    {
+        if (char.IsLetter(c))
+        {
+            frequencies[c] = frequencies.GetValueOrDefault(c, 0) + 1;
+        }
+    }
+    
+    return frequencies;
+}
+
+// Kullanım:
+// CountCharacters("hello") → {'h':1, 'e':1, 'l':2, 'o':1}
+```
+
+### 2. Two Sum Problem - O(n) Çözüm
+```csharp
+public int[] TwoSum(int[] nums, int target)
+{
+    Dictionary<int, int> map = new Dictionary<int, int>();
+    
+    for (int i = 0; i < nums.Length; i++)
+    {
+        int complement = target - nums[i];
+        
+        if (map.ContainsKey(complement))
+        {
+            return new int[] { map[complement], i };
+        }
+        
+        map[nums[i]] = i;  // Mevcut sayı ve index'i kaydet
+    }
+    
+    return new int[0]; // Bulunamadı
+}
+
+// Örnek: TwoSum([2,7,11,15], 9) → [0,1] (2+7=9)
+```
+
+### 3. Cache Implementation (LRU Cache)
+```csharp
+public class LRUCache
+{
+    private Dictionary<int, LinkedListNode<CacheItem>> cache;
+    private LinkedList<CacheItem> order;
+    private int capacity;
+    
+    public LRUCache(int capacity)
+    {
+        this.capacity = capacity;
+        cache = new Dictionary<int, LinkedListNode<CacheItem>>();
+        order = new LinkedList<CacheItem>();
+    }
+    
+    public int Get(int key)
+    {
+        if (cache.TryGetValue(key, out var node))
+        {
+            // Move to front (most recently used)
+            order.Remove(node);
+            order.AddFirst(node);
+            return node.Value.Value;
+        }
+        return -1;
+    }
+    
+    public void Put(int key, int value)
+    {
+        if (cache.TryGetValue(key, out var existingNode))
+        {
+            // Update existing
+            existingNode.Value.Value = value;
+            order.Remove(existingNode);
+            order.AddFirst(existingNode);
+        }
+        else
+        {
+            // Add new
+            if (cache.Count >= capacity)
+            {
+                // Remove least recently used
+                var lastNode = order.Last;
+                order.RemoveLast();
+                cache.Remove(lastNode.Value.Key);
+            }
+            
+            var newItem = new CacheItem { Key = key, Value = value };
+            var newNode = order.AddFirst(newItem);
+            cache[key] = newNode;
+        }
+    }
+    
+    private class CacheItem
+    {
+        public int Key { get; set; }
+        public int Value { get; set; }
+    }
+}
+```
+
+### 4. Group Anagrams
+```csharp
+public List<List<string>> GroupAnagrams(string[] strs)
+{
+    Dictionary<string, List<string>> groups = new Dictionary<string, List<string>>();
+    
+    foreach (string str in strs)
+    {
+        // Key olarak sorted string kullan
+        char[] chars = str.ToCharArray();
+        Array.Sort(chars);
+        string key = new string(chars);
+        
+        if (!groups.ContainsKey(key))
+        {
+            groups[key] = new List<string>();
+        }
+        
+        groups[key].Add(str);
+    }
+    
+    return groups.Values.ToList();
+}
+
+// Örnek: ["eat","tea","tan","ate","nat","bat"]
+// Sonuç: [["eat","tea","ate"], ["tan","nat"], ["bat"]]
+```
+
+## HashMap Performans Analizi
+
+### ⚡ Ortalama Durumlar (Average Case):
+- **Insert:** O(1)
+- **Delete:** O(1)  
+- **Search:** O(1)
+- **Update:** O(1)
+
+### 🐌 En Kötü Durumlar (Worst Case):
+- **Tüm işlemler:** O(n) - Tüm elemanlar aynı index'e düşerse
+
+### 🎯 Load Factor (Doluluk Oranı):
+```
+Load Factor = Eleman Sayısı / Table Boyutu
+
+- Load Factor < 0.75: İyi performans
+- Load Factor > 0.75: Collision artar, rehashing gerekir
+```
+
+## HashMap vs Diğer Veri Yapıları
+
+| Özellik | HashMap | Array | LinkedList | Binary Search Tree |
+|---------|---------|--------|------------|-------------------|
+| **Search** | O(1) avg ⚡ | O(n) 🐌 | O(n) 🐌 | O(log n) 📈 |
+| **Insert** | O(1) avg ⚡ | O(n) 🐌 | O(1) ⚡ | O(log n) 📈 |
+| **Delete** | O(1) avg ⚡ | O(n) 🐌 | O(n) 🐌 | O(log n) 📈 |
+| **Order** | No ❌ | Yes ✅ | Yes ✅ | Yes ✅ |
+| **Memory** | Extra 📊 | Minimal ⚡ | Extra 📊 | Extra 📊 |
+
+## Hash Function Kalitesi
+
+### İyi Hash Function Özellikleri:
+1. **Uniform distribution:** Elemanları eşit dağıtır
+2. **Deterministic:** Aynı input, aynı output
+3. **Fast computation:** Hızlı hesaplanır
+4. **Avalanche effect:** Küçük değişiklik, büyük fark
+
+```csharp
+// .NET'in string hash function'ı (basitleştirilmiş)
+public int GetHashCode(string str)
+{
+    int hash = 0;
+    foreach (char c in str)
+    {
+        hash = hash * 31 + c;  // 31 prime sayısı, iyi dağıtım sağlar
+    }
+    return hash;
+}
+```
+
+## HashMap Ne Zaman Kullanılır?
+
+### ✅ HashMap Kullan Eğer:
+- **Hızlı lookup** gerekiyorsa
+- **Key-value** ilişkisi varsa  
+- **Frequency counting** yapıyorsan
+- **Caching** gerekiyorsa
+- **Set operations** (union, intersection) yapıyorsan
+
+### ❌ HashMap Kullanma Eğer:
+- **Ordered data** gerekiyorsa (SortedDictionary kullan)
+- **Memory critical** durumda (Array daha az yer kaplar)
+- **Small datasets** (Array daha hızlı olabilir)
+- **Range queries** yapacaksan (Tree kullan)
+
+## Önemli HashMap Varyantları
+
+### 1. HashSet<T> - Sadece Key'ler
+```csharp
+HashSet<int> numbers = new HashSet<int>();
+numbers.Add(1);
+numbers.Add(2);
+bool contains = numbers.Contains(1); // O(1)
+```
+
+### 2. SortedDictionary<K,V> - Sıralı
+```csharp
+SortedDictionary<string, int> sorted = new SortedDictionary<string, int>();
+// İçeride Red-Black Tree kullanır, O(log n) operations
+```
+
+### 3. ConcurrentDictionary<K,V> - Thread-Safe
+```csharp
+ConcurrentDictionary<string, int> concurrent = new ConcurrentDictionary<string, int>();
+// Multi-threading'de güvenli
+```
+
+HashMap, modern programlamanın kalbi! Neredeyse her projede kullanacağın, çok güçlü bir veri yapısı. Hız konusunda rakipsiz!

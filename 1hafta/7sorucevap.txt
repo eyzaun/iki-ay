@@ -1,0 +1,167 @@
+# Hafta 1 DSA - Soru & Cevap
+
+## 🧮 Big-O Notation
+
+**S1: Big-O notation nedir ve neden önemlidir?**
+**C:** Big-O, algoritmaların performansını ölçen bir notasyondur. Algoritmanın en kötü durumda ne kadar süreceğini gösterir. Önemli çünkü farklı algoritmaları karşılaştırabilir ve büyük veri setlerinde hangisinin daha iyi olacağını önceden bilebiliriz.
+
+**S2: O(1) ve O(n) arasındaki fark nedir? Örnek verin.**
+**C:** 
+- **O(1):** Veri boyutu ne olursa olsun hep aynı süre. Örnek: Array'de index ile erişim `arr[5]`
+- **O(n):** Veri boyutu 2 katına çıkınca süre de 2 katına çıkar. Örnek: Array'de linear search
+
+**S3: Aşağıdaki kodun Big-O karmaşıklığı nedir?**
+```csharp
+for (int i = 0; i < n; i++) {
+    for (int j = 0; j < n; j++) {
+        Console.WriteLine(i + j);
+    }
+}
+```
+**C:** **O(n²)** - İç içe iki döngü var ve ikisi de n kez çalışıyor. n × n = n²
+
+**S4: Binary Search neden O(log n) karmaşıklığına sahiptir?**
+**C:** Her adımda arama alanını yarıya böldüğü için. 1000 elemanlık array'de en fazla 10 adımda (log₂ 1000 ≈ 10) sonuca ulaşır.
+
+**S5: O(n + n²) ifadesi nasıl sadeleşir?**
+**C:** **O(n²)** olur. Big-O'da en büyük terim alınır, sabitler ve küçük terimler ihmal edilir.
+
+---
+
+## 📊 Arrays (Diziler)
+
+**S1: Array'in en büyük avantajı ve dezavantajı nedir?**
+**C:** 
+- **Avantaj:** Index ile O(1) hızında erişim
+- **Dezavantaj:** Sabit boyut (klasik array'lerde) ve ortaya ekleme/silme pahalı (O(n))
+
+**S2: List<T> ile Array arasındaki temel fark nedir?**
+**C:** Array sabit boyutlu, List<T> dinamik boyutlu. List<T> ihtiyaç oldukça büyür ama bu bazen O(n) ekleme maliyeti getirir (yeniden boyutlandırma).
+
+**S3: Two Pointers tekniği nedir ve ne zaman kullanılır?**
+**C:** İki işaretçi kullanarak array'i verimli gezmek. Genelde sorted array'lerde kullanılır. Örnek: palindrome kontrolü (baştan ve sondan ortaya doğru)
+
+**S4: Sliding Window tekniği neyi çözer?**
+**C:** Sabit boyutlu alt dizilerdeki işlemleri optimize eder. Örnek: 3 elemanlı en büyük toplamı bulmak için tüm pencereyi yeniden hesaplamak yerine, eski elemanı çıkar yeniyi ekle.
+
+**S5: Array'de bir elemanı ortaya eklemek neden O(n) sürer?**
+**C:** Eklenecek pozisyondan sonraki tüm elemanları bir sağa kaydırmak gerekir. En kötü durumda (başa ekleme) tüm elemanlar kaydırılır.
+
+---
+
+## 🔗 LinkedList (Bağlı Liste)
+
+**S1: LinkedList'in Array'e göre ana avantajı nedir?**
+**C:** **Dinamik boyut** ve **başa ekleme O(1)**. Array'de başa ekleme O(n) sürerken, LinkedList'te sadece pointer değiştirme yeterli.
+
+**S2: LinkedList'te neden random access (index ile erişim) yok?**
+**C:** Elemanlar bellekte ardışık değil, pointer'larla bağlı. 5. elemana ulaşmak için baştan 5 adım yürümek gerekir.
+
+**S3: Doubly LinkedList ne zaman Single LinkedList'ten daha avantajlı?**
+**C:** Geriye doğru hareket gerektiğinde veya bir node'u silmek için önceki node'a ihtiyaç duyduğunda. Browser history gibi.
+
+**S4: LinkedList'te bir elemanı silmek için hangi adımlar gerekir?**
+**C:** 
+1. Silinecek node'un öncesini bul
+2. Önceki node'un next'ini, silinecek node'un next'ine bağla
+3. Silinecek node artık erişilemez (garbage collected)
+
+**S5: Memory açısından LinkedList vs Array karşılaştırması?**
+**C:** Array daha verimli (sadece data), LinkedList her node için ekstra pointer saklar. Ama LinkedList sadece ihtiyaç kadar yer kullanır.
+
+---
+
+## 📚 Stack (Yığın)
+
+**S1: LIFO prensibi nedir ve Stack'te nasıl uygulanır?**
+**C:** Last In, First Out - son giren ilk çıkar. Stack'te sadece en üstteki elemana erişebilirsin, tıpkı tabak yığını gibi.
+
+**S2: Stack'in 4 temel operasyonu nedir?**
+**C:** 
+- **Push:** Üste ekleme
+- **Pop:** Üstten alma ve kaldırma  
+- **Peek:** Üsttekine bakma (kaldırmadan)
+- **IsEmpty:** Boş mu kontrolü
+
+**S3: Recursive fonksionlar Stack'i nasıl kullanır?**
+**C:** Her fonksiyon çağrısı call stack'e eklenir. Fonksiyon bitince stack'ten çıkar. Bu yüzden çok derin recursion stack overflow'a neden olur.
+
+**S4: Parantez kontrolü algoritması Stack'i nasıl kullanır?**
+**C:** Açılış parantezi görünce stack'e push, kapanış görünce pop yapıp eşleşme kontrol et. Son'da stack boşsa balanced.
+
+**S5: Stack ne zaman Queue'dan daha uygun?**
+**C:** LIFO davranış gerektiğinde: undo/redo, function calls, expression evaluation, DFS algorithm.
+
+---
+
+## 🚶‍♂️ Queue (Kuyruk)
+
+**S1: FIFO prensibi nedir ve hangi durumlarda gerekir?**
+**C:** First In, First Out - ilk giren ilk çıkar. Market kuyruğu, task scheduling, BFS algorithm gibi adil sıralama gereken durumlarda.
+
+**S2: Queue'nun temel operasyonları nelerdir?**
+**C:**
+- **Enqueue:** Arkaya ekleme
+- **Dequeue:** Önden alma
+- **Front/Peek:** Öndekine bakma
+- **IsEmpty:** Boş mu kontrolü
+
+**S3: Circular Queue'nun normal Queue'ya avantajı nedir?**
+**C:** Array implementasyonunda yer tasarrufu. Normal queue'da elemanlar çıktıkça başta boş alan kalır ama kullanılamaz. Circular'da bu alan tekrar kullanılır.
+
+**S4: BFS (Breadth-First Search) neden Queue kullanır?**
+**C:** BFS, komşuları level-level gezer. Önce 1. level'daki tüm node'ları, sonra 2. level'dakileri... Queue FIFO yapısıyla bu sırayı korur.
+
+**S5: Queue ile Stack arasındaki temel fark nedir?**
+**C:** **Queue:** İlk giren ilk çıkar (adil kuyruk), **Stack:** Son giren ilk çıkar (tabak yığını). Farklı problemler için farklı veri yapıları.
+
+---
+
+## 🗂️ HashMap (HashTable)
+
+**S1: HashMap neden O(1) arama süresine sahiptir?**
+**C:** Hash function sayesinde key'den direkt index hesaplar. Array'deki index erişimi O(1) olduğu için HashMap de O(1).
+
+**S2: Hash collision nedir ve nasıl çözülür?**
+**C:** İki farklı key aynı index'e düştüğünde collision olur. **Separate Chaining** (her index'te LinkedList) veya **Open Addressing** ile çözülür.
+
+**S3: Load Factor nedir ve neden önemlidir?**
+**C:** Load Factor = Eleman Sayısı / Table Boyutu. 0.75'ten yüksek olunca collision artar, performans düşer. Bu durumda rehashing gerekir.
+
+**S4: HashMap ile Array'in performans farkı nedir?**
+**C:**
+- **HashMap:** Search O(1), Insert O(1), Delete O(1)
+- **Array:** Search O(n), Insert O(n), Delete O(n)
+- Ama HashMap'te ekstra memory ve order yok.
+
+**S5: İyi bir hash function'ın özellikleri nelerdir?**
+**C:** 
+- **Uniform distribution:** Elemanları eşit dağıtır
+- **Deterministic:** Aynı input, aynı output  
+- **Fast:** Hızlı hesaplanır
+- **Avalanche effect:** Küçük değişiklik büyük farka yol açar
+
+**S6: Dictionary<string, int> ve int[] arasında ne zaman hangisini kullanırsın?**
+**C:** 
+- **Dictionary:** Key-value ilişkisi, hızlı lookup, değişken boyut
+- **Array:** Index-based erişim, memory efficiency, sıralı veri
+
+---
+
+## 🧠 Genel Kavramlar
+
+**S1: Hangi veri yapısı hangi durum için en uygun?**
+**C:**
+- **Hızlı erişim:** Array (index varsa) veya HashMap (key varsa)
+- **Sık ekleme/silme (başta):** LinkedList veya Stack
+- **Sıralı işleme:** Queue
+- **Undo/Redo:** Stack
+- **Key-value mapping:** HashMap
+
+**S2: Memory vs Speed trade-off'unu açıklayın.**
+**C:** Genelde hız için extra memory kullanırız. HashMap extra pointer'lar saklar ama O(1) arama verir. Array minimum memory kullanır ama bazı işlemler O(n).
+
+**S3: Cache-friendly veri yapısı nedir?**
+**C:** Elemanları bellekte yan yana saklayan yapılar (Array). CPU cache'i ardışık veriyi hızlı işler. LinkedList cache-unfriendly çünkü elemanlar dağınık.
+
+Bu sorularla Hafta 1'in tüm önemli kavramlarını pekiştirmiş oldun! 🎯

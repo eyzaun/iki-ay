@@ -1,0 +1,237 @@
+# Hafta 3 - İleri Algoritmalar Soru & Cevap
+
+## 🧠 Dynamic Programming
+
+**S1: Dynamic Programming'in temel prensipi nedir?**
+**C:** **"Overlapping subproblems'ları bir kez çöz, sonuçları sakla, tekrar kullan"**. Optimal substructure + overlapping subproblems = DP. Recursive çözümün exponential time'ını polynomial time'a düşürür.
+
+**S2: Memoization ile Tabulation arasındaki fark nedir?**
+**C:** 
+- **Memoization:** Top-down, recursive + cache. Natural ama function call overhead var
+- **Tabulation:** Bottom-up, iterative + table. Efficient ama less intuitive
+
+**S3: Fibonacci için naive recursive O(2ⁿ) neden bu kadar yavaş?**
+**C:** **Aynı değerleri tekrar tekrar hesaplıyor**. Fib(5) hesaplarken Fib(3)'ü 2 kez, Fib(2)'yi 3 kez hesaplar. DP ile O(n)'e düşer.
+
+**S4: House Robber probleminin DP formülü nedir?**
+**C:** `dp[i] = Math.Max(nums[i] + dp[i-2], dp[i-1])` - Bu evi soy + 2 önceki max vs bu evi soyma + önceki max.
+
+**S5: Coin Change'de neden bottom-up yaklaşım kullanırız?**
+**C:** **Küçük amount'lar için optimal solution bulduktan sonra, büyük amount'ları bunları kullanarak çözeriz**. Her amount için tüm coin'leri deneyip minimum buluruz.
+
+**S6: 2D DP problemlerinde state tanımı nasıl yapılır?**
+**C:** **dp[i][j]** genelde **"i pozisyonuna kadar j constraint ile optimal solution"** anlamına gelir. Unique Paths'te dp[i][j] = (i,j)'ye kaç yoldan ulaşılır.
+
+**S7: LCS (Longest Common Subsequence) algoritmasının recurrence relation'ı nedir?**
+**C:** 
+```
+if (s1[i] == s2[j]): dp[i][j] = 1 + dp[i-1][j-1]
+else: dp[i][j] = max(dp[i-1][j], dp[i][j-1])
+```
+
+**S8: 0/1 Knapsack ile Fractional Knapsack arasındaki fark nedir?**
+**C:** 
+- **0/1 Knapsack:** Item'i bölemezsin → DP gerekir → O(nW)
+- **Fractional:** Item'i bölebilirsin → Greedy yeter → O(n log n)
+
+**S9: DP problem'i nasıl identify edersin?**
+**C:** 
+1. **Optimization** (min/max) veya **counting** problem
+2. **Optimal substructure** var mı?
+3. **Overlapping subproblems** var mı?
+4. **Future decisions** previous decisions'a bağlı mı?
+
+**S10: Space optimization nasıl yapılır?**
+**C:** **Sadece previous state'leri tutarak** table size'ını küçültürüz. Fibonacci'de n boyutlu array yerine 2 variable yeter. 2D DP'de genelde 1D array'e optimize edilebilir.
+
+---
+
+## 💚 Greedy Algorithms
+
+**S11: Greedy algorithm'ın temel felsefesi nedir?**
+**C:** **"Her adımda local optimal choice yap, gerisini düşünme"**. Global optimal'a ulaşmayı garanti etmez ama çoğu zaman yeterince iyi + çok hızlı.
+
+**S12: Activity Selection'da neden "earliest end time" greedy choice'ı optimal?**
+**C:** **En erken biten activity, gelecekteki en fazla activity için yer bırakır**. Matematiksel olarak kanıtlanabilir ki bu choice global optimal'a götürür.
+
+**S13: Fractional Knapsack'te greedy strategy nedir?**
+**C:** **Value/weight ratio'su en yüksek item'ları önce al**. Birim ağırlık başına en değerli item'lar optimal çözümde yer alır.
+
+**S14: Standard coin systems için Greedy Coin Change neden çalışır?**
+**C:** **[1,5,10,25] gibi sistemlerde büyük coin'i kullanmak her zaman optimal**. Ama [1,3,4] amount=6 için Greedy [4,1,1] (3 coin), Optimal [3,3] (2 coin) verir.
+
+**S15: Jump Game'de greedy approach nasıl çalışır?**
+**C:** **Şimdiye kadar ulaşabileceğimiz en uzak noktayı track ederiz**. Her position'da `maxReach = max(maxReach, i + nums[i])` güncellenir.
+
+**S16: Meeting Rooms probleminde neden start/end time'ları ayrı sıralıyoruz?**
+**C:** **Event-based simulation** - Her time point'te kaç meeting aktif kontrol ederiz. Start event +1 room, end event -1 room demek.
+
+**S17: Gas Station probleminde start point'i nasıl belirliyoruz?**
+**C:** **Current gas negative olursa o start point çalışmaz demektir**. Bir sonraki position'dan yeni start deneriz. Total gas yetiyorsa bir solution mutlaka vardır.
+
+**S18: Greedy algorithm'ın correctness'ini nasıl kanıtlarsın?**
+**C:** **Exchange argument**: Optimal solution'da greedy choice olmasaydı, onu greedy choice ile değiştirip daha iyi/eşit solution elde edebileceğimizi gösteririz.
+
+**S19: Greedy vs DP - hangi durumda hangisini kullanırsın?**
+**C:** 
+- **Greedy:** Local optimal → global optimal + hız önemli
+- **DP:** Overlapping subproblems + optimal solution garanti
+
+**S20: Hangi problemlerde Greedy kesinlikle çalışmaz?**
+**C:** **0/1 Knapsack, LCS, shortest path (negative weights), coin change (non-standard)** - Bu problemlerde future consequences local choice'ları etkiler.
+
+---
+
+## 🏔️ Heap & Priority Queue
+
+**S21: Heap'in temel property'si nedir?**
+**C:** 
+- **Shape property:** Complete binary tree
+- **Heap property:** Parent ≥ children (max heap) veya parent ≤ children (min heap)
+
+**S22: Heap'i array'de nasıl represent ederiz?**
+**C:** **Index 0'dan başlayarak**: Parent(i) = (i-1)/2, LeftChild(i) = 2i+1, RightChild(i) = 2i+2. Bu sayede pointer gerektirmez.
+
+**S23: Heap'te insert operation'ı nasıl çalışır?**
+**C:** 
+1. **Array'in sonuna ekle** (complete tree property için)
+2. **Heapify up** - parent'tan küçükse (min heap) swap et, root'a kadar devam et
+3. **Time: O(log n)**
+
+**S24: Extract min/max neden O(log n) sürer?**
+**C:** 
+1. **Root'taki min/max'ı al**
+2. **Son elemanı root'a taşı, son elemanı sil**
+3. **Heapify down** - child'lardan küçük olanla swap et, leaf'e kadar
+4. **Tree height = log n, worst case tüm tree'yi traverse**
+
+**S25: Build heap işlemi neden O(n) time alır?**
+**C:** **Bottom-up heapify**: Son non-leaf'ten başlayıp root'a kadar heapify. Mathematical analysis gösterir ki total work O(n).
+
+**S26: Top K elements bulma için hangi heap kullanılır?**
+**C:** 
+- **K largest:** Min heap (size k) - küçüğü çıkar, büyükleri sakla
+- **K smallest:** Max heap (size k) - büyüğü çıkar, küçükleri sakla
+
+**S27: Merge K sorted lists'te heap nasıl kullanılır?**
+**C:** **Her list'in head'ini heap'e at, en küçüğü al, o list'in next'ini heap'e at**. Her adımda K elemanlı heap maintain ederiz.
+
+**S28: Median from data stream problemi nasıl çözülür?**
+**C:** **İki heap kullan**: MaxHeap (lower half), MinHeap (upper half). Balance maintain et, median heap'lerin peek'lerinden bulunur.
+
+**S29: Dijkstra algorithm'da heap'in rolü nedir?**
+**C:** **Distance'a göre node'ları prioritize eder**. En yakın unvisited node'u her zaman önce process eder. Min heap kullanılır.
+
+**S30: Heap vs BST - ne zaman hangisini kullanırsın?**
+**C:** 
+- **Heap:** Priority operations (min/max), no search needed
+- **BST:** Search operations, sorted traversal, range queries
+
+---
+
+## 🔗 Union-Find (Disjoint Set)
+
+**S31: Union-Find'ın temel amacı nedir?**
+**C:** **Dynamic connectivity queries'i efficiently handle etmek**. "İki eleman aynı component'te mi?" sorusunu neredeyse O(1)'de cevaplar.
+
+**S32: Path compression nasıl çalışır?**
+**C:** **Find operation sırasında tüm node'ları direkt root'a bağlarız**. Recursive: `parent[x] = Find(parent[x])`. Tree'yi düzleştirerek future queries'i hızlandırır.
+
+**S33: Union by rank/size'ın mantığı nedir?**
+**C:** **Küçük tree'yi büyük tree'nin altına bağlarız**. Bu tree'nin depth'ini minimize eder, Find operation'ını hızlandırır.
+
+**S34: Union-Find'ın amortized complexity'si nedir?**
+**C:** **O(α(n))** - α inverse Ackermann function. Pratik n değerleri için ≤ 5, yani virtually constant.
+
+**S35: Number of Islands problemi nasıl Union-Find ile çözülür?**
+**C:** **Her land cell'i komşu land cell'leri ile union et**. Son'da total components - water cells = island count.
+
+**S36: Kruskal's MST'de Union-Find'ın rolü nedir?**
+**C:** **Cycle detection**: Edge eklenmeden önce endpoints aynı component'te mi kontrol ederiz. Aynı component'teyse cycle yaratır, eklemeyiz.
+
+**S37: Friend Circles probleminde Union-Find nasıl uygulanır?**
+**C:** **Her person bir node, direct friendship edge**. Friend matrix'te M[i][j]=1 ise Union(i,j). Son'da component count = friend circle count.
+
+**S38: Redundant Connection problemi nasıl çözülür?**
+**C:** **Edge'leri sırayla process ederiz**. Edge eklemeden önce endpoints connected mi kontrol ederiz. Connected ise o edge redundant.
+
+**S39: Union-Find'da rollback mümkün mü?**
+**C:** **Path compression kullanmazsak mümkün**. Union operation'larını stack'te tutarız, rollback için reverse ederiz. Ama complexity artar.
+
+**S40: Hangi durumlarda Union-Find kullanmamalısın?**
+**C:** 
+- **Path queries** gerekiyorsa (shortest path)
+- **Disconnection** operations gerekiyorsa
+- **Directed graph** problems
+- **Weighted connectivity** (Union-Find unweighted)
+
+---
+
+## 🎯 Algorithm Design & Problem Solving
+
+**S41: Bir optimization problem gördüğünde hangi technique'i düşünürsün?**
+**C:** 
+1. **Greedy work eder mi?** (local optimal → global)
+2. **DP patterns var mı?** (overlapping subproblems)
+3. **Graph problem mi?** (shortest path, MST)
+4. **Search space'te binary search?** (monotonic property)
+
+**S42: Recursive DP'den iterative DP'ye nasıl geçersin?**
+**C:** 
+1. **Base cases'i identify et**
+2. **Recurrence direction'ını belirle** (bottom-up)
+3. **Table'ı base cases ile initialize et**
+4. **Recurrence relation'ı iterative olarak uygula**
+
+**S43: Space optimization hangi DP problemlerinde mümkün?**
+**C:** **Sadece previous row/column'a depend eden** problemlerde. 1D DP'de O(1), 2D DP'de O(min(m,n)) space'e optimize edilebilir.
+
+**S44: Graph problem'ini gördüğünde hangi algorithm'ı seçersin?**
+**C:** 
+- **Connectivity:** Union-Find
+- **Shortest path:** Dijkstra (positive), Bellman-Ford (negative)
+- **MST:** Kruskal (Union-Find), Prim (Heap)
+- **Topological sort:** DFS/BFS
+
+**S45: Algorithm complexity analyze ederken nelere dikkat edersin?**
+**C:** 
+1. **Dominant operations** (loops, recursive calls)
+2. **Input size parameters** (n, m, k)
+3. **Space usage** (extra arrays, recursion stack)
+4. **Best/Average/Worst case** scenarios
+
+**S46: Interview'da algorithm problem approach'ın nasıl olur?**
+**C:** 
+1. **Problem'i understand et** (examples, constraints)
+2. **Brute force'dan başla** (correctness önce)
+3. **Optimize et** (bottleneck'leri identify et)
+4. **Edge cases** (empty input, single element)
+5. **Complexity analysis** (time + space)
+
+**S47: Debugging algorithm'ında hangi teknik'leri kullanırsın?**
+**C:** 
+1. **Small examples** ile trace et
+2. **Base cases** kontrol et
+3. **Invariants** maintain ediliyor mu?
+4. **State transitions** doğru mu?
+5. **Print statements** critical points'te
+
+**S48: Advanced algorithm topics'e geçmek için hangi foundation gerekli?**
+**C:** **DP + Greedy + Graph algorithms + data structures (heap, union-find) + complexity analysis**. Bu 4 teknik modern algorithm design'ın %80'ini kapsar.
+
+**S49: Real-world problem'i algorithm problem'ine nasıl translate edersin?**
+**C:** 
+1. **Core problem'i extract et** (requirements'ten)
+2. **Mathematical model'e çevir** (graph, array, tree)
+3. **Constraints'leri identify et** (time, space, accuracy)
+4. **Known patterns'e map et** (DP, greedy, graph)
+
+**S50: Performance critical system'de hangi algorithm choices yaparsin?**
+**C:** 
+1. **Time vs Space tradeoff** (caching vs computation)
+2. **Average case'i optimize et** (worst case nadir)
+3. **Parallelizable** algorithms tercih et
+4. **Cache-friendly** memory access patterns
+5. **Early termination** conditions ekle
+
+Bu ileri algoritmalar, **complex problems'i elegant şekilde çözmenin anahtarı**! Pattern recognition geliştikçe hangi technique'i ne zaman kullanacağını instinctively anlayacaksın! 🚀🧠

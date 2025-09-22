@@ -1,0 +1,29 @@
+.code-block {
+  position: relative;
+}
+
+.code-copy-btn {
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  z-index: 1;
+  background: #2a2a2a;
+  color: #ddd;
+  border: 1px solid #222;
+  border-radius: 6px;
+  padding: 2px 8px;
+  font-size: 11px;
+  line-height: 1.6;
+  cursor: pointer;
+  opacity: 0.85;
+}
+
+.code-copy-btn:hover {
+  color: #00d4ff;
+  opacity: 1;
+}
+
+/* Keep button visible above prism pre */
+.code-block pre {
+  padding-top: 28px; /* give room for the button */
+}

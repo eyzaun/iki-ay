@@ -1,0 +1,44 @@
+{
+  "name": "iki-ay",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "postbuild": "node tools/generate-sitemap.js",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "deploy": "firebase deploy"
+  },
+  "dependencies": {
+    "@codemirror/lang-go": "^6.0.1",
+    "@codemirror/theme-one-dark": "^6.1.1",
+    "@uiw/react-codemirror": "^4.23.8",
+    "firebase": "^12.3.0",
+  "prismjs": "^1.30.0",
+  "highlight.js": "^11.9.0",
+    "quill": "^2.0.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-helmet-async": "^2.0.5",
+    "react-quill": "^2.0.0",
+    "react-router-dom": "^7.8.2",
+    "react-scripts": "^5.0.1",
+    "react-syntax-highlighter": "^15.6.6"
+  },
+  "devDependencies": {
+    "firebase-tools": "^13.0.0"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

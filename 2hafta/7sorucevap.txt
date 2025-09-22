@@ -1,0 +1,246 @@
+# Hafta 2 DSA - Soru & Cevap
+
+## 🌳 Binary Tree
+
+**S1: Binary Tree nedir ve normal tree'den farkı nedir?**
+**C:** Binary Tree, her node'un **en fazla 2 çocuğu** olan tree'dir (sol ve sağ). Normal tree'de node'un istediği kadar çocuğu olabilir. Bu kısıtlama, algoritmaları daha basit ve efficient yapar.
+
+**S2: Complete Binary Tree ile Full Binary Tree arasındaki fark nedir?**
+**C:** 
+- **Complete:** Son seviye hariç tüm seviyeler dolu, son seviye soldan dolu
+- **Full:** Her node'un 0 veya 2 çocuğu var (1 çocuk yok)
+
+**S3: Binary Tree'nin height'ini hesaplayan algoritmanın Big-O karmaşıklığı nedir?**
+**C:** **O(n)** - Çünkü height'i bulmak için tüm node'ları ziyaret etmek gerekir (worst case'de tree degenerate olabilir).
+
+**S4: Binary Tree'de leaf node sayısını bulan kodun logic'i nasıl çalışır?**
+**C:** Recursive: Eğer node null ise 0 döndür. Eğer node leaf ise (sol ve sağ çocuk null) 1 döndür. Değilse sol ve sağ alt ağaçların leaf sayısını topla.
+
+**S5: Binary Tree ne zaman LinkedList'ten daha avantajlı?**
+**C:** **Hierarchical data** saklarken, **parent-child ilişkileri** önemli olduğunda, ve **recursive algorithms** kullanırken daha avantajlı.
+
+---
+
+## 🔍 Binary Search Tree (BST)
+
+**S1: BST'nin temel property'si nedir ve neden bu özellik önemli?**
+**C:** **Sol çocuk < Parent < Sağ çocuk** kuralı. Bu özellik sayesinde **O(log n)** arama, ekleme, silme işlemleri yapabilir ve **inorder traversal** ile sıralı liste elde ederiz.
+
+**S2: BST'de search işlemi neden O(log n) sürer?**
+**C:** Her adımda arama alanını yarıya böldüğümüz için. Target'ı current node ile karşılaştırıp ya sol ya sağ alt ağaca gideriz, böylece logaritmik zaman elde ederiz.
+
+**S3: BST'den sorted bir liste elde etmek için hangi traversal kullanılır?**
+**C:** **Inorder traversal** (Left → Root → Right). BST property'si sayesinde bu sıralama otomatik olarak sorted order verir.
+
+**S4: BST'de node silme işleminin 3 case'i nedir?**
+**C:** 
+1. **Leaf node:** Direkt sil
+2. **Tek çocuk:** Çocuğu parent'a bağla
+3. **İki çocuk:** Inorder successor (sağ alt ağaçtaki en küçük) ile değiştir
+
+**S5: Degenerate BST nedir ve neden kötüdür?**
+**C:** LinkedList gibi tek taraflı uzamış BST. Tüm operasyonlar O(n) olur çünkü tree'nin avantajı kalmaz. Bu durumda balanced tree (AVL, Red-Black) kullanılır.
+
+**S6: BST'de range query [min, max] nasıl yapılır?**
+**C:** Recursive: Current node range içindeyse result'a ekle. Node > min ise sol alt ağacı, node < max ise sağ alt ağacı ziyaret et. BST property sayesinde gereksiz branch'leri atlarız.
+
+---
+
+## 🌊 Tree Traversal (DFS)
+
+**S7: DFS'in 3 türü nedir ve hangi sırayla node'ları ziyaret ederler?**
+**C:** 
+- **Preorder:** Root → Left → Right
+- **Inorder:** Left → Root → Right  
+- **Postorder:** Left → Right → Root
+
+**S8: Preorder traversal ne zaman kullanılır?**
+**C:** **Tree copying**, **serialization** (tree'yi string'e çevirme), **directory structure** yazdırma gibi **top-down** işlemler için.
+
+**S9: Postorder traversal'ın tipik kullanım alanları nelerdir?**
+**C:** **Tree deletion** (alt ağaçları önce sil), **directory size calculation**, **expression evaluation** gibi **bottom-up** işlemler için.
+
+**S10: Bu kod hangi traversal türüdür?**
+```csharp
+void Traverse(TreeNode root) {
+    if (root == null) return;
+    Console.WriteLine(root.val);
+    Traverse(root.left);
+    Traverse(root.right);
+}
+```
+**C:** **Preorder** traversal (Root önce, sonra Left, sonra Right).
+
+**S11: DFS'in space complexity'si nedir ve neden?**
+**C:** **O(h)** - h = tree height. Recursive call stack'i tree derinliği kadar yer kaplar. Balanced tree'de O(log n), worst case'de O(n).
+
+---
+
+## 🚶‍♂️ BFS (Breadth-First Search)
+
+**S12: BFS hangi veri yapısını kullanır ve neden?**
+**C:** **Queue** kullanır. FIFO (First In, First Out) prensibi sayesinde **level-order** (seviye seviye) gezinme sağlar.
+
+**S13: BFS ile DFS arasındaki temel fark nedir?**
+**C:** 
+- **BFS:** Seviye seviye (genişlemesine), Queue kullanır
+- **DFS:** Derinlemesine, Stack/Recursion kullanır
+
+**S14: Tree'nin Right Side View'ını bulmak için BFS nasıl kullanılır?**
+**C:** Her level'da **en sağdaki node**'u al. BFS ile level-by-level ilerleyip her seviyenin son elemanını result'a ekle.
+
+**S15: BFS'in graph'ta temel kullanım alanları nelerdir?**
+**C:** **Shortest path** (unweighted), **level-order processing**, **connected components** bulma, **minimum steps** problemleri.
+
+**S16: Graph'ta BFS ile DFS'in space complexity farkı nedir?**
+**C:** 
+- **BFS:** O(width) - en geniş seviye kadar queue
+- **DFS:** O(depth) - en derin seviye kadar stack
+
+---
+
+## 📊 Graph Yapıları
+
+**S17: Adjacency List ile Adjacency Matrix arasındaki fark nedir?**
+**C:** 
+- **Adjacency List:** Her vertex için komşuların listesi. Space: O(V+E), Edge check: O(degree)
+- **Adjacency Matrix:** V×V matrix. Space: O(V²), Edge check: O(1)
+
+**S18: Sparse graph'ta hangisi daha efficient?**
+**C:** **Adjacency List**. Çünkü sadece var olan edge'ler için yer kullanır (O(V+E)), matrix ise tüm possible edge'ler için yer ayırır (O(V²)).
+
+**S19: Graph'ta cycle detection için DFS nasıl kullanılır?**
+**C:** DFS sırasında **3 renk** kullan: White (unvisited), Gray (processing), Black (finished). Gray node'a tekrar ulaşırsan cycle var demektir.
+
+**S20: Connected components sayısını BFS ile nasıl bulursun?**
+**C:** Tüm unvisited node'lar için BFS başlat. Her BFS çağrısı bir component'i kapsar, toplam çağrı sayısı = component sayısı.
+
+---
+
+## 🔄 Sorting Algorithms
+
+**S21: Divide & Conquer stratejisi nedir?**
+**C:** 
+1. **Divide:** Problemi küçük parçalara böl
+2. **Conquer:** Küçük parçaları çöz  
+3. **Combine:** Sonuçları birleştir
+
+**S22: MergeSort'un guaranteed O(n log n) olmasının nedeni nedir?**
+**C:** Her zaman array'i **tam yarıya böler** (log n seviye) ve her seviyede **linear merge** yapar (n işlem). Input'tan bağımsız olarak hep aynı performance.
+
+**S23: QuickSort'un worst case ne zaman O(n²) olur?**
+**C:** **Pivot selection kötü** olduğunda. Örneğin zaten sorted array'de hep en küçük/büyük elemanı pivot seçersen, partition balanced olmaz.
+
+**S24: Stable sorting algorithm nedir? MergeSort stable mı, QuickSort stable mı?**
+**C:** **Stable:** Eşit elemanların relatif sırası korunur. **MergeSort stable**, **QuickSort stable değil**.
+
+**S25: Hangi durumda QuickSort, MergeSort'tan daha iyi?**
+**C:** **Memory sınırlı** durumlarda. QuickSort in-place (O(1) extra space), MergeSort O(n) extra space gerektirir.
+
+**S26: Hibrit sorting (IntroSort) neden kullanılır?**
+**C:** **Best of both worlds**: Küçük arrays için InsertionSort, normal durumda QuickSort, worst case'de HeapSort kullanarak her duruma optimize eder.
+
+---
+
+## 🔍 Binary Search Advanced
+
+**S27: Lower bound ve Upper bound arasındaki fark nedir?**
+**C:** 
+- **Lower bound:** Target'ın **ilk görüldüğü** index
+- **Upper bound:** Target'tan **büyük ilk elemanın** index'i
+
+**S28: Rotated sorted array'de arama nasıl yapılır?**
+**C:** Binary search'te **hangi yarının sorted** olduğunu kontrol et. Target sorted yarıda mı değil mi'ye göre arama yönünü belirle.
+
+**S29: "Search in answer space" tekniği nedir?**
+**C:** Direct arama yerine **possible answer'lar üzerinde binary search**. Örnek: "Minimum capacity" bulma - capacity değerleri üzerinde binary search yap.
+
+**S30: Binary search'te mid hesaplarken neden `left + (right-left)/2` kullanırız?**
+**C:** `(left+right)/2` **integer overflow** yapabilir. `left + (right-left)/2` formülü overflow'u önler.
+
+**S31: Peak element bulma algoritması nasıl çalışır?**
+**C:** Binary search: Mid element'in sağ komşusu büyükse peak sağ tarafta, değilse sol tarafta. O(log n)'de peak bulur.
+
+---
+
+## 🧠 Genel Algorithm Design
+
+**S32: Recursive algoritmanın 3 temel bileşeni nedir?**
+**C:** 
+1. **Base case:** Recursion'u durduran koşul
+2. **Recursive case:** Problemi küçülten kısım
+3. **Progress:** Her çağrıda problem küçülmeli
+
+**S33: Tree problemlerinde hangi traversal türünü ne zaman kullanırsın?**
+**C:** 
+- **Preorder:** Copying, serialization, top-down processing
+- **Inorder:** BST'de sorted order, validation
+- **Postorder:** Deletion, size calculation, bottom-up
+- **Level-order (BFS):** Level-wise operations, shortest path
+
+**S34: Stack overflow'u önlemek için recursive algoritmaları nasıl optimize edersin?**
+**C:** 
+1. **Iterative version** yaz (Stack/Queue kullan)
+2. **Tail recursion** optimization
+3. **Memoization** ile duplicate calls'ları önle
+
+**S35: Greedy vs Divide & Conquer vs Dynamic Programming - temel farklar?**
+**C:** 
+- **Greedy:** Her adımda local optimal seçim (her zaman optimal değil)
+- **Divide & Conquer:** Problemi böl, çöz, birleştir
+- **DP:** Overlapping subproblems'ı memoize et
+
+---
+
+## 🎯 Problem Solving Patterns
+
+**S36: Tree'de path sum problemi nasıl çözülür?**
+**C:** DFS ile current sum'ı track et. Leaf'e ulaştığında target ile karşılaştır. Backtracking ile tüm path'leri kontrol et.
+
+**S37: Graph'ta shortest path bulmanın farklı yolları nelerdir?**
+**C:** 
+- **Unweighted:** BFS (O(V+E))
+- **Weighted positive:** Dijkstra (O(V log V + E))
+- **Weighted with negative:** Bellman-Ford (O(VE))
+- **All pairs:** Floyd-Warshall (O(V³))
+
+**S38: Binary search'in uygulanabilirlik koşulu nedir?**
+**C:** **Monotonic property** - arama kriterine göre "evet/hayır" cevabının tek yönlü değişmesi. Sorted olması şart değil, monotonic olması yeter.
+
+**S39: Tree'de LCA (Lowest Common Ancestor) nasıl bulunur?**
+**C:** **BST'de:** Value'ları karşılaştır. **Normal tree'de:** DFS ile path'leri bul ya da parent pointer'ları kullan.
+
+**S40: In-place algoritma nedir ve avantajı nedir?**
+**C:** **Extra space kullanmayan** (O(1) space) algoritma. Memory efficient, özellikle büyük data setlerinde önemli. Örnek: QuickSort, HeapSort.
+
+---
+
+## ⚡ Performance & Optimization
+
+**S41: Cache-friendly algorithm nedir?**
+**C:** **Memory locality** iyi olan algoritma. Sequential memory access yapan (Array traversal) algoritmaları, random access yapanlardan (LinkedList, Tree) daha cache-friendly.
+
+**S42: Recursive vs Iterative - performance farkları nelerdir?**
+**C:** 
+- **Recursive:** Clean code, ama function call overhead ve stack space
+- **Iterative:** Daha az overhead, daha az memory, ama kod karmaşık olabilir
+
+**S43: Hangi sorting algorithm'ı ne zaman kullanırsın?**
+**C:** 
+- **Small arrays (≤16):** InsertionSort
+- **General purpose:** QuickSort veya IntroSort
+- **Stability gerekli:** MergeSort
+- **Memory critical:** HeapSort
+- **Partially sorted:** TimSort
+
+**S44: Tree operations'ın amortized complexity'si ne demek?**
+**C:** **Ortalama performans** - worst case nadir olduğunda overall performance iyi. Örnek: Dynamic array resize O(n) ama amortized O(1).
+
+**S45: Graph representation seçimi nasıl yapılır?**
+**C:** 
+- **Dense graph (çok edge):** Adjacency Matrix
+- **Sparse graph (az edge):** Adjacency List  
+- **Frequent edge queries:** Matrix
+- **Memory efficient:** List
+
+Bu sorularla Hafta 2'nin tüm önemli kavramlarını kapsamlı şekilde pekiştirmiş oldun! Artık **advanced algoritma problemlerine** geçmeye hazırsın! 🚀

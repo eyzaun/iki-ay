@@ -1,0 +1,248 @@
+# Arrays (Diziler) - Programlamanın Temeli
+
+## Array Nedir? Neden Bu Kadar Önemli?
+
+Array, **aynı tipte** verileri **yan yana** saklayan kutular dizisi gibi düşün. Tıpki apartmandaki daireler gibi: her dairenin bir numarası (index) var ve hepsine çok hızlı ulaşabiliyorsun.
+
+### Gerçek Hayattan Benzetme
+Düşün ki elinde 100 sayfalık bir not defteri var:
+- **Sayfa numarası = Index:** 5. sayfaya gitmek istiyorsan direkt açarsın
+- **Her sayfa aynı boyutta = Aynı tip veri:** Uniform yapı
+- **Sayfalar ardışık = Bellek düzeni:** Bir sonraki sayfa hep yanında
+
+İşte array de tam böyle çalışır! Bu yüzden çok hızlı ve efficient.
+
+## .NET'te Array Çeşitleri
+
+### 1. Klasik Array (Fixed Size)
+```csharp
+// Farklı tanımlama yolları
+int[] numbers = new int[5];              // 5 elemanlı boş array
+int[] scores = {85, 92, 78, 96, 88};     // Değerlerle birlikte
+string[] names = new string[3];          // 3 elemanlı string array
+```
+
+### 2. Dinamik Array (List<T>)
+```csharp
+List<int> dynamicNumbers = new List<int>();     // Boyut otomatik büyür
+dynamicNumbers.Add(10);  // İstediğin kadar ekle
+dynamicNumbers.Add(20);
+```
+
+## Array'in Süper Güçleri ve Zayıflıkları
+
+### 🚀 Süper Güçleri:
+1. **Işık hızında erişim:** Index biliyorsan → O(1) 
+2. **Bellek dostu:** Minimum yer kaplar
+3. **Cache friendly:** Veriler yan yana olduğu için CPU çok seviyor
+4. **Basit:** Öğrenmesi ve kullanması kolay
+
+### 😕 Zayıflıkları:
+1. **Sabit boyut:** Klasik array'lerde boyut değiştiremezsin
+2. **Ortaya ekleme pahalı:** Tüm elemanları kaydırman gerek
+3. **Silme pahalı:** Yine kaydırma gerekiyor
+4. **Tek tip:** Sadece aynı tipte veri
+
+## Temel İşlemler ve Hızları
+
+### 1. Erişim - O(1) ⚡
+```csharp
+int[] numbers = {10, 20, 30, 40, 50};
+int value = numbers[2]; // 30'u alır - Işık hızında!
+
+// Neden bu kadar hızlı?
+// Array başlangıç adresi + (index × eleman boyutu) = Tam adres
+```
+
+### 2. Güncelleme - O(1) ⚡
+```csharp
+numbers[2] = 99; // 30 yerine 99 yazar - Yine çok hızlı!
+```
+
+### 3. Arama - O(n) 🐌
+```csharp
+// Linear Search - Teker teker bakman gerekiyor
+public int FindElement(int[] array, int target)
+{
+    for (int i = 0; i < array.Length; i++)
+    {
+        if (array[i] == target)
+            return i; // Bulundu!
+    }
+    return -1; // Bulunamadı
+}
+```
+
+### 4. Sıralı Array'de Arama - O(log n) 🔍
+```csharp
+// Binary Search - Çok daha hızlı!
+public int BinarySearch(int[] sortedArray, int target)
+{
+    int left = 0, right = sortedArray.Length - 1;
+    
+    while (left <= right)
+    {
+        int mid = (left + right) / 2;
+        
+        if (sortedArray[mid] == target)
+            return mid;
+        else if (sortedArray[mid] < target)
+            left = mid + 1;
+        else
+            right = mid - 1;
+    }
+    return -1;
+}
+```
+
+## Dinamik Array (List<T>) - Büyüyen Kutular
+
+List<T>, ihtiyaç oldukça büyüyen akıllı array gibi düşün:
+
+```csharp
+List<int> smartList = new List<int>();
+
+// Ekleme - Genelde O(1), bazen O(n)
+smartList.Add(10);  // İlk eleman
+smartList.Add(20);  // İkinci eleman
+smartList.Add(30);  // Üçüncü eleman
+
+// Erişim - O(1)
+int first = smartList[0];
+
+// Arama - O(n)
+bool exists = smartList.Contains(20);
+
+// Silme - O(n) çünkü kaydırma gerekiyor
+smartList.Remove(20);
+```
+
+### List<T> Kapasitesi Nasıl Çalışır?
+```csharp
+List<int> list = new List<int>();
+Console.WriteLine($"Başlangıç kapasitesi: {list.Capacity}"); // 0
+
+for (int i = 0; i < 10; i++)
+{
+    list.Add(i);
+    Console.WriteLine($"Eleman: {i}, Kapasite: {list.Capacity}");
+}
+
+// Çıktı genelde: 0 → 4 → 8 → 16
+// Dolunca 2 katına çıkar - akıllıca!
+```
+
+## Önemli Array Teknikleri
+
+### 1. Two Pointers (İki İşaretçi)
+İki uctan orta doğru ilerlemek:
+
+```csharp
+// Palindrome kontrolü
+public bool IsPalindrome(string s)
+{
+    int left = 0;
+    int right = s.Length - 1;
+    
+    while (left < right)
+    {
+        if (s[left] != s[right])
+            return false;
+        left++;
+        right--;
+    }
+    return true;
+}
+
+// Array'i ters çevirme
+public void ReverseArray(int[] array)
+{
+    int left = 0;
+    int right = array.Length - 1;
+    
+    while (left < right)
+    {
+        // Swap
+        int temp = array[left];
+        array[left] = array[right];
+        array[right] = temp;
+        
+        left++;
+        right--;
+    }
+}
+```
+
+### 2. Sliding Window (Kayan Pencere)
+Sabit boyutlu pencereyi kaydırarak optimizasyon:
+
+```csharp
+// K elemanlı en büyük toplam
+public int MaxSum(int[] array, int k)
+{
+    // İlk pencereyi hesapla
+    int windowSum = 0;
+    for (int i = 0; i < k; i++)
+        windowSum += array[i];
+    
+    int maxSum = windowSum;
+    
+    // Pencereyi kaydır: eski çıkar, yeni girer
+    for (int i = k; i < array.Length; i++)
+    {
+        windowSum = windowSum - array[i - k] + array[i];
+        maxSum = Math.Max(maxSum, windowSum);
+    }
+    
+    return maxSum;
+}
+```
+
+### 3. Prefix Sum (Ön Toplam)
+Aralık toplamlarını hızlı hesaplama:
+
+```csharp
+public class PrefixSum
+{
+    private int[] prefixSum;
+    
+    public PrefixSum(int[] array)
+    {
+        prefixSum = new int[array.Length + 1];
+        
+        for (int i = 0; i < array.Length; i++)
+        {
+            prefixSum[i + 1] = prefixSum[i] + array[i];
+        }
+    }
+    
+    // Herhangi bir aralığın toplamını O(1)'de hesapla
+    public int RangeSum(int left, int right)
+    {
+        return prefixSum[right + 1] - prefixSum[left];
+    }
+}
+```
+
+## Array Ne Zaman Kullanılır?
+
+### ✅ Array Kullan Eğer:
+- **Hızlı erişim** gerekiyorsa (index ile)
+- **Bellek tasarrufu** önemliyse
+- **Sabit boyut** yeterliyse
+- **Cache performance** kritikse
+
+### ❌ Array Kullanma Eğer:
+- **Sık ekleme/silme** yapacaksan (ortadan)
+- **Boyut çok değişkensse**
+- **Farklı tipte** veriler saklayacaksan
+
+## Sık Karşılaşılan Array Problemleri
+
+1. **Two Sum:** İki sayının toplamı target'a eşit mi?
+2. **Maximum Subarray:** En büyük alt dizi toplamı
+3. **Rotate Array:** Array'i k pozisyon döndür
+4. **Remove Duplicates:** Tekrarları kaldır
+5. **Merge Sorted Arrays:** İki sıralı array'i birleştir
+
+Array, programlamanın kalbidir! İyi anladığında diğer veri yapıları çok daha kolay gelecek.

@@ -1,0 +1,320 @@
+# Binary Tree - Ağaç Veri Yapısının Temeli
+
+## Binary Tree Nedir? Neden Bu Kadar Önemli?
+
+Binary Tree'yi **aile soybağacı** gibi düşün. Her kişinin en fazla **2 çocuğu** olabilir (sol ve sağ). Bu basit kural, inanılmaz güçlü veri yapıları yaratmamızı sağlar.
+
+### Gerçek Hayattan Benzetme: Karar Ağacı
+Düşün ki kahvaltıda ne yiyeceğine karar veriyorsun:
+
+```
+        Acıktın mı?
+       /            \
+    Evet             Hayır
+   /    \              |
+Tatlı   Tuzlu      Bir şey içme
+ |       |
+Krep   Omlet
+```
+
+İşte bu bir Binary Tree! Her **düğümde (node)** bir karar var, en fazla **2 seçenek** var.
+
+## Binary Tree'nin Anatomisi
+
+### Temel Kavramlar:
+- **Root (Kök):** En üstteki node - başlangıç noktası
+- **Parent (Ebeveyn):** Üstteki node
+- **Child (Çocuk):** Alttaki node'lar (sol/sağ)
+- **Leaf (Yaprak):** Çocuğu olmayan node'lar
+- **Height (Yükseklik):** Root'tan en derin yaprak'a kadar olan seviye sayısı
+- **Depth (Derinlik):** Bir node'un root'a olan uzaklığı
+
+### Görsel Örnek:
+```
+        A (Root, Depth=0)
+       / \
+      B   C (Depth=1)
+     / \   \
+    D   E   F (Depth=2, Leaves)
+```
+
+## Node Yapısı - C# Implementation
+
+```csharp
+// Binary Tree Node sınıfı
+public class TreeNode
+{
+    public int Val { get; set; }
+    public TreeNode Left { get; set; }    // Sol çocuk
+    public TreeNode Right { get; set; }   // Sağ çocuk
+    
+    public TreeNode(int val = 0)
+    {
+        Val = val;
+        Left = null;
+        Right = null;
+    }
+    
+    // Helper method
+    public bool IsLeaf => Left == null && Right == null;
+}
+
+// Generic version
+public class TreeNode<T>
+{
+    public T Data { get; set; }
+    public TreeNode<T> Left { get; set; }
+    public TreeNode<T> Right { get; set; }
+    
+    public TreeNode(T data)
+    {
+        Data = data;
+        Left = null;
+        Right = null;
+    }
+}
+```
+
+## Temel Binary Tree İşlemleri
+
+### 1. Tree Oluşturma
+```csharp
+public class BinaryTree
+{
+    public TreeNode Root { get; set; }
+    
+    // Manuel tree oluşturma
+    public void CreateSampleTree()
+    {
+        Root = new TreeNode(1);
+        Root.Left = new TreeNode(2);
+        Root.Right = new TreeNode(3);
+        Root.Left.Left = new TreeNode(4);
+        Root.Left.Right = new TreeNode(5);
+        
+        //      1
+        //     / \
+        //    2   3
+        //   / \
+        //  4   5
+    }
+}
+```
+
+### 2. Tree'de Arama (Search)
+```csharp
+// Herhangi bir değeri ara - O(n)
+public bool Search(TreeNode root, int target)
+{
+    if (root == null) return false;
+    
+    if (root.Val == target) return true;
+    
+    // Sol ve sağ alt ağaçlarda ara
+    return Search(root.Left, target) || Search(root.Right, target);
+}
+```
+
+### 3. Tree'nin Yüksekliğini Bulma
+```csharp
+// Tree'nin height'ini hesapla - O(n)
+public int GetHeight(TreeNode root)
+{
+    if (root == null) return -1; // Boş tree'nin height'i -1
+    
+    int leftHeight = GetHeight(root.Left);
+    int rightHeight = GetHeight(root.Right);
+    
+    return Math.Max(leftHeight, rightHeight) + 1;
+}
+```
+
+### 4. Node Sayısını Sayma
+```csharp
+// Toplam node sayısı - O(n)
+public int CountNodes(TreeNode root)
+{
+    if (root == null) return 0;
+    
+    return 1 + CountNodes(root.Left) + CountNodes(root.Right);
+}
+```
+
+### 5. Leaf Node'ları Sayma
+```csharp
+// Yaprak node sayısı - O(n)
+public int CountLeaves(TreeNode root)
+{
+    if (root == null) return 0;
+    
+    if (root.IsLeaf) return 1;
+    
+    return CountLeaves(root.Left) + CountLeaves(root.Right);
+}
+```
+
+## Binary Tree Türleri
+
+### 1. Full Binary Tree
+Her node'un **0 veya 2 çocuğu** var (1 çocuk yok):
+```
+      1
+     / \
+    2   3
+   / \
+  4   5
+```
+
+### 2. Complete Binary Tree
+Son seviye hariç **tüm seviyeler dolu**, son seviye **soldan dolu**:
+```
+      1
+     / \
+    2   3
+   / \ /
+  4  5 6
+```
+
+### 3. Perfect Binary Tree
+**Tüm seviyeler tamamen dolu**:
+```
+      1
+     / \
+    2   3
+   /|  |\ 
+  4 5  6 7
+```
+
+### 4. Balanced Binary Tree
+Her node için **sol ve sağ alt ağaçların height farkı ≤ 1**:
+```csharp
+// Balanced tree kontrolü
+public bool IsBalanced(TreeNode root)
+{
+    if (root == null) return true;
+    
+    int leftHeight = GetHeight(root.Left);
+    int rightHeight = GetHeight(root.Right);
+    
+    // Height farkı 1'den fazla olmamalı
+    if (Math.Abs(leftHeight - rightHeight) > 1)
+        return false;
+    
+    // Alt ağaçlar da balanced olmalı
+    return IsBalanced(root.Left) && IsBalanced(root.Right);
+}
+```
+
+## Binary Tree'nin Gerçek Hayat Kullanımları
+
+### 1. Dosya Sistemi
+```
+    Root/
+    /    \
+  Users   System
+  /  \      |
+ Ali Ayşe  Logs
+ |
+Documents
+```
+
+### 2. Mathematical Expression Tree
+```
+Ifade: (2 + 3) * 4
+
+      *
+     / \
+    +   4
+   / \
+  2   3
+```
+
+### 3. Decision Tree (Karar Ağacı)
+```csharp
+public class DecisionTree
+{
+    public class DecisionNode
+    {
+        public string Question { get; set; }
+        public DecisionNode YesChild { get; set; }
+        public DecisionNode NoChild { get; set; }
+        public string Result { get; set; } // Leaf node'lar için
+    }
+    
+    // Basit karar ağacı örneği
+    public DecisionNode BuildWeatherDecisionTree()
+    {
+        var root = new DecisionNode { Question = "Hava güneşli mi?" };
+        
+        root.YesChild = new DecisionNode { Question = "Sıcak mı?" };
+        root.YesChild.YesChild = new DecisionNode { Result = "Plaja git!" };
+        root.YesChild.NoChild = new DecisionNode { Result = "Park'ta yürü" };
+        
+        root.NoChild = new DecisionNode { Question = "Yağmur yağıyor mu?" };
+        root.NoChild.YesChild = new DecisionNode { Result = "Evde kal" };
+        root.NoChild.NoChild = new DecisionNode { Result = "Şemsiye al" };
+        
+        return root;
+    }
+}
+```
+
+## Binary Tree vs Diğer Veri Yapıları
+
+| Özellik | Array | LinkedList | Binary Tree |
+|---------|-------|------------|-------------|
+| **Arama** | O(n) | O(n) | O(n) genel, O(log n) BST'de |
+| **Ekleme** | O(n) | O(1) başa | O(log n) balanced'da |
+| **Silme** | O(n) | O(n) | O(log n) balanced'da |
+| **Hierarchical** | ❌ | ❌ | ✅ |
+| **Sorted order** | Manuel | Manual | Otomatik (BST'de) |
+
+## Binary Tree'nin Avantajları
+
+### ✅ Güçlü Yanları:
+1. **Hierarchical structure:** Parent-child ilişkileri doğal
+2. **Recursive algorithms:** Çok elegant çözümler
+3. **Efficient operations:** Balanced tree'lerde O(log n)
+4. **Flexible:** Birçok probleme uyarlanabilir
+
+### ❌ Zayıf Yanları:
+1. **Unbalanced tree risk:** Worst case O(n) olabilir
+2. **Extra memory:** Pointer'lar için ekstra yer
+3. **No cache locality:** LinkedList gibi dağınık bellek
+4. **Complex implementation:** Array'den daha karmaşık
+
+## Önemli Binary Tree Properties
+
+### 1. Recursive Nature
+Her binary tree, daha küçük binary tree'lerin birleşimi:
+```csharp
+// Recursive pattern
+public void ProcessTree(TreeNode root)
+{
+    if (root == null) return; // Base case
+    
+    // Current node'u işle
+    Console.WriteLine(root.Val);
+    
+    // Alt ağaçları recursive işle
+    ProcessTree(root.Left);
+    ProcessTree(root.Right);
+}
+```
+
+### 2. Mathematical Properties
+- **n node'lu complete binary tree'nin height'i:** ⌊log₂(n)⌋
+- **Height h'lı perfect binary tree'deki node sayısı:** 2^(h+1) - 1
+- **n node'lu binary tree'nin maksimum height'i:** n-1 (degenerate case)
+
+## Next Steps: Tree Traversal
+
+Binary Tree'yi anladığında **Tree Traversal** (ağaç gezinme) teknikleri:
+- **Preorder:** Root → Left → Right
+- **Inorder:** Left → Root → Right  
+- **Postorder:** Left → Right → Root
+- **Level-order (BFS):** Seviye seviye
+
+Bu traversal teknikleri, tree'deki tüm algoritmaların temelini oluşturur!
+
+Binary Tree, computer science'ın en fundamental kavramlarından biri. İyi anlamak, BST, AVL Tree, Heap gibi gelişmiş yapıların kapısını açar! 🌳

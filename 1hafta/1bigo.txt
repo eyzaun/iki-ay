@@ -1,0 +1,173 @@
+# Big-O Notation - Algoritma Performansını Anlamak
+
+## Big-O Nedir ve Neden Önemli?
+
+Big-O notation, algoritmaların **ne kadar hızlı** çalıştığını ölçmek için kullanılan bir dil gibi düşünebilirsin. Tıpki araba hızını km/saat ile ölçtüğümüz gibi, algoritma hızını da Big-O ile ölçeriz.
+
+### Gerçek Hayattan Örnek
+Diyelim ki telefonunda 1000 kişilik rehberin var:
+- **Sırayla arama:** A'dan Z'ye tek tek bakarsın → En kötü 1000 işlem
+- **Hızlı arama:** Ortadan başlayıp yarıya böl böl ararsın → En kötü 10 işlem
+
+İşte Big-O bu farkı gösterir! Birinci yöntem O(n), ikincisi O(log n).
+
+### Neden Önemli?
+1. **Büyük veri:** 1000 eleman için fark az, 1 milyon eleman için çok büyük
+2. **Doğru algoritma seçimi:** Hangi durumda hangi yöntemi kullanacağını bilirsin
+3. **Performans tahmini:** Kodun ne kadar süreceğini önceden tahmin edebilirsin
+
+## Temel Big-O Türleri (Yavaştan Hızlıya)
+
+### 1. O(1) - Sabit Zaman ⚡
+**Ne demek:** Veri ne kadar büyük olursa olsun, hep aynı sürede çalışır.
+
+**Gerçek hayat örneği:** TV kumandası ile kanal değiştirmek. İster 50 kanal ister 500 kanal olsun, tuşa basınca hep aynı sürede değişir.
+
+```csharp
+// Array'de index ile eleman alma - Hep aynı hızda!
+public int GetElement(int[] array, int index)
+{
+    return array[index]; // Index 0 da olsa 1000 de olsa aynı hız
+}
+```
+
+### 2. O(log n) - Logaritmik Zaman 🔍
+**Ne demek:** Veri 2 katına çıkınca sadece 1 adım daha atarsın.
+
+**Gerçek hayat örneği:** Sözlükte kelime aramak. 1000 sayfalık sözlükte kelime ararken ortadan başlar, yanlış yarıyı atarsın. Böyle böyle çok hızlı bulursun.
+
+```csharp
+// Binary Search - Her adımda yarıya böl
+public int BinarySearch(int[] sortedArray, int target)
+{
+    int left = 0, right = sortedArray.Length - 1;
+    
+    while (left <= right)
+    {
+        int mid = (left + right) / 2;
+        if (sortedArray[mid] == target) return mid;
+        
+        if (sortedArray[mid] < target)
+            left = mid + 1;  // Sol yarıyı at
+        else
+            right = mid - 1; // Sağ yarıyı at
+    }
+    return -1;
+}
+```
+
+### 3. O(n) - Doğrusal Zaman 📈
+**Ne demek:** Veri 2 katına çıkınca süre de 2 katına çıkar.
+
+**Gerçek hayat örneği:** Kitap okumak. 100 sayfa okursan 1 saat, 200 sayfa okursan 2 saat.
+
+```csharp
+// Linear Search - Tek tek hepsine bak
+public int LinearSearch(int[] array, int target)
+{
+    for (int i = 0; i < array.Length; i++)
+    {
+        if (array[i] == target) return i;
+    }
+    return -1; // En kötü durumda tüm elemanları gezer
+}
+```
+
+### 4. O(n²) - Karesel Zaman 🐌
+**Ne demek:** Veri 2 katına çıkınca süre 4 katına çıkar!
+
+**Gerçek hayat örneği:** Sınıftaki herkesin herkesle tokalaşması. 10 kişi varsa 100 tokalaşma, 20 kişi varsa 400 tokalaşma.
+
+```csharp
+// Bubble Sort - İç içe döngü
+public void BubbleSort(int[] array)
+{
+    for (int i = 0; i < array.Length; i++)        // Dış döngü
+    {
+        for (int j = 0; j < array.Length - 1; j++) // İç döngü
+        {
+            if (array[j] > array[j + 1])
+            {
+                // Swap
+                int temp = array[j];
+                array[j] = array[j + 1];
+                array[j + 1] = temp;
+            }
+        }
+    }
+}
+```
+
+## Pratik Örnekler ve Karşılaştırma
+
+### Problem: Array'de en büyük sayıyı bul
+
+```csharp
+// Tek döngü ile - O(n)
+public int FindMax(int[] array)
+{
+    int max = array[0];
+    for (int i = 1; i < array.Length; i++) // Her elemanı bir kez kontrol et
+    {
+        if (array[i] > max)
+            max = array[i];
+    }
+    return max;
+}
+```
+
+### Problem: İki sayının toplamı target'a eşit mi?
+
+```csharp
+// Yavaş yöntem - O(n²)
+public bool HasPairSumSlow(int[] array, int target)
+{
+    for (int i = 0; i < array.Length; i++)
+    {
+        for (int j = i + 1; j < array.Length; j++) // Her ikiliye bak
+        {
+            if (array[i] + array[j] == target)
+                return true;
+        }
+    }
+    return false;
+}
+
+// Hızlı yöntem - O(n)
+public bool HasPairSumFast(int[] array, int target)
+{
+    HashSet<int> seen = new HashSet<int>();
+    
+    foreach (int num in array)
+    {
+        int complement = target - num;
+        if (seen.Contains(complement)) // O(1) arama
+            return true;
+        seen.Add(num);
+    }
+    return false;
+}
+```
+
+## Hangi Durumda Hangi Hız Beklenir?
+
+- **O(1):** Hashtable'da arama, array'de index ile erişim
+- **O(log n):** Binary search, balanced tree'lerde arama
+- **O(n):** Linear search, array'i bir kez gezmek
+- **O(n log n):** İyi sıralama algoritmaları (Merge Sort, Quick Sort)
+- **O(n²):** Basit sıralama algoritmaları (Bubble Sort, Selection Sort)
+
+## Önemli Püf Noktaları
+
+1. **Büyük veri için önemli:** 10 eleman varsa fark yok, 1 milyon varsa çok fark var
+2. **Sabitler ihmal edilir:** O(2n) = O(n), O(n + 100) = O(n)
+3. **En kötü durum:** Big-O genellikle worst-case'i gösterir
+4. **En büyük terim:** O(n² + n) = O(n²), çünkü n² çok daha büyük
+
+## Algoritma Seçerken Kendine Sor:
+
+- Verimin ne kadar büyük olacak?
+- Kaç kez bu işlemi yapacaksın?
+- Hafıza da önemli mi yoksa sadece hız mı?
+
+Bu sorulara göre doğru algoritma karmaşıklığını seçebilirsin!
