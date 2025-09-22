@@ -16,7 +16,7 @@ function DFS() {
 
       <div className="content-header">
         <h1>Tree Traversal - DFS (Depth-First Search)</h1>
-        <Link to="/hafta2" className="back-link">← 2. Hafta'ya Dön</Link>
+  <Link to="/hafta2" className="back-link">2. Hafta'ya Dön</Link>
       </div>
 
       <section className="section">
@@ -38,15 +38,15 @@ function DFS() {
         <p>DFS'te <strong>Root, Left, Right</strong> sıralaması önemli:</p>
 
         <div className="topic-card">
-          <h3>1. <strong>Preorder:</strong> Root → Left → Right</h3>
+          <h3>1. <strong>Preorder:</strong> Root -&gt; Left -&gt; Right</h3>
         </div>
 
         <div className="topic-card">
-          <h3>2. <strong>Inorder:</strong> Left → Root → Right</h3>
+          <h3>2. <strong>Inorder:</strong> Left -&gt; Root -&gt; Right</h3>
         </div>
 
         <div className="topic-card">
-          <h3>3. <strong>Postorder:</strong> Left → Right → Root</h3>
+          <h3>3. <strong>Postorder:</strong> Left -&gt; Right -&gt; Root</h3>
         </div>
 
         <h3>Görsel Örnek:</h3>
@@ -65,7 +65,7 @@ Postorder: 4, 5, 2, 3, 1  (Root sonra)`}
       </section>
 
       <section className="section">
-        <h2>1. Preorder Traversal (Root → Left → Right)</h2>
+  <h2>1. Preorder Traversal (Root -&gt; Left -&gt; Right)</h2>
         <p><strong>Ne zaman kullanılır:</strong> Tree'yi <strong>kopyalamak</strong>, <strong>serialize etmek</strong> için.</p>
 
         <div className="topic-card">
@@ -144,7 +144,7 @@ public void PrintDirectoryStructure(TreeNode root, int depth = 0)
       </section>
 
       <section className="section">
-        <h2>2. Inorder Traversal (Left → Root → Right)</h2>
+  <h2>2. Inorder Traversal (Left -&gt; Root -&gt; Right)</h2>
         <p><strong>Ne zaman kullanılır:</strong> <strong>BST'de sorted order</strong> elde etmek için!</p>
 
         <div className="topic-card">
@@ -201,7 +201,7 @@ public List<int> GetSortedElementsFromBST(TreeNode root)
 {
     List<int> result = new List<int>();
     InorderTraversal(root, result);
-    return result; // Otomatik olarak sıralı! 🎯
+  return result; // Otomatik olarak sıralı!
 }
 
 // BST'de k'ıncı smallest element
@@ -231,7 +231,7 @@ private int KthSmallestHelper(TreeNode root, int k, ref int count)
       </section>
 
       <section className="section">
-        <h2>3. Postorder Traversal (Left → Right → Root)</h2>
+  <h2>3. Postorder Traversal (Left -&gt; Right -&gt; Root)</h2>
         <p><strong>Ne zaman kullanılır:</strong> <strong>Tree'yi silmek</strong>, <strong>alt ağaçların sonucunu birleştirmek</strong> için.</p>
 
         <div className="topic-card">
@@ -457,7 +457,7 @@ private int MaxPathSumHelper(TreeNode root, ref int maxSum)
         <h2>DFS Ne Zaman Kullanılır?</h2>
 
         <div className="topic-card">
-          <h3>✅ DFS Kullan Eğer:</h3>
+          <h3>DFS Kullan Eğer:</h3>
           <ul>
             <li><strong>Tree structure'ı işliyorsan</strong></li>
             <li><strong>Path-based</strong> problemler çözüyorsan</li>
@@ -468,7 +468,7 @@ private int MaxPathSumHelper(TreeNode root, ref int maxSum)
         </div>
 
         <div className="topic-card">
-          <h3>🎯 Hangi DFS Türünü Seç:</h3>
+          <h3>Hangi DFS Türünü Seç:</h3>
           <ul>
             <li><strong>Preorder:</strong> Tree copying, serialization</li>
             <li><strong>Inorder:</strong> BST'de sorted order, validation</li>
@@ -484,8 +484,8 @@ private int MaxPathSumHelper(TreeNode root, ref int maxSum)
       <Notes topicPath="/dfs" topicTitle="Tree Traversal - DFS (Depth-First Search)" />
 
       <div className="navigation-links">
-        <Link to="/bst" className="nav-button">← BST</Link>
-        <Link to="/bfs" className="nav-button">BFS →</Link>
+  <Link to="/bst" className="nav-button">BST</Link>
+  <Link to="/bfs" className="nav-button">BFS</Link>
       </div>
     </div>
   );

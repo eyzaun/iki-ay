@@ -16,7 +16,7 @@ function SlidingWindow() {
 
       <div className="content-header">
         <h1>Sliding Window & Two Pointers - İleri Teknikler</h1>
-        <Link to="/hafta3" className="back-link">← 3. Hafta'ya Dön</Link>
+  <Link to="/hafta3" className="back-link">3. Hafta'ya Dön</Link>
       </div>
 
       <section className="section">
@@ -361,7 +361,7 @@ public int MaxSumOptimized(int[] nums, int k)
         <h2>Sliding Window Pattern Recognition</h2>
 
         <div className="topic-card">
-          <h3>✅ Sliding Window Kullan Eğer:</h3>
+          <h3>Uygun Olduğu Durumlar:</h3>
           <ul>
             <li><strong>Contiguous subarray/substring</strong> problemi</li>
             <li><strong>Window size</strong> sabit veya değişken</li>
@@ -372,7 +372,7 @@ public int MaxSumOptimized(int[] nums, int k)
         </div>
 
         <div className="topic-card">
-          <h3>❌ Sliding Window Kullanma Eğer:</h3>
+          <h3>Uygun Olmadığı Durumlar:</h3>
           <ul>
             <li><strong>Non-contiguous</strong> element'ler lazım</li>
             <li><strong>Permutation/combination</strong> problemi</li>
@@ -501,8 +501,8 @@ public int MaxSumOptimized(int[] nums, int k)
       <Notes topicPath="/slidingwindow" topicTitle="Sliding Window & Two Pointers - İleri Teknikler" />
 
       <div className="navigation-links">
-        <Link to="/greedy" className="nav-button">← Greedy</Link>
-        <Link to="/union-find" className="nav-button">Union-Find →</Link>
+  <Link to="/greedy" className="nav-button">Greedy</Link>
+  <Link to="/union-find" className="nav-button">Union-Find</Link>
       </div>
     </div>
   );

@@ -16,7 +16,7 @@ function LinkedList() {
       
       <div className="content-header">
         <h1>LinkedList (Bağlı Liste) - Esnek Veri Yapısı</h1>
-        <Link to="/hafta1" className="back-link">← 1. Hafta'ya Dön</Link>
+  <Link to="/hafta1" className="back-link">1. Hafta'ya Dön</Link>
       </div>
 
       <section className="section">
@@ -37,8 +37,8 @@ function LinkedList() {
         <h3>Gerçek Hayattan Benzetme: Hazine Avı</h3>
         <p>Düşün ki hazine avı oynuyorsun:</p>
         <ul>
-          <li><strong>Array:</strong> Hazine haritasında "X işareti 5. adımda" yazıyor → Direkt gidiyorsun</li>
-          <li><strong>LinkedList:</strong> İlk ipucu diyor ki "İkinci ipucunu çeşmede ara", oradan "Üçüncü ipucunu ağaçta ara" → Sırayla takip etmen gerekiyor</li>
+          <li><strong>Array:</strong> Hazine haritasında "X işareti 5. adımda" yazıyor -&gt; Direkt gidiyorsun</li>
+          <li><strong>LinkedList:</strong> İlk ipucu diyor ki "İkinci ipucunu çeşmede ara", oradan "Üçüncü ipucunu ağaçta ara" -&gt; Sırayla takip etmen gerekiyor</li>
         </ul>
         <p>Bu yüzden LinkedList'te elemanlara erişim O(n), Array'de O(1).</p>
       </section>
@@ -63,9 +63,9 @@ public class ListNode
 
         <h3>Node'ların Bellekteki Durumu:</h3>
         <CodeBlock language="csharp">
-{`Array:     [10][20][30][40]  ← Yan yana, ardışık
+{`Array:     [10][20][30][40]  - Yan yana, ardışık
            
-LinkedList: [10]→   [20]→   [30]→   [40]→ null
+LinkedList: [10]->   [20]->   [30]->   [40]-> null
              ↑       ↑       ↑       ↑
            Farklı   Farklı  Farklı  Farklı
            adresler adresler adresler adresler`}
@@ -76,7 +76,7 @@ LinkedList: [10]→   [20]→   [30]→   [40]→ null
         <h2>LinkedList'in Süper Güçleri ve Zayıflıkları</h2>
 
         <div className="topic-card">
-          <h3>🚀 Süper Güçleri:</h3>
+          <h3>Süper Güçleri:</h3>
           <ol>
             <li><strong>Dinamik boyut:</strong> İstediğin kadar büyüyebilir</li>
             <li><strong>Başa ekleme çok hızlı:</strong> O(1) - Sadece pointer değiştir</li>
@@ -100,7 +100,7 @@ LinkedList: [10]→   [20]→   [30]→   [40]→ null
         <h2>Temel LinkedList İşlemleri</h2>
 
         <div className="topic-card">
-          <h3>1. Başa Ekleme - O(1) ⚡</h3>
+          <h3>1. Başa Ekleme - O(1)</h3>
           <CodeBlock language="csharp">
 {`public class SimpleLinkedList
 {
@@ -115,13 +115,13 @@ LinkedList: [10]→   [20]→   [30]→   [40]→ null
 }
 
 // Örnek:
-// Başlangıç: head → [20] → [30] → null
-// AddFirst(10) sonrası: head → [10] → [20] → [30] → null`}
+// Başlangıç: head -> [20] -> [30] -> null
+// AddFirst(10) sonrası: head -> [10] -> [20] -> [30] -> null`}
           </CodeBlock>
         </div>
 
         <div className="topic-card">
-          <h3>2. Sona Ekleme - O(n) 🐌</h3>
+          <h3>2. Sona Ekleme - O(n)</h3>
           <CodeBlock language="csharp">
 {`public void AddLast(int data)
 {
@@ -146,7 +146,7 @@ LinkedList: [10]→   [20]→   [30]→   [40]→ null
         </div>
 
         <div className="topic-card">
-          <h3>3. Arama - O(n) 🔍</h3>
+          <h3>3. Arama - O(n)</h3>
           <CodeBlock language="csharp">
 {`public bool Contains(int data)
 {
@@ -204,28 +204,28 @@ LinkedList: [10]→   [20]→   [30]→   [40]→ null
         <div className="topic-card">
           <h3>Ekleme İşlemi:</h3>
           <CodeBlock language="csharp">
-{`Öncesi: head → [10] → [30] → null
+{`Öncesi: head -> [10] -> [30] -> null
         
 20'yi 10 ile 30 arasına eklemek:
 1. Yeni node oluştur: [20]
 2. [20].Next = [30]
 3. [10].Next = [20]
 
-Sonrası: head → [10] → [20] → [30] → null`}
+Sonrası: head -> [10] -> [20] -> [30] -> null`}
           </CodeBlock>
         </div>
 
         <div className="topic-card">
           <h3>Silme İşlemi:</h3>
           <CodeBlock language="csharp">
-{`Öncesi: head → [10] → [20] → [30] → null
+{`Öncesi: head -> [10] -> [20] -> [30] -> null
 
 20'yi silmek:
 1. 20'nin öncesini bul: [10]
 2. [10].Next = [20].Next (yani [30])
 
-Sonrası: head → [10] → [30] → null
-        [20] → çöpte (garbage collected)`}
+Sonrası: head -> [10] -> [30] -> null
+  [20] -> çöpte (garbage collected)`}
           </CodeBlock>
         </div>
       </section>
@@ -279,33 +279,33 @@ Sonrası: head → [10] → [30] → null
           <tbody>
             <tr>
               <td><strong>Erişim (i'nci eleman)</strong></td>
-              <td>O(1) ⚡</td>
-              <td>O(n) 🐌</td>
+              <td>O(1)</td>
+              <td>O(n)</td>
             </tr>
             <tr>
               <td><strong>Başa ekleme</strong></td>
-              <td>O(n) 🐌</td>
-              <td>O(1) ⚡</td>
+              <td>O(n)</td>
+              <td>O(1)</td>
             </tr>
             <tr>
               <td><strong>Sona ekleme</strong></td>
-              <td>O(1) ⚡</td>
-              <td>O(n) 🐌</td>
+              <td>O(1)</td>
+              <td>O(n)</td>
             </tr>
             <tr>
               <td><strong>Ortaya ekleme</strong></td>
-              <td>O(n) 🐌</td>
-              <td>O(n) 🐌</td>
+              <td>O(n)</td>
+              <td>O(n)</td>
             </tr>
             <tr>
               <td><strong>Arama</strong></td>
-              <td>O(n) 🐌</td>
-              <td>O(n) 🐌</td>
+              <td>O(n)</td>
+              <td>O(n)</td>
             </tr>
             <tr>
               <td><strong>Bellek kullanımı</strong></td>
-              <td>Az ⚡</td>
-              <td>Fazla 🐌</td>
+              <td>Az</td>
+              <td>Fazla</td>
             </tr>
           </tbody>
         </table>
@@ -315,7 +315,7 @@ Sonrası: head → [10] → [30] → null
         <h2>LinkedList Ne Zaman Kullanmalı?</h2>
         
         <div className="topic-card">
-          <h3>✅ LinkedList Kullan Eğer:</h3>
+          <h3>LinkedList Kullan Eğer:</h3>
           <ul>
             <li><strong>Sık sık başa ekleme</strong> yapıyorsan</li>
             <li><strong>Boyut çok değişkensse</strong></li>
@@ -325,7 +325,7 @@ Sonrası: head → [10] → [30] → null
         </div>
 
         <div className="topic-card">
-          <h3>❌ LinkedList Kullanma Eğer:</h3>
+          <h3>LinkedList Kullanma Eğer:</h3>
           <ul>
             <li><strong>Random access</strong> gerekiyorsa (index ile erişim)</li>
             <li><strong>Cache performance</strong> kritikse</li>
@@ -349,7 +349,7 @@ list.AddLast(30);   // Sona ekle
 LinkedListNode<int> node = list.Find(10); // Node'u bul
 list.AddAfter(node, 20); // 10'dan sonra 20 ekle
 
-// Çıktı: 10 ↔ 20 ↔ 30
+// Çıktı: 10 <-> 20 <-> 30
 
 // Silme
 list.Remove(20);    // Değer ile sil
@@ -372,8 +372,8 @@ list.RemoveLast();  // Sondan sil`}
       <Notes topicPath="/linkedlist" topicTitle="LinkedList (Bağlı Liste) - Esnek Veri Yapısı" />
 
       <div className="navigation-links">
-        <Link to="/array" className="nav-button">← Array</Link>
-        <Link to="/stack" className="nav-button">Stack →</Link>
+  <Link to="/array" className="nav-button">Array</Link>
+  <Link to="/stack" className="nav-button">Stack</Link>
       </div>
     </div>
   );

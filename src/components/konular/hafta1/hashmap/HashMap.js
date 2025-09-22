@@ -16,7 +16,7 @@ function HashMap() {
       
       <div className="content-header">
         <h1>HashMap (HashTable) - Hızlı Arama Veri Yapısı</h1>
-        <Link to="/hafta1" className="back-link">← 1. Hafta'ya Dön</Link>
+  <Link to="/hafta1" className="back-link">1. Hafta'ya Dön</Link>
       </div>
 
       <section className="section">
@@ -31,7 +31,7 @@ function HashMap() {
         
         <p>HashMap'te ise sihirli bir formül var:</p>
         <ul>
-          <li><strong>"Mehmet"</strong> → Hash Function → <strong>Index 47</strong></li>
+          <li><strong>"Mehmet"</strong> -&gt; Hash Function -&gt; <strong>Index 47</strong></li>
           <li>Direkt 47. kutuya gidip numarayı alıyorsun!</li>
         </ul>
 
@@ -63,8 +63,8 @@ public int SimpleHash(string key, int tableSize)
 }
 
 // Örnek:
-// "Ali" → A(65) + l(108) + i(105) = 278
-// 278 % 10 = 8 → Index 8'e koy`}
+// "Ali" -> A(65) + l(108) + i(105) = 278
+// 278 % 10 = 8 -> Index 8'e koy`}
           </CodeBlock>
         </div>
 
@@ -72,8 +72,8 @@ public int SimpleHash(string key, int tableSize)
           <h3>2. Collision (Çarpışma) Problemi</h3>
           <p>İki farklı key aynı index'i verse ne olur?</p>
           <CodeBlock language="csharp">
-{`"Ali"  → Hash → Index 8
-"Bob"  → Hash → Index 8  ← Aynı index! COLLISION!`}
+{`"Ali"  -> Hash -> Index 8
+"Bob"  -> Hash -> Index 8  - Aynı index! COLLISION!`}
           </CodeBlock>
         </div>
 
@@ -172,17 +172,17 @@ public class HashMapWithChaining
 {`Hash Table (size=5):
 
 Index 0: [ ]
-Index 1: ["Alice", 25] → ["Bob", 30]  ← Collision, chaining
+Index 1: ["Alice", 25] -> ["Bob", 30]  - Collision, chaining
 Index 2: [ ]  
 Index 3: ["Charlie", 35]
 Index 4: ["David", 40]
 
 Put("Eve", 28):
-"Eve" → Hash → Index 1
-Index 1: ["Alice", 25] → ["Bob", 30] → ["Eve", 28]
+"Eve" -> Hash -> Index 1
+Index 1: ["Alice", 25] -> ["Bob", 30] -> ["Eve", 28]
 
 Get("Bob"):
-"Bob" → Hash → Index 1 → LinkedList'te ara → 30 döndür`}
+"Bob" -> Hash -> Index 1 -> LinkedList'te ara -> 30 döndür`}
           </CodeBlock>
       </section>
 
@@ -252,7 +252,7 @@ var allAges = ages.Values; // Tüm value'lar`}
 }
 
 // Kullanım:
-// CountCharacters("hello") → {'h':1, 'e':1, 'l':2, 'o':1}`}
+// CountCharacters("hello") -> {'h':1, 'e':1, 'l':2, 'o':1}`}
           </CodeBlock>
         </div>
 
@@ -278,7 +278,7 @@ var allAges = ages.Values; // Tüm value'lar`}
     return new int[0]; // Bulunamadı
 }
 
-// Örnek: TwoSum([2,7,11,15], 9) → [0,1] (2+7=9)`}
+// Örnek: TwoSum([2,7,11,15], 9) -> [0,1] (2+7=9)`}
           </CodeBlock>
         </div>
 
@@ -317,7 +317,7 @@ var allAges = ages.Values; // Tüm value'lar`}
         <h2>HashMap Performans Analizi</h2>
         
         <div className="topic-card">
-          <h3>⚡ Ortalama Durumlar (Average Case):</h3>
+          <h3>Ortalama Durumlar (Average Case):</h3>
           <ul>
             <li><strong>Insert:</strong> O(1)</li>
             <li><strong>Delete:</strong> O(1)</li>
@@ -327,14 +327,14 @@ var allAges = ages.Values; // Tüm value'lar`}
         </div>
 
         <div className="topic-card">
-          <h3>🐌 En Kötü Durumlar (Worst Case):</h3>
+          <h3>En Kötü Durumlar (Worst Case):</h3>
           <ul>
             <li><strong>Tüm işlemler:</strong> O(n) - Tüm elemanlar aynı index'e düşerse</li>
           </ul>
         </div>
 
         <div className="topic-card">
-          <h3>🎯 Load Factor (Doluluk Oranı):</h3>
+          <h3>Load Factor (Doluluk Oranı):</h3>
           <CodeBlock language="csharp">
 {`Load Factor = Eleman Sayısı / Table Boyutu
 
@@ -360,38 +360,38 @@ var allAges = ages.Values; // Tüm value'lar`}
           <tbody>
             <tr>
               <td><strong>Search</strong></td>
-              <td>O(1) avg ⚡</td>
-              <td>O(n) 🐌</td>
-              <td>O(n) 🐌</td>
-              <td>O(log n) 📈</td>
+              <td>O(1) avg</td>
+              <td>O(n)</td>
+              <td>O(n)</td>
+              <td>O(log n)</td>
             </tr>
             <tr>
               <td><strong>Insert</strong></td>
-              <td>O(1) avg ⚡</td>
-              <td>O(n) 🐌</td>
-              <td>O(1) ⚡</td>
-              <td>O(log n) 📈</td>
+              <td>O(1) avg</td>
+              <td>O(n)</td>
+              <td>O(1)</td>
+              <td>O(log n)</td>
             </tr>
             <tr>
               <td><strong>Delete</strong></td>
-              <td>O(1) avg ⚡</td>
-              <td>O(n) 🐌</td>
-              <td>O(n) 🐌</td>
-              <td>O(log n) 📈</td>
+              <td>O(1) avg</td>
+              <td>O(n)</td>
+              <td>O(n)</td>
+              <td>O(log n)</td>
             </tr>
             <tr>
               <td><strong>Order</strong></td>
-              <td>No ❌</td>
-              <td>Yes ✅</td>
-              <td>Yes ✅</td>
-              <td>Yes ✅</td>
+              <td>No</td>
+              <td>Yes</td>
+              <td>Yes</td>
+              <td>Yes</td>
             </tr>
             <tr>
               <td><strong>Memory</strong></td>
-              <td>Extra 📊</td>
-              <td>Minimal ⚡</td>
-              <td>Extra 📊</td>
-              <td>Extra 📊</td>
+              <td>Extra</td>
+              <td>Minimal</td>
+              <td>Extra</td>
+              <td>Extra</td>
             </tr>
           </tbody>
         </table>
@@ -426,7 +426,7 @@ public int GetHashCode(string str)
         <h2>HashMap Ne Zaman Kullanılır?</h2>
         
         <div className="topic-card">
-          <h3>✅ HashMap Kullan Eğer:</h3>
+          <h3>HashMap Kullan Eğer:</h3>
           <ul>
             <li><strong>Hızlı lookup</strong> gerekiyorsa</li>
             <li><strong>Key-value</strong> ilişkisi varsa</li>
@@ -437,7 +437,7 @@ public int GetHashCode(string str)
         </div>
 
         <div className="topic-card">
-          <h3>❌ HashMap Kullanma Eğer:</h3>
+          <h3>HashMap Kullanma Eğer:</h3>
           <ul>
             <li><strong>Ordered data</strong> gerekiyorsa (SortedDictionary kullan)</li>
             <li><strong>Memory critical</strong> durumda (Array daha az yer kaplar)</li>
@@ -484,8 +484,8 @@ bool contains = numbers.Contains(1); // O(1)`}
       <Notes topicPath="/hashmap" topicTitle="HashMap (HashTable) - Hızlı Arama Veri Yapısı" />
 
       <div className="navigation-links">
-        <Link to="/queue" className="nav-button">← Queue</Link>
-        <Link to="/hafta1-quiz" className="nav-button">Quiz →</Link>
+  <Link to="/queue" className="nav-button">Queue</Link>
+  <Link to="/hafta1-quiz" className="nav-button">Quiz</Link>
       </div>
     </div>
   );

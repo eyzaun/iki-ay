@@ -540,6 +540,25 @@
 }
 .note-preview pre.ql-syntax { background: #0f0f0f; }
 
+/* Show full content on AllNotes page when opted-in */
+.notes-list.show-full .note-preview.full {
+  max-height: none;
+  overflow: visible;
+}
+.notes-list.show-full .note-card .note-preview.full::after {
+  display: none;
+}
+
+/* Inline editor within note card */
+.note-editor-inline .ql-container.ql-snow {
+  border: 1px solid #222;
+  background: #0f0f0f;
+}
+.note-editor-inline .ql-editor {
+  min-height: 180px;
+  color: #ddd;
+}
+
 .loading {
   text-align: center;
   padding: 28px; /* tighter */

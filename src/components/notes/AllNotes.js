@@ -1,3 +1,4 @@
+
 import React, { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useNotes } from '../../context/NotesContext';
@@ -5,10 +6,12 @@ import { useAuth } from '../../context/AuthContext';
 import SEO from '../../seo';
 import { useCodePrefs } from '../../context/CodePrefsContext';
 import CodeBlock from '../ui/CodeBlock';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 function AllNotes() {
   const { user } = useAuth();
-  const { getAllNotes, loading, deleteNote } = useNotes();
+  const { getAllNotes, loading, deleteNote, saveNote } = useNotes();
   const allNotes = getAllNotes();
   const { fontSize } = useCodePrefs();
 
@@ -57,6 +60,34 @@ function AllNotes() {
       }
     });
     return blocks;
+  };
+
+  // Inline editor state per note
+  const [editing, setEditing] = useState({}); // { [topicPath]: html }
+  const [saving, setSaving] = useState({}); // { [topicPath]: boolean }
+  const startEdit = (note) => {
+    setEditing((e) => ({ ...e, [note.topicPath]: note.content || '' }));
+  };
+  const cancelEdit = (note) => {
+    setEditing((e) => {
+      const c = { ...e };
+      delete c[note.topicPath];
+      return c;
+    });
+  };
+  const onChangeEdit = (note, value) => {
+    setEditing((e) => ({ ...e, [note.topicPath]: value }));
+  };
+  const onSaveEdit = async (note) => {
+    const html = editing[note.topicPath] ?? '';
+    try {
+      setSaving((s) => ({ ...s, [note.topicPath]: true }));
+      await saveNote(note.topicPath, note.topicTitle, html);
+      // hide editor after save; NotesContext onSnapshot will refresh content
+      cancelEdit(note);
+    } finally {
+      setSaving((s) => ({ ...s, [note.topicPath]: false }));
+    }
   };
 
   // Canonical topic order derived from TopNav weeks/topics
@@ -220,19 +251,30 @@ function AllNotes() {
             )}
           </div>
 
-          <div className="notes-list" style={{ '--code-font-size': `${fontSize}px` }}>
+          <div className="notes-list show-full" style={{ '--code-font-size': `${fontSize}px` }}>
           {sortedNotes.map((note) => (
             <div key={note.id} className="note-card">
               <div className="note-header">
                 <h3>
-                  <Link to={note.topicPath} className="note-title-link">
+                  <span className="note-title-link" role="heading" aria-level={3}>
                     {note.topicTitle}
-                  </Link>
+                  </span>
                 </h3>
                 <div className="note-actions">
-                  <Link to={note.topicPath} className="edit-button">
-                    Düzenle
-                  </Link>
+                  {editing[note.topicPath] === undefined ? (
+                    <button onClick={() => startEdit(note)} className="edit-button">
+                      Düzenle
+                    </button>
+                  ) : (
+                    <>
+                      <button onClick={() => onSaveEdit(note)} className="edit-button" disabled={!!saving[note.topicPath]}>
+                        {saving[note.topicPath] ? 'Kaydediliyor…' : 'Kaydet'}
+                      </button>
+                      <button onClick={() => cancelEdit(note)} className="delete-button" style={{ background: '#444' }}>
+                        Vazgeç
+                      </button>
+                    </>
+                  )}
                   <button
                     onClick={() => handleDeleteNote(note.topicPath)}
                     className="delete-button"
@@ -248,9 +290,20 @@ function AllNotes() {
                 </span>
               </div>
 
-              <div className="note-preview">
-                {renderContentWithCode(note.content)}
-              </div>
+              {editing[note.topicPath] !== undefined ? (
+                <div className="note-editor-inline">
+                  <ReactQuill
+                    theme="snow"
+                    value={editing[note.topicPath]}
+                    onChange={(v) => onChangeEdit(note, v)}
+                    placeholder="Notunuzu düzenleyin..."
+                  />
+                </div>
+              ) : (
+                <div className="note-preview full">
+                  {renderContentWithCode(note.content)}
+                </div>
+              )}
             </div>
           ))}
           </div>

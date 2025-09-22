@@ -16,7 +16,7 @@ function Queue() {
       
       <div className="content-header">
         <h1>Queue (Kuyruk) - FIFO Veri Yapısı</h1>
-        <Link to="/hafta1" className="back-link">← 1. Hafta'ya Dön</Link>
+  <Link to="/hafta1" className="back-link">1. Hafta'ya Dön</Link>
       </div>
 
       <section className="section">
@@ -35,8 +35,8 @@ function Queue() {
 
         <h3>Stack vs Queue - Temel Fark:</h3>
         <ul>
-          <li><strong>Stack:</strong> Son giren ilk çıkar (tabak yığını) 🥞</li>
-          <li><strong>Queue:</strong> İlk giren ilk çıkar (kuyruk) 🚶‍♂️🚶‍♀️🚶‍♂️</li>
+          <li><strong>Stack:</strong> Son giren ilk çıkar (tabak yığını)</li>
+          <li><strong>Queue:</strong> İlk giren ilk çıkar (kuyruk)</li>
         </ul>
       </section>
 
@@ -45,7 +45,7 @@ function Queue() {
         <p>Queue'da iki ana işlem var:</p>
 
         <div className="topic-card">
-          <h3>1. Enqueue - Arkaya Ekleme O(1) ⚡</h3>
+          <h3>1. Enqueue - Arkaya Ekleme O(1)</h3>
           <CodeBlock language="csharp">
 {`// Kuyruğun arkasına eleman ekle
 queue.Enqueue(element);`}
@@ -53,7 +53,7 @@ queue.Enqueue(element);`}
         </div>
 
         <div className="topic-card">
-          <h3>2. Dequeue - Önden Alma O(1) ⚡</h3>
+          <h3>2. Dequeue - Önden Alma O(1)</h3>
           <CodeBlock language="csharp">
 {`// Kuyruğun önündeki elemanı al ve kaldır
 element = queue.Dequeue();`}
@@ -61,7 +61,7 @@ element = queue.Dequeue();`}
         </div>
 
         <div className="topic-card">
-          <h3>3. Front/Peek - Öndekine Bakma O(1) ⚡</h3>
+          <h3>3. Front/Peek - Öndekine Bakma O(1)</h3>
           <CodeBlock language="csharp">
 {`// Önündeki elemanı göster ama kaldırma
 element = queue.Peek();`}
@@ -69,7 +69,7 @@ element = queue.Peek();`}
         </div>
 
         <div className="topic-card">
-          <h3>4. IsEmpty - Boş mu Kontrolü O(1) ⚡</h3>
+          <h3>4. IsEmpty - Boş mu Kontrolü O(1)</h3>
           <CodeBlock language="csharp">
 {`// Queue boş mu?
 bool isEmpty = queue.Count == 0;`}
@@ -142,13 +142,13 @@ bool isEmpty = queue.Count == 0;`}
         
         <CodeBlock language="csharp">
 {`Normal Queue:
-[_][_][C][D][E]    ← Front=2, Rear=4, Boş alan kullanılamaz
- ↑  ↑   
-boş boş
+[_][_][C][D][E]    Front=2, Rear=4, Boş alan kullanılamaz
+ ^  ^   
+bos bos
 
 Circular Queue:
-[F][G][C][D][E]    ← Front=2, Rear=1 (wrap around)
- ↑     ↑
+[F][G][C][D][E]    Front=2, Rear=1 (wrap around)
+ ^     ^
 rear  front`}
           </CodeBlock>
       </section>
@@ -233,26 +233,26 @@ rear  front`}
         <h2>Queue İşlemlerinin Görsel Açıklaması</h2>
         
         <CodeBlock language="csharp">
-{`Queue Durumu:    [Boş]
+{`Queue Durumu:    [Bos]
 
 Enqueue(10):     [10]
-                 ↑   ↑
+                 ^   ^
                front rear
 
-Enqueue(20):     [10] → [20]
-                 ↑      ↑
+Enqueue(20):     [10] -> [20]
+                 ^      ^
                front   rear
 
-Enqueue(30):     [10] → [20] → [30]
-                 ↑             ↑
+Enqueue(30):     [10] -> [20] -> [30]
+                 ^             ^
                front          rear
 
-Dequeue():       [20] → [30]      (10 döndürüldü)
-                 ↑      ↑
+Dequeue():       [20] -> [30]      (10 donduruldu)
+                 ^      ^
                front   rear
 
-Peek():          [20] → [30]      (20 gösterildi)
-                 ↑      ↑
+Peek():          [20] -> [30]      (20 gosterildi)
+                 ^      ^
                front   rear`}
           </CodeBlock>
       </section>
@@ -415,7 +415,7 @@ queue.Clear();`}
     
     public Task GetNextTask()
     {
-        // Yüksek öncelik → Normal → Düşük sırasıyla
+  // Yüksek öncelik -> Normal -> Düşük sırasıyla
         if (highPriority.Count > 0)
             return highPriority.Dequeue();
         else if (normalPriority.Count > 0)
@@ -511,7 +511,7 @@ queue.Clear();`}
         <h2>Queue Ne Zaman Kullanılır?</h2>
         
         <div className="topic-card">
-          <h3>✅ Queue Kullan Eğer:</h3>
+          <h3>Queue Kullan Eğer:</h3>
           <ul>
             <li><strong>FIFO</strong> davranış gerekiyorsa</li>
             <li><strong>BFS</strong> algoritması uyguluyorsan</li>
@@ -522,7 +522,7 @@ queue.Clear();`}
         </div>
 
         <div className="topic-card">
-          <h3>❌ Queue Kullanma Eğer:</h3>
+          <h3>Queue Kullanma Eğer:</h3>
           <ul>
             <li><strong>LIFO</strong> davranış istiyorsan (Stack kullan)</li>
             <li><strong>Random access</strong> gerekiyorsa (Array kullan)</li>
@@ -556,8 +556,8 @@ deque.RemoveLast();`}
       <Notes topicPath="/queue" topicTitle="Queue (Kuyruk) - FIFO Veri Yapısı" />
 
       <div className="navigation-links">
-        <Link to="/stack" className="nav-button">← Stack</Link>
-        <Link to="/hafta1" className="nav-button">1. Hafta →</Link>
+  <Link to="/stack" className="nav-button">Stack</Link>
+  <Link to="/hafta1" className="nav-button">1. Hafta</Link>
       </div>
     </div>
   );

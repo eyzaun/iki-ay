@@ -16,7 +16,7 @@ function BSTAdvanced() {
 
       <div className="content-header">
         <h1>Binary Search - Advanced Applications</h1>
-        <Link to="/hafta2" className="back-link">← 2. Hafta'ya Dön</Link>
+  <Link to="/hafta2" className="back-link">2. Hafta'ya Dön</Link>
       </div>
 
       <section className="section">
@@ -28,8 +28,8 @@ function BSTAdvanced() {
         <h3>Gerçek Hayattan Benzetme: Sayı Tahmin Oyunu</h3>
         <p>Düşün ki 1-100 arası sayı tuttum:</p>
         <ul>
-          <li><strong>Naif yaklaşım:</strong> 1, 2, 3, 4... şeklinde tek tek dene → O(n)</li>
-          <li><strong>Akıllı yaklaşım:</strong> 50 de, büyük mü küçük mü?, sonra 75 veya 25... → O(log n)</li>
+          <li><strong>Naif yaklaşım:</strong> 1, 2, 3, 4... şeklinde tek tek dene -&gt; O(n)</li>
+          <li><strong>Akıllı yaklaşım:</strong> 50 de, büyük mü küçük mü?, sonra 75 veya 25... -&gt; O(log n)</li>
         </ul>
 
         <p>Bu mantık <strong>sadece sayılarda değil</strong>, <strong>her monotonic (tek yönlü) problemde</strong> çalışır!</p>
@@ -91,7 +91,7 @@ public int LowerBound(int[] array, int target)
     return left; // İlk valid position
 }
 
-// Kullanım örneği: [1, 2, 2, 2, 3, 4], target=2 → return 1`}
+// Kullanım örneği: [1, 2, 2, 2, 3, 4], target=2 -> return 1`}
             </CodeBlock>
           </div>
 
@@ -118,7 +118,7 @@ public int UpperBound(int[] array, int target)
     return left;
 }
 
-// Kullanım örneği: [1, 2, 2, 2, 3, 4], target=2 → return 4`}
+// Kullanım örneği: [1, 2, 2, 2, 3, 4], target=2 -> return 4`}
               </CodeBlock>
             </div>
 
@@ -139,7 +139,7 @@ public int[] SearchRange(int[] nums, int target)
     return new int[] { first, last };
 }
 
-// Örnek: [5,7,7,8,8,10], target=8 → [3,4]`}
+// Örnek: [5,7,7,8,8,10], target=8 -> [3,4]`}
                 </CodeBlock>
               </div>
       </section>
@@ -186,7 +186,7 @@ public int SearchRotated(int[] nums, int target)
     return -1;
 }
 
-// Örnek: [4,5,6,7,0,1,2], target=0 → return 4`}
+// Örnek: [4,5,6,7,0,1,2], target=0 -> return 4`}
             </CodeBlock>
           </div>
 
@@ -239,7 +239,7 @@ public int FindPeakElement(int[] nums)
     return left;
 }
 
-// Örnek: [1,2,3,1] → return 2 (value 3)`}
+// Örnek: [1,2,3,1] -> return 2 (value 3)`}
                 </CodeBlock>
               </div>
       </section>
@@ -542,7 +542,7 @@ private bool IsBadVersion(int version)
         <h2>Binary Search Ne Zaman Kullanılır?</h2>
 
         <div className="topic-card">
-          <h3>✅ Binary Search Kullan Eğer:</h3>
+          <h3>Uygun Olduğu Durumlar:</h3>
           <ul>
             <li><strong>Sorted data</strong> varsa</li>
             <li><strong>Monotonic</strong> property varsa (tek yönlü artış/azalış)</li>
@@ -553,7 +553,7 @@ private bool IsBadVersion(int version)
         </div>
 
         <div className="topic-card">
-          <h3>🎯 Binary Search Problem Patterns:</h3>
+          <h3>Binary Search Problem Patterns:</h3>
           <ol>
             <li><strong>Direct search:</strong> Sorted array'de exact match</li>
             <li><strong>Boundary search:</strong> First/last occurrence</li>
@@ -570,10 +570,10 @@ private bool IsBadVersion(int version)
         <div className="topic-card">
           <h3>1. Overflow Prevention</h3>
           <CodeBlock language="csharp">
-{`// ❌ Yanlış: int overflow olabilir
+{`// Yanlış: int overflow olabilir
 int mid = (left + right) / 2;
 
-// ✅ Doğru: Overflow'u önler
+// Doğru: Overflow'u önler
 int mid = left + (right - left) / 2;`}
             </CodeBlock>
           </div>
@@ -591,32 +591,32 @@ int right = array.Length - 1; // Inclusive upper bound`}
       </section>
 
       <section className="section">
-        <p>Binary Search, <strong>problem solving'in İsviçre çakısı</strong> gibi! Sadece arama değil, <strong>optimization problemlerinde</strong> de çok güçlü! 🔍</p>
+  <p>Binary Search, <strong>problem solving'in İsviçre çakısı</strong> gibi! Sadece arama değil, <strong>optimization problemlerinde</strong> de çok güçlü!</p>
       </section>
 
       <section className="section">
-        <h2>🎉 Hafta 2 Tamamlandı!</h2>
+  <h2>Hafta 2 Tamamlandı!</h2>
 
         <div className="topic-card">
           <h3>Öğrendiğin Konular:</h3>
           <ul>
-            <li>✅ <strong>Binary Tree</strong> - Ağaç yapılarının temeli</li>
-            <li>✅ <strong>BST</strong> - Sıralı ağaç yapısı ve O(log n) operasyonlar</li>
-            <li>✅ <strong>Tree Traversal</strong> - DFS (preorder, inorder, postorder)</li>
-            <li>✅ <strong>BFS & Graphs</strong> - Level-order traversal ve graph algorithms</li>
-            <li>✅ <strong>Sorting</strong> - MergeSort, QuickSort ve divide & conquer</li>
-            <li>✅ <strong>Binary Search</strong> - Advanced applications ve answer space search</li>
+            <li><strong>Binary Tree</strong> - Ağaç yapılarının temeli</li>
+            <li><strong>BST</strong> - Sıralı ağaç yapısı ve O(log n) operasyonlar</li>
+            <li><strong>Tree Traversal</strong> - DFS (preorder, inorder, postorder)</li>
+            <li><strong>BFS &amp; Graphs</strong> - Level-order traversal ve graph algorithms</li>
+            <li><strong>Sorting</strong> - MergeSort, QuickSort ve divide &amp; conquer</li>
+            <li><strong>Binary Search</strong> - Advanced applications ve answer space search</li>
           </ul>
 
-          <p>Bu konular, <strong>algorithm design'ın kalbi</strong>! Şimdi pratik yapmaya başlayabilirsin! 🚀</p>
+          <p>Bu konular, <strong>algorithm design'ın kalbi</strong>! Şimdi pratik yapmaya başlayabilirsin!</p>
         </div>
       </section>
 
       <Notes topicPath="/bstadvanced" topicTitle="Binary Search - Advanced Applications" />
 
       <div className="navigation-links">
-        <Link to="/sorting" className="nav-button">← Sorting</Link>
-        <Link to="/quiz-hafta2" className="nav-button">Quiz →</Link>
+  <Link to="/sorting" className="nav-button">Sorting</Link>
+  <Link to="/quiz-hafta2" className="nav-button">Quiz</Link>
       </div>
     </div>
   );

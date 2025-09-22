@@ -17,7 +17,7 @@ function BST() {
 
       <div className="content-header">
         <h1>Binary Search Tree (BST) - Sıralı Ağaç Yapısı</h1>
-        <Link to="/hafta2" className="back-link">← 2. Hafta'ya Dön</Link>
+  <Link to="/hafta2" className="back-link">2. Hafta'ya Dön</Link>
       </div>
 
       <section className="section">
@@ -57,7 +57,7 @@ Left < Root < Right kuralı her yerde geçerli!`}
         <p>BST'nin en büyük avantajı: <strong>Inorder traversal ile sıralı liste</strong> elde edersin!</p>
         <CodeBlock language="csharp">
 {`Yukarıdaki BST'nin inorder traversal'ı: 20, 30, 40, 50, 60, 70, 80
-→ Otomatik olarak sıralı! 🎯`}
+-> Otomatik olarak sıralı!`}
           </CodeBlock>
       </section>
 
@@ -95,7 +95,7 @@ public class BinarySearchTree
         <h2>BST Temel İşlemleri</h2>
 
         <div className="topic-card">
-          <h3>1. Search (Arama) - O(log n) ⚡</h3>
+          <h3>1. Search (Arama) - O(log n)</h3>
           <CodeBlock language="csharp">
 {`// BST'de değer arama - çok hızlı!
 public bool Search(BSTNode root, int target)
@@ -133,7 +133,7 @@ public bool SearchIterative(int target)
           </div>
 
           <div className="topic-card">
-            <h3>2. Insert (Ekleme) - O(log n) ⚡</h3>
+            <h3>2. Insert (Ekleme) - O(log n)</h3>
             <CodeBlock language="csharp">
 {`// BST'ye yeni değer ekleme
 public BSTNode Insert(BSTNode root, int val)
@@ -160,7 +160,7 @@ public void Insert(int val)
             </div>
 
             <div className="topic-card">
-              <h3>3. Min/Max Bulma - O(log n) ⚡</h3>
+              <h3>3. Min/Max Bulma - O(log n)</h3>
               <CodeBlock language="csharp">
 {`// En küçük değer - en soldaki node
 public int FindMin(BSTNode root)
@@ -189,7 +189,7 @@ public int FindMax(BSTNode root)
               </div>
 
               <div className="topic-card">
-                <h3>4. Delete (Silme) - O(log n) 🤔</h3>
+                <h3>4. Delete (Silme) - O(log n)</h3>
                 <p>Bu en karmaşık işlem! 3 durum var:</p>
                 <CodeBlock language="csharp">
 {`public BSTNode Delete(BSTNode root, int val)
@@ -232,7 +232,7 @@ public int FindMax(BSTNode root)
 {`Silme Case 3 örneği:
        50
       /  \\
-    30    70    ← 50'yi silmek istiyoruz
+  30    70    50'yi silmek istiyoruz
    /  \\   /  \\
   20  40 60  80
 
@@ -256,7 +256,7 @@ Sonuç:
           <div className="topic-card">
             <h3>Inorder Traversal = Sıralı Liste!</h3>
             <CodeBlock language="csharp">
-{`// Inorder: Left → Root → Right
+{`// Inorder: Left -> Root -> Right
 public void InorderTraversal(BSTNode root, List<int> result)
 {
     if (root == null) return;
@@ -404,7 +404,7 @@ public class AutoComplete
           <h2>BST Performance Analizi</h2>
 
           <div className="topic-card">
-            <h3>⚡ Best Case (Balanced Tree):</h3>
+            <h3>Best Case (Balanced Tree):</h3>
             <ul>
               <li><strong>Search:</strong> O(log n)</li>
               <li><strong>Insert:</strong> O(log n)</li>
@@ -414,7 +414,7 @@ public class AutoComplete
           </div>
 
           <div className="topic-card">
-            <h3>🐌 Worst Case (Degenerate Tree):</h3>
+            <h3>Worst Case (Degenerate Tree):</h3>
             <CodeBlock language="csharp">
 {`Degenerate BST (LinkedList gibi):
 1
@@ -430,7 +430,7 @@ Tüm operasyonlar O(n) olur!`}
             </div>
 
             <div className="topic-card">
-              <h3>🎯 BST'yi Balanced Tutma:</h3>
+              <h3>BST'yi Balanced Tutma:</h3>
               <p>Bu durumda <strong>AVL Tree</strong> veya <strong>Red-Black Tree</strong> kullanılır (self-balancing).</p>
             </div>
         </section>
@@ -463,8 +463,8 @@ Tüm operasyonlar O(n) olur!`}
               <tr>
                 <td><strong>Sorted order</strong></td>
                 <td>Manual</td>
-                <td>❌</td>
-                <td>Otomatik ✅</td>
+                <td>Hayır</td>
+                <td>Otomatik Evet</td>
               </tr>
               <tr>
                 <td><strong>Range query</strong></td>
@@ -486,7 +486,7 @@ Tüm operasyonlar O(n) olur!`}
           <h2>BST Ne Zaman Kullanılır?</h2>
 
           <div className="topic-card">
-            <h3>✅ BST Kullan Eğer:</h3>
+            <h3>Uygun Olduğu Durumlar:</h3>
             <ul>
               <li><strong>Sorted order</strong> önemliyse</li>
               <li><strong>Range queries</strong> yapacaksan</li>
@@ -497,7 +497,7 @@ Tüm operasyonlar O(n) olur!`}
           </div>
 
           <div className="topic-card">
-            <h3>❌ BST Kullanma Eğer:</h3>
+            <h3>Uygun Olmadığı Durumlar:</h3>
             <ul>
               <li><strong>Only key lookup</strong> gerekiyorsa (HashMap kullan)</li>
               <li><strong>Fixed dataset</strong> (Sorted array kullan)</li>
@@ -540,14 +540,14 @@ private int KthSmallestHelper(BSTNode root, int k, ref int count)
         </section>
 
         <section className="section">
-          <p><strong>BST, sorting ve searching problemlerinin elegant çözümü! Next: Tree Traversal teknikleri 🌲</strong></p>
+          <p><strong>BST, sorting ve searching problemlerinin elegant çözümü! Next: Tree Traversal teknikleri</strong></p>
         </section>
 
         <Notes topicPath="/bst" topicTitle="Binary Search Tree (BST) - Sıralı Ağaç Yapısı" />
 
       <div className="navigation-links">
-          <Link to="/binary-tree" className="nav-button">← Binary Tree</Link>
-          <Link to="/dfs" className="nav-button">DFS →</Link>
+          <Link to="/binary-tree" className="nav-button">Binary Tree</Link>
+          <Link to="/dfs" className="nav-button">DFS</Link>
         </div>
       </div>
   );

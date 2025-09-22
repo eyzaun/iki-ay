@@ -16,7 +16,7 @@ function RecursionBacktracking() {
 
       <div className="content-header">
         <h1>Recursion & Backtracking - Özyineleme</h1>
-        <Link to="/hafta3" className="back-link">← 3. Hafta'ya Dön</Link>
+  <Link to="/hafta3" className="back-link">3. Hafta'ya Dön</Link>
       </div>
 
       <section className="section">
@@ -69,7 +69,7 @@ function RecursionBacktracking() {
     return Fibonacci(n - 1) + Fibonacci(n - 2);
 }
 
-// Her çağrı problemi küçültür: n → n-1, n-2`}
+// Her çağrı problemi küçültür: n -> n-1, n-2`}
           </CodeBlock>
         </div>
 
@@ -78,12 +78,12 @@ function RecursionBacktracking() {
           <p>Her recursive çağrı stack'te yeni frame oluşturur</p>
           <CodeBlock language="csharp">
 {`// Factorial(3) çağrısı:
-// Stack: [Factorial(3)] → 3 * Factorial(2)
-// Stack: [Factorial(3), Factorial(2)] → 2 * Factorial(1)
-// Stack: [Factorial(3), Factorial(2), Factorial(1)] → 1
-// Stack: [Factorial(3), Factorial(2)] → 2 * 1 = 2
-// Stack: [Factorial(3)] → 3 * 2 = 6
-// Stack: [] → 6`}
+// Stack: [Factorial(3)] -> 3 * Factorial(2)
+// Stack: [Factorial(3), Factorial(2)] -> 2 * Factorial(1)
+// Stack: [Factorial(3), Factorial(2), Factorial(1)] -> 1
+// Stack: [Factorial(3), Factorial(2)] -> 2 * 1 = 2
+// Stack: [Factorial(3)] -> 3 * 2 = 6
+// Stack: [] -> 6`}
           </CodeBlock>
         </div>
       </section>
@@ -306,7 +306,7 @@ public long FibonacciMemo(int n)
 }
 
 // Time: O(n), Space: O(n)
-// Exponential → Linear!`}
+// Exponential -> Linear!`}
           </CodeBlock>
         </div>
       </section>
@@ -315,7 +315,7 @@ public long FibonacciMemo(int n)
         <h2>Recursion Pattern Recognition</h2>
 
         <div className="topic-card">
-          <h3>✅ Recursion Kullan Eğer:</h3>
+          <h3>Recursion Kullan Eğer:</h3>
           <ul>
             <li><strong>Tree/Graph traversal:</strong> DFS, inorder vs.</li>
             <li><strong>Divide & Conquer:</strong> Merge sort, quick sort</li>
@@ -325,7 +325,7 @@ public long FibonacciMemo(int n)
         </div>
 
         <div className="topic-card">
-          <h3>❌ Recursion Kullanma Eğer:</h3>
+          <h3>Recursion Kullanma Eğer:</h3>
           <ul>
             <li><strong>Derin recursion:</strong> Stack overflow riski</li>
             <li><strong>Performance critical:</strong> Function call overhead</li>
@@ -349,8 +349,8 @@ public long FibonacciMemo(int n)
       <Notes topicPath="/recursionbacktracking" topicTitle="Recursion & Backtracking - Özyineleme" />
 
       <div className="navigation-links">
-        <Link to="/topological-sort" className="nav-button">← Topological Sort</Link>
-        <Link to="/hafta3-quiz" className="nav-button">Quiz →</Link>
+        <Link to="/topological-sort" className="nav-button">Topological Sort</Link>
+        <Link to="/hafta3-quiz" className="nav-button">Quiz</Link>
       </div>
     </div>
   );

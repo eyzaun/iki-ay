@@ -25,7 +25,7 @@ function Hafta6Quiz() {
       <div className="content-header">
         <h1>Hafta 6 OS Concepts - Soru & Cevap</h1>
         <p className="quiz-subtitle">İşletim sistemi konularını pekiştirici sorular</p>
-        <Link to="/hafta6" className="back-link">← 6. Hafta'ya Dön</Link>
+  <Link to="/hafta6" className="back-link">6. Hafta'ya Dön</Link>
       </div>
 
       <section className="section quiz-section">
@@ -75,11 +75,11 @@ function Hafta6Quiz() {
             <div className="answer">
               <strong>C:</strong>
               <ul>
-                <li><strong>New → Ready:</strong> Process oluşturuldu, CPU bekliyor</li>
-                <li><strong>Ready → Running:</strong> Scheduler CPU verdi</li>
-                <li><strong>Running → Waiting:</strong> I/O request veya event bekleme</li>
-                <li><strong>Waiting → Ready:</strong> I/O tamamlandı</li>
-                <li><strong>Running → Terminated:</strong> Process bitti</li>
+                <li><strong>New -&gt; Ready:</strong> Process oluşturuldu, CPU bekliyor</li>
+                <li><strong>Ready -&gt; Running:</strong> Scheduler CPU verdi</li>
+                <li><strong>Running -&gt; Waiting:</strong> I/O request veya event bekleme</li>
+                <li><strong>Waiting -&gt; Ready:</strong> I/O tamamlandı</li>
+                <li><strong>Running -&gt; Terminated:</strong> Process bitti</li>
               </ul>
             </div>
           )}
@@ -332,8 +332,8 @@ function Hafta6Quiz() {
       <Notes topicPath="/hafta6-quiz" topicTitle="Hafta 6 DSA - Soru & Cevap" />
 
       <div className="navigation-links">
-        <Link to="/producer-consumer" className="nav-button">← Producer-Consumer</Link>
-        <Link to="/hafta7" className="nav-button">7. Hafta →</Link>
+  <Link to="/producer-consumer" className="nav-button">Producer-Consumer</Link>
+  <Link to="/hafta7" className="nav-button">7. Hafta</Link>
       </div>
     </div>
   );

@@ -16,7 +16,7 @@ function TopologicalSort() {
 
       <div className="content-header">
         <h1>Topological Sort - Graf Sıralama</h1>
-        <Link to="/hafta3" className="back-link">← 3. Hafta'ya Dön</Link>
+  <Link to="/hafta3" className="back-link">3. Hafta'ya Dön</Link>
       </div>
 
       <section className="section">
@@ -31,7 +31,7 @@ function TopologicalSort() {
         <ul>
           <li><strong>Algoritma dersi:</strong> Programlama dersinden sonra alınmalı</li>
           <li><strong>Veri Yapıları:</strong> Algoritmadan sonra</li>
-          <li><strong>Dependency chain:</strong> Programlama → Algoritma → Veri Yapıları</li>
+          <li><strong>Dependency chain:</strong> Programlama -&gt; Algoritma -&gt; Veri Yapıları</li>
         </ul>
         <p>İşte Topological Sort de tam böyle çalışır!</p>
       </section>
@@ -247,7 +247,7 @@ private bool HasCycleDFS(int node, int[][] graph, int[] state)
         <h2>Topological Sort Özellikleri</h2>
 
         <div className="topic-card">
-          <h3>✅ Ne Zaman Kullanılır:</h3>
+          <h3>Uygun Olduğu Durumlar:</h3>
           <ul>
             <li><strong>DAG'ler:</strong> Directed Acyclic Graph</li>
             <li><strong>Dependency ordering:</strong> Task scheduling</li>
@@ -257,7 +257,7 @@ private bool HasCycleDFS(int node, int[][] graph, int[] state)
         </div>
 
         <div className="topic-card">
-          <h3>❌ Ne Zaman Kullanılmaz:</h3>
+          <h3>Uygun Olmadığı Durumlar:</h3>
           <ul>
             <li><strong>Cycle varsa:</strong> Topological sort imkansız</li>
             <li><strong>Undirected graph:</strong> Yön yok</li>
@@ -280,8 +280,8 @@ private bool HasCycleDFS(int node, int[][] graph, int[] state)
       <Notes topicPath="/topologicalsort" topicTitle="Topological Sort - Graf Sıralama" />
 
       <div className="navigation-links">
-        <Link to="/union-find" className="nav-button">← Union-Find</Link>
-        <Link to="/recursion-backtracking" className="nav-button">Recursion →</Link>
+  <Link to="/union-find" className="nav-button">Union-Find</Link>
+  <Link to="/recursion-backtracking" className="nav-button">Recursion</Link>
       </div>
     </div>
   );

@@ -16,7 +16,7 @@ function BinaryTree() {
 
       <div className="content-header">
         <h1>Binary Tree - Ağaç Veri Yapısının Temeli</h1>
-        <Link to="/hafta2" className="back-link">← 2. Hafta'ya Dön</Link>
+  <Link to="/hafta2" className="back-link">2. Hafta'ya Dön</Link>
       </div>
 
       <section className="section">
@@ -349,9 +349,9 @@ Documents`}
                   </tr>
                   <tr>
                     <td><strong>Hierarchical</strong></td>
-                    <td>❌</td>
-                    <td>❌</td>
-                    <td>✅</td>
+                    <td>Hayır</td>
+                    <td>Hayır</td>
+                    <td>Evet</td>
                   </tr>
                   <tr>
                     <td><strong>Sorted order</strong></td>
@@ -367,7 +367,7 @@ Documents`}
               <h2>Binary Tree'nin Avantajları</h2>
 
               <div className="topic-card">
-                <h3>✅ Güçlü Yanları:</h3>
+                <h3>Güçlü Yanları:</h3>
                 <ol>
                   <li><strong>Hierarchical structure:</strong> Parent-child ilişkileri doğal</li>
                   <li><strong>Recursive algorithms:</strong> Çok elegant çözümler</li>
@@ -377,7 +377,7 @@ Documents`}
               </div>
 
               <div className="topic-card">
-                <h3>❌ Zayıf Yanları:</h3>
+                <h3>Zayıf Yanları:</h3>
                 <ol>
                   <li><strong>Unbalanced tree risk:</strong> Worst case O(n) olabilir</li>
                   <li><strong>Extra memory:</strong> Pointer'lar için ekstra yer</li>
@@ -425,9 +425,9 @@ public void ProcessTree(TreeNode root)
                   Binary Tree'yi anladığında <strong>Tree Traversal</strong> (ağaç gezinme) teknikleri:
                 </p>
                 <ul>
-                  <li><strong>Preorder:</strong> Root → Left → Right</li>
-                  <li><strong>Inorder:</strong> Left → Root → Right</li>
-                  <li><strong>Postorder:</strong> Left → Right → Root</li>
+                  <li><strong>Preorder:</strong> Root -&gt; Left -&gt; Right</li>
+                  <li><strong>Inorder:</strong> Left -&gt; Root -&gt; Right</li>
+                  <li><strong>Postorder:</strong> Left -&gt; Right -&gt; Root</li>
                   <li><strong>Level-order (BFS):</strong> Seviye seviye</li>
                 </ul>
                 <p>Bu traversal teknikleri, tree'deki tüm algoritmaların temelini oluşturur!</p>
@@ -437,8 +437,8 @@ public void ProcessTree(TreeNode root)
               <Notes topicPath="/binarytree" topicTitle="Binary Tree - Ağaç Veri Yapısının Temeli" />
 
       <div className="navigation-links">
-                <Link to="/hafta2" className="nav-button">← 2. Hafta</Link>
-                <Link to="/bst" className="nav-button">BST →</Link>
+                <Link to="/hafta2" className="nav-button">2. Hafta</Link>
+                <Link to="/bst" className="nav-button">BST</Link>
               </div>
             </div>
   );

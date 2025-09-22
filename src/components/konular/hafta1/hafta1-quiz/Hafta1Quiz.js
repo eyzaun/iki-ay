@@ -25,7 +25,7 @@ function Hafta1Quiz() {
       <div className="content-header">
         <h1>Hafta 1 DSA - Soru & Cevap</h1>
         <p className="quiz-subtitle">Veri yapıları konularını pekiştirici sorular</p>
-        <Link to="/hafta1" className="back-link">← 1. Hafta'ya Dön</Link>
+  <Link to="/hafta1" className="back-link">1. Hafta'ya Dön</Link>
       </div>
 
       <section className="section quiz-section">
@@ -530,8 +530,8 @@ function Hafta1Quiz() {
       <Notes topicPath="/hafta1-quiz" topicTitle="Hafta 1 DSA - Soru & Cevap" />
 
       <div className="navigation-links">
-        <Link to="/hashmap" className="nav-button">← HashMap</Link>
-        <Link to="/hafta2" className="nav-button">2. Hafta →</Link>
+  <Link to="/hashmap" className="nav-button">HashMap</Link>
+  <Link to="/hafta2" className="nav-button">2. Hafta</Link>
       </div>
     </div>
   );

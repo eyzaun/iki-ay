@@ -16,7 +16,7 @@ function BFS() {
 
       <div className="content-header">
         <h1>BFS (Breadth-First Search) ve Graph Yapıları</h1>
-        <Link to="/hafta2" className="back-link">← 2. Hafta'ya Dön</Link>
+  <Link to="/hafta2" className="back-link">2. Hafta'ya Dön</Link>
       </div>
 
       <section className="section">
@@ -41,8 +41,8 @@ function BFS() {
     / \\ / \\
    4 5 6  7
 
-DFS (Preorder): 1 → 2 → 4 → 5 → 3 → 6 → 7  (Derinlemesine)
-BFS (Level):    1 → 2 → 3 → 4 → 5 → 6 → 7  (Seviye seviye)`}
+DFS (Preorder): 1 -> 2 -> 4 -> 5 -> 3 -> 6 -> 7  (Derinlemesine)
+BFS (Level):    1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7  (Seviye seviye)`}
           </CodeBlock>
       </section>
 
@@ -553,8 +553,8 @@ public List<int> NodesAtDistance(Graph graph, int start, int targetDistance)
               </tr>
               <tr>
                 <td><strong>Shortest Path</strong></td>
-                <td>✅ Garanti</td>
-                <td>❌ Garanti yok</td>
+                <td>Garanti</td>
+                <td>Garanti yok</td>
               </tr>
               <tr>
                 <td><strong>Space Complexity</strong></td>
@@ -575,7 +575,7 @@ public List<int> NodesAtDistance(Graph graph, int start, int targetDistance)
         <h2>BFS vs DFS Kullanım Alanları</h2>
 
         <div className="topic-card">
-          <h3>✅ BFS Kullan Eğer:</h3>
+          <h3>Uygun Olduğu Durumlar:</h3>
           <ul>
             <li><strong>Shortest path</strong> (unweighted) buluyorsan</li>
             <li><strong>Level-order</strong> işlem gerekiyorsa</li>
@@ -585,7 +585,7 @@ public List<int> NodesAtDistance(Graph graph, int start, int targetDistance)
         </div>
 
         <div className="topic-card">
-          <h3>✅ DFS Kullan Eğer:</h3>
+          <h3>Uygun Olduğu Durumlar:</h3>
           <ul>
             <li><strong>Path existence</strong> kontrol ediyorsan</li>
             <li><strong>Cycle detection</strong> yapıyorsan</li>
@@ -617,14 +617,14 @@ public List<int> NodesAtDistance(Graph graph, int start, int targetDistance)
       </section>
 
       <section className="section">
-        <p><strong>Next: Sorting Algorithms (MergeSort, QuickSort)! 🔄</strong></p>
+  <p><strong>Next: Sorting Algorithms (MergeSort, QuickSort)!</strong></p>
       </section>
 
       <Notes topicPath="/bfs" topicTitle="BFS (Breadth-First Search) ve Graph Yapıları" />
 
       <div className="navigation-links">
-        <Link to="/dfs" className="nav-button">← DFS</Link>
-        <Link to="/sorting" className="nav-button">Sorting →</Link>
+  <Link to="/dfs" className="nav-button">DFS</Link>
+  <Link to="/sorting" className="nav-button">Sorting</Link>
       </div>
     </div>
   );

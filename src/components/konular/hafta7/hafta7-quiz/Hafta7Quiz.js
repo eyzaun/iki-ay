@@ -25,7 +25,7 @@ function Hafta7Quiz() {
       <div className="content-header">
         <h1>Hafta 7 Development Practices - Soru & Cevap</h1>
         <p className="quiz-subtitle">Development practices konularını pekiştirici sorular</p>
-        <Link to="/hafta7" className="back-link">← 7. Hafta'ya Dön</Link>
+  <Link to="/hafta7" className="back-link">7. Hafta'ya Dön</Link>
       </div>
 
       <section className="section quiz-section">
@@ -330,8 +330,8 @@ function Hafta7Quiz() {
       <Notes topicPath="/hafta7-quiz" topicTitle="Hafta 7 DSA - Soru & Cevap" />
 
       <div className="navigation-links">
-        <Link to="/test-coverage" className="nav-button">← Test Coverage</Link>
-        <Link to="/hafta8" className="nav-button">8. Hafta →</Link>
+  <Link to="/test-coverage" className="nav-button">Test Coverage</Link>
+  <Link to="/hafta8" className="nav-button">8. Hafta</Link>
       </div>
     </div>
   );

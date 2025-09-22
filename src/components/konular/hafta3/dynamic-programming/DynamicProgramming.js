@@ -16,7 +16,7 @@ function DynamicProgramming() {
 
       <div className="content-header">
         <h1>Dynamic Programming (DP) - İleri Algoritmalar</h1>
-        <Link to="/hafta3" className="back-link">← 3. Hafta'ya Dön</Link>
+        <Link to="/hafta3" className="back-link">3. Hafta'ya Dön</Link>
       </div>
 
       <section className="section">
@@ -311,7 +311,7 @@ public long FibonacciTab(int n)
         <h2>DP Pattern Recognition</h2>
 
         <div className="topic-card">
-          <h3>✅ DP Kullan Eğer:</h3>
+          <h3>DP Kullan Eğer:</h3>
           <ul>
             <li><strong>Optimization problemi:</strong> Min/max/count</li>
             <li><strong>Optimal substructure:</strong> Küçük problemlerin çözümü büyük problemi çözer</li>
@@ -321,7 +321,7 @@ public long FibonacciTab(int n)
         </div>
 
         <div className="topic-card">
-          <h3>❌ DP Kullanma Eğer:</h3>
+          <h3>DP Kullanma Eğer:</h3>
           <ul>
             <li><strong>Greedy yeterli:</strong> Local optimal = global optimal</li>
             <li><strong>No overlapping:</strong> Her alt problem unique</li>
@@ -403,8 +403,8 @@ public int LCSOptimized(string s1, string s2)
       <Notes topicPath="/dynamic-programming" topicTitle="Dynamic Programming (DP) - İleri Algoritmalar" />
 
       <div className="navigation-links">
-        <Link to="/hafta3" className="nav-button">← 3. Hafta</Link>
-        <Link to="/greedy" className="nav-button">Greedy →</Link>
+        <Link to="/hafta3" className="nav-button">3. Hafta</Link>
+        <Link to="/greedy" className="nav-button">Greedy</Link>
       </div>
     </div>
   );

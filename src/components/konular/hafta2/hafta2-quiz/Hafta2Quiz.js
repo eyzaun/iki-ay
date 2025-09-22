@@ -25,7 +25,7 @@ function Hafta2Quiz() {
       <div className="content-header">
         <h1>Hafta 2 DSA - Soru & Cevap</h1>
         <p className="quiz-subtitle">İleri veri yapıları ve algoritmalar konularını pekiştirici sorular</p>
-        <Link to="/hafta2" className="back-link">← 2. Hafta'ya Dön</Link>
+  <Link to="/hafta2" className="back-link">2. Hafta'ya Dön</Link>
       </div>
 
       <section className="section quiz-section">
@@ -85,9 +85,9 @@ function Hafta2Quiz() {
             <div className="answer">
               <strong>C:</strong>
               <ul>
-                <li><strong>Preorder:</strong> Root → Left → Right</li>
-                <li><strong>Inorder:</strong> Left → Root → Right</li>
-                <li><strong>Postorder:</strong> Left → Right → Root</li>
+                <li><strong>Preorder:</strong> Root -&gt; Left -&gt; Right</li>
+                <li><strong>Inorder:</strong> Left -&gt; Root -&gt; Right</li>
+                <li><strong>Postorder:</strong> Left -&gt; Right -&gt; Root</li>
               </ul>
             </div>
           )}
@@ -170,7 +170,7 @@ function Hafta2Quiz() {
             <div className="answer">
               <strong>C:</strong>
               <ul>
-                <li><strong>Directed:</strong> Edge'ler yönlü (A→B ≠ B→A)</li>
+                <li><strong>Directed:</strong> Edge'ler yönlü (A-&gt;B != B-&gt;A)</li>
                 <li><strong>Undirected:</strong> Edge'ler yönsüz (A-B = B-A)</li>
               </ul>
             </div>
@@ -222,8 +222,8 @@ function Hafta2Quiz() {
       <Notes topicPath="/hafta2-quiz" topicTitle="Hafta 2 DSA - Soru & Cevap" />
 
       <div className="navigation-links">
-        <Link to="/hafta1-quiz" className="nav-button">← 1. Hafta Quiz</Link>
-        <Link to="/hafta3" className="nav-button">3. Hafta →</Link>
+  <Link to="/hafta1-quiz" className="nav-button">1. Hafta Quiz</Link>
+  <Link to="/hafta3" className="nav-button">3. Hafta</Link>
       </div>
     </div>
   );

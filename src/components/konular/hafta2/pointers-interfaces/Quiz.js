@@ -25,7 +25,7 @@ function QuizHafta2() {
       <div className="content-header">
         <h1>Hafta 2 DSA - Soru & Cevap</h1>
         <p className="quiz-subtitle">İleri veri yapıları ve algoritmalar konularını pekiştirici sorular</p>
-        <Link to="/hafta2" className="back-link">← 2. Hafta'ya Dön</Link>
+  <Link to="/hafta2" className="back-link">2. Hafta'ya Dön</Link>
       </div>
 
       <section className="section quiz-section">
@@ -130,7 +130,7 @@ function QuizHafta2() {
           </div>
           {visibleAnswers.bst3 && (
             <div className="answer">
-              <strong>C:</strong> **Inorder traversal** (Left → Root → Right). BST property'si sayesinde bu sıralama otomatik olarak sorted order verir.
+              <strong>C:</strong> <strong>Inorder traversal</strong> (Left -&gt; Root -&gt; Right). BST property'si sayesinde bu sıralama otomatik olarak sorted order verir.
             </div>
           )}
         </div>
@@ -189,9 +189,9 @@ function QuizHafta2() {
             <div className="answer">
               <strong>C:</strong>
               <ul>
-                <li><strong>Preorder:</strong> Root → Left → Right</li>
-                <li><strong>Inorder:</strong> Left → Root → Right</li>
-                <li><strong>Postorder:</strong> Left → Right → Root</li>
+                <li><strong>Preorder:</strong> Root -&gt; Left -&gt; Right</li>
+                <li><strong>Inorder:</strong> Left -&gt; Root -&gt; Right</li>
+                <li><strong>Postorder:</strong> Left -&gt; Right -&gt; Root</li>
               </ul>
             </div>
           )}
@@ -719,8 +719,8 @@ function QuizHafta2() {
       <Notes topicPath="/hafta2-quiz" topicTitle="Hafta 2 DSA - Soru & Cevap" />
 
       <div className="navigation-links">
-        <Link to="/bst-advanced" className="nav-button">← BST Advanced</Link>
-        <Link to="/hafta3" className="nav-button">Hafta 3 →</Link>
+  <Link to="/bst-advanced" className="nav-button">BST Advanced</Link>
+  <Link to="/hafta3" className="nav-button">Hafta 3</Link>
       </div>
     </div>
   );

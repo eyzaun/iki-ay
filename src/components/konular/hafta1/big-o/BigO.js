@@ -15,7 +15,7 @@ function BigO() {
       
       <div className="content-header">
         <h1>Big-O Notation - Algoritma Performansı</h1>
-        <Link to="/hafta1" className="back-link">← 1. Hafta'ya Dön</Link>
+  <Link to="/hafta1" className="back-link">1. Hafta'ya Dön</Link>
       </div>
 
       <section className="section">
@@ -28,8 +28,8 @@ function BigO() {
         <h3>Gerçek Hayattan Örnek</h3>
         <p>Diyelim ki telefonunda 1000 kişilik rehberin var:</p>
         <ul>
-          <li><strong>Sırayla arama:</strong> A'dan Z'ye tek tek bakarsın → En kötü 1000 işlem</li>
-          <li><strong>Hızlı arama:</strong> Ortadan başlayıp yarıya böl böl ararsın → En kötü 10 işlem</li>
+          <li><strong>Sırayla arama:</strong> A'dan Z'ye tek tek bakarsın -&gt; En kötü 1000 işlem</li>
+          <li><strong>Hızlı arama:</strong> Ortadan başlayıp yarıya böl böl ararsın -&gt; En kötü 10 işlem</li>
         </ul>
         <p>İşte Big-O bu farkı gösterir! Birinci yöntem O(n), ikincisi O(log n).</p>
         
@@ -45,7 +45,7 @@ function BigO() {
         <h2>Temel Big-O Türleri (Yavaştan Hızlıya)</h2>
 
         <div className="topic-card">
-          <h3>1. O(1) - Sabit Zaman ⚡</h3>
+          <h3>1. O(1) - Sabit Zaman</h3>
           <p><strong>Ne demek:</strong> Veri ne kadar büyük olursa olsun, hep aynı sürede çalışır.</p>
           <p><strong>Gerçek hayat örneği:</strong> TV kumandası ile kanal değiştirmek. İster 50 kanal ister 500 kanal olsun, tuşa basınca hep aynı sürede değişir.</p>
           <CodeBlock language="csharp">
@@ -83,7 +83,7 @@ public int BinarySearch(int[] sortedArray, int target)
         </div>
 
         <div className="topic-card">
-          <h3>3. O(n) - Doğrusal Zaman 📈</h3>
+          <h3>3. O(n) - Doğrusal Zaman</h3>
           <p><strong>Ne demek:</strong> Veri 2 katına çıkınca süre de 2 katına çıkar.</p>
           <p><strong>Gerçek hayat örneği:</strong> Kitap okumak. 100 sayfalık kitap 1 saat, 200 sayfalık kitap 2 saat.</p>
           <CodeBlock language="csharp">
@@ -100,7 +100,7 @@ public int LinearSearch(int[] array, int target)
         </div>
 
         <div className="topic-card">
-          <h3>4. O(n²) - Karesel Zaman 🐌</h3>
+          <h3>4. O(n²) - Karesel Zaman</h3>
           <p><strong>Ne demek:</strong> Veri 2 katına çıkınca süre 4 katına çıkar!</p>
           <p><strong>Gerçek hayat örneği:</strong> Sınıftaki herkesin herkesle tokalaşması. 10 kişi varsa 100 tokalaşma, 20 kişi varsa 400 tokalaşma.</p>
           <CodeBlock language="csharp">
@@ -212,8 +212,8 @@ public bool HasPairSumFast(int[] array, int target)
       </section>
 
       <div className="navigation-links">
-        <Link to="/big-o" className="nav-button">← Big-O</Link>
-        <Link to="/linkedlist" className="nav-button">LinkedList →</Link>
+  <Link to="/big-o" className="nav-button">Big-O</Link>
+  <Link to="/linkedlist" className="nav-button">LinkedList</Link>
       </div>
     </div>
   );

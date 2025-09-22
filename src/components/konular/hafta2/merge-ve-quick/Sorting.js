@@ -16,7 +16,7 @@ function Sorting() {
 
       <div className="content-header">
         <h1>Sorting Algorithms - MergeSort & QuickSort</h1>
-        <Link to="/hafta2" className="back-link">← 2. Hafta'ya Dön</Link>
+  <Link to="/hafta2" className="back-link">2. Hafta'ya Dön</Link>
       </div>
 
       <section className="section">
@@ -51,8 +51,8 @@ function Sorting() {
           <h3>Gerçek Hayat Örneği: Kargo Şirketi</h3>
           <p>Düşün ki 1000 paketi sıralaman gerek:</p>
           <ul>
-            <li><strong>Naif yöntem:</strong> Hepsini tek seferde sırala → Çok zor!</li>
-            <li><strong>Akıllı yöntem:</strong> 10 gruba böl (100'er paket), her grubu sırala, sonra birleştir → Kolay!</li>
+            <li><strong>Naif yöntem:</strong> Hepsini tek seferde sırala -&gt; Çok zor!</li>
+            <li><strong>Akıllı yöntem:</strong> 10 gruba böl (100'er paket), her grubu sırala, sonra birleştir -&gt; Kolay!</li>
           </ul>
         </div>
       </section>
@@ -157,7 +157,7 @@ function Sorting() {
             <div className="topic-card">
               <h3>MergeSort'un Özellikleri</h3>
 
-              <h4>✅ Avantajları:</h4>
+              <h4>Avantajları:</h4>
               <ul>
                 <li><strong>Stable:</strong> Eşit elemanların sırası korunur</li>
                 <li><strong>Guaranteed O(n log n):</strong> Worst case bile hızlı</li>
@@ -165,7 +165,7 @@ function Sorting() {
                 <li><strong>Good for large datasets:</strong> Büyük veri setlerinde güvenilir</li>
               </ul>
 
-              <h4>❌ Dezavantajları:</h4>
+              <h4>Dezavantajları:</h4>
               <ul>
                 <li><strong>Extra memory:</strong> O(n) ekstra alan gerekir</li>
                 <li><strong>Not in-place:</strong> Original array'in yanında temporary arrays</li>
@@ -185,8 +185,8 @@ function Sorting() {
 
 1. Pivot = 5 seç
 2. Partition: [1] [5] [10, 7, 8, 9]  (5'ten küçük sol, büyük sağ)
-3. Sol: [1] → Sorted
-4. Sağ: [10, 7, 8, 9] → Pivot = 9 → [7, 8] [9] [10]
+3. Sol: [1] -&gt; Sorted
+4. Sağ: [10, 7, 8, 9] -&gt; Pivot = 9 -&gt; [7, 8] [9] [10]
 5. Continue recursively...`}
             </CodeBlock>
           </div>
@@ -273,7 +273,7 @@ function Sorting() {
             <div className="topic-card">
               <h3>QuickSort'un Özellikleri</h3>
 
-              <h4>✅ Avantajları:</h4>
+              <h4>Avantajları:</h4>
               <ul>
                 <li><strong>In-place:</strong> O(1) extra memory (recursion stack hariç)</li>
                 <li><strong>Fast average case:</strong> O(n log n) average performance</li>
@@ -281,7 +281,7 @@ function Sorting() {
                 <li><strong>Simple implementation:</strong> Anlaşılması kolay</li>
               </ul>
 
-              <h4>❌ Dezavantajları:</h4>
+              <h4>Dezavantajları:</h4>
               <ul>
                 <li><strong>Worst case O(n²):</strong> Pivot selection kötüyse</li>
                 <li><strong>Not stable:</strong> Eşit elemanların sırası değişebilir</li>
@@ -510,7 +510,7 @@ private int QuickSelect(int[] array, int low, int high, int targetIndex)
         <h2>Sorting Algorithm Seçimi</h2>
 
         <div className="topic-card">
-          <h3>🎯 Hangi Durumda Hangisini Kullan:</h3>
+          <h3>Hangi Durumda Hangisini Kullan:</h3>
 
           <h4>MergeSort kullan eğer:</h4>
           <ul>
@@ -544,8 +544,8 @@ private int QuickSelect(int[] array, int low, int high, int targetIndex)
       <Notes topicPath="/sorting" topicTitle="Sorting Algorithms - MergeSort & QuickSort" />
 
       <div className="navigation-links">
-        <Link to="/bfs" className="nav-button">← BFS</Link>
-        <Link to="/bst-advanced" className="nav-button">BST Advanced →</Link>
+  <Link to="/bfs" className="nav-button">BFS</Link>
+  <Link to="/bst-advanced" className="nav-button">BST Advanced</Link>
       </div>
     </div>
   );

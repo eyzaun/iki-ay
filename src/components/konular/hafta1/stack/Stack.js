@@ -16,7 +16,7 @@ function Stack() {
       
       <div className="content-header">
         <h1>Stack (Yığın) - LIFO Veri Yapısı</h1>
-        <Link to="/hafta1" className="back-link">← 1. Hafta'ya Dön</Link>
+  <Link to="/hafta1" className="back-link">1. Hafta'ya Dön</Link>
       </div>
 
       <section className="section">
@@ -49,7 +49,7 @@ function Stack() {
         <p>Stack'te sadece <strong>4 temel işlem</strong> var:</p>
 
         <div className="topic-card">
-          <h3>1. Push - Üste Ekleme O(1) ⚡</h3>
+          <h3>1. Push - Üste Ekleme O(1)</h3>
           <CodeBlock language="csharp">
 {`// En üste eleman ekle
 stack.Push(element);`}
@@ -57,7 +57,7 @@ stack.Push(element);`}
         </div>
 
         <div className="topic-card">
-          <h3>2. Pop - Üstten Alma O(1) ⚡</h3>
+          <h3>2. Pop - Üstten Alma O(1)</h3>
           <CodeBlock language="csharp">
 {`// En üstteki elemanı al ve kaldır
 element = stack.Pop();`}
@@ -65,7 +65,7 @@ element = stack.Pop();`}
         </div>
 
         <div className="topic-card">
-          <h3>3. Peek/Top - Üsttekine Bakma O(1) ⚡</h3>
+          <h3>3. Peek/Top - Üsttekine Bakma O(1)</h3>
           <CodeBlock language="csharp">
 {`// En üstteki elemanı göster ama kaldırma
 element = stack.Peek();`}
@@ -73,7 +73,7 @@ element = stack.Peek();`}
         </div>
 
         <div className="topic-card">
-          <h3>4. IsEmpty - Boş mu Kontrolü O(1) ⚡</h3>
+          <h3>4. IsEmpty - Boş mu Kontrolü O(1)</h3>
           <CodeBlock language="csharp">
 {`// Stack boş mu?
 bool isEmpty = stack.Count == 0;`}
@@ -195,19 +195,19 @@ bool isEmpty = stack.Count == 0;`}
         <CodeBlock language="csharp">
 {`Stack Durumu:    [Boş]
 
-Push(10):        [10]     ← top
+Push(10):        [10]     ^ top
 
-Push(20):        [20]     ← top
+Push(20):        [20]     ^ top
                  [10]
 
-Push(30):        [30]     ← top
+Push(30):        [30]     ^ top
                  [20]
                  [10]
 
-Pop():           [20]     ← top  (30 döndürüldü)
+Pop():           [20]     ^ top  (30 döndürüldü)
                  [10]
 
-Peek():          [20]     ← top  (20 gösterildi, kaldırılmadı)
+Peek():          [20]     ^ top  (20 gösterildi, kaldırılmadı)
                  [10]`}
           </CodeBlock>
       </section>
@@ -276,8 +276,8 @@ int[] array = stack.ToArray(); // [20, 10] (ters sırada!)`}
 }
 
 // Kullanım:
-// IsValidParentheses("({[]})") → true
-// IsValidParentheses("([)]")   → false`}
+// IsValidParentheses("({[]})") -> true
+// IsValidParentheses("([)]")   -> false`}
           </CodeBlock>
         </div>
 
@@ -314,7 +314,7 @@ int[] array = stack.ToArray(); // [20, 10] (ters sırada!)`}
     return stack.Pop(); // Son sonuç
 }
 
-// Kullanım: "2 3 + 4 *" → ((2+3)*4) = 20`}
+// Kullanım: "2 3 + 4 *" -> ((2+3)*4) = 20`}
           </CodeBlock>
         </div>
 
@@ -365,10 +365,10 @@ public int Fibonacci(int n)
 // Fibonacci(3) çağrı sırası:
 // Push: Fibonacci(3)
 //   Push: Fibonacci(2)
-//     Push: Fibonacci(1) → Pop (return 1)
-//     Push: Fibonacci(0) → Pop (return 0)
+//     Push: Fibonacci(1) -> Pop (return 1)
+//     Push: Fibonacci(0) -> Pop (return 0)
 //   Pop: Fibonacci(2) returns 1
-//   Push: Fibonacci(1) → Pop (return 1)
+//   Push: Fibonacci(1) -> Pop (return 1)
 // Pop: Fibonacci(3) returns 2`}
           </CodeBlock>
         </div>
@@ -425,7 +425,7 @@ public int Fibonacci(int n)
         <h2>Stack Ne Zaman Kullanılır?</h2>
         
         <div className="topic-card">
-          <h3>✅ Stack Kullan Eğer:</h3>
+          <h3>Stack Kullan Eğer:</h3>
           <ul>
             <li><strong>LIFO</strong> davranış gerekiyorsa</li>
             <li><strong>Undo/Redo</strong> functionality lazımsa</li>
@@ -436,7 +436,7 @@ public int Fibonacci(int n)
         </div>
 
         <div className="topic-card">
-          <h3>❌ Stack Kullanma Eğer:</h3>
+          <h3>Stack Kullanma Eğer:</h3>
           <ul>
             <li><strong>Random access</strong> gerekiyorsa</li>
             <li><strong>FIFO</strong> davranış istiyorsan (Queue kullan)</li>
@@ -460,8 +460,8 @@ public int Fibonacci(int n)
       <Notes topicPath="/stack" topicTitle="Stack (Yığın) - LIFO Veri Yapısı" />
 
       <div className="navigation-links">
-        <Link to="/linkedlist" className="nav-button">← LinkedList</Link>
-        <Link to="/queue" className="nav-button">Queue →</Link>
+  <Link to="/linkedlist" className="nav-button">LinkedList</Link>
+  <Link to="/queue" className="nav-button">Queue</Link>
       </div>
     </div>
   );

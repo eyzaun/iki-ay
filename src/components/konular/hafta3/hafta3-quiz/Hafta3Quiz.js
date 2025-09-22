@@ -25,11 +25,11 @@ function Hafta3Quiz() {
       <div className="content-header">
         <h1>Hafta 3 İleri Algoritmalar - Soru & Cevap</h1>
         <p className="quiz-subtitle">Dynamic Programming, Greedy, Heap & Priority Queue, Union-Find konularını pekiştirici sorular</p>
-        <Link to="/hafta3" className="back-link">← 3. Hafta'ya Dön</Link>
+  <Link to="/hafta3" className="back-link">3. Hafta'ya Dön</Link>
       </div>
 
       <section className="section quiz-section">
-        <h2>🧠 Dynamic Programming</h2>
+  <h2>Dynamic Programming</h2>
 
         <div className="quiz-item">
           <div className="question" onClick={() => toggleAnswer('dp1')}>
@@ -130,8 +130,8 @@ function Hafta3Quiz() {
             <div className="answer">
               <strong>C:</strong>
               <ul>
-                <li><strong>0/1 Knapsack:</strong> Item'i bölemezsin → DP gerekir → O(nW)</li>
-                <li><strong>Fractional:</strong> Item'i bölebilirsin → Greedy yeter → O(n log n)</li>
+                <li><strong>0/1 Knapsack:</strong> Item'i bölemezsin -&gt; DP gerekir -&gt; O(nW)</li>
+                <li><strong>Fractional:</strong> Item'i bölebilirsin -&gt; Greedy yeter -&gt; O(n log n)</li>
               </ul>
             </div>
           )}
@@ -169,7 +169,7 @@ function Hafta3Quiz() {
       </section>
 
       <section className="section quiz-section">
-        <h2>💚 Greedy Algorithms</h2>
+  <h2>Greedy Algorithms</h2>
 
         <div className="quiz-item">
           <div className="question" onClick={() => toggleAnswer('greedy1')}>
@@ -276,7 +276,7 @@ function Hafta3Quiz() {
             <div className="answer">
               <strong>C:</strong>
               <ul>
-                <li><strong>Greedy:</strong> Local optimal → global optimal + hız önemli</li>
+                <li><strong>Greedy:</strong> Local optimal -&gt; global optimal + hız önemli</li>
                 <li><strong>DP:</strong> Overlapping subproblems + optimal solution garanti</li>
               </ul>
             </div>
@@ -297,7 +297,7 @@ function Hafta3Quiz() {
       </section>
 
       <section className="section quiz-section">
-        <h2>🏔️ Heap & Priority Queue</h2>
+  <h2>Heap &amp; Priority Queue</h2>
 
         <div className="quiz-item">
           <div className="question" onClick={() => toggleAnswer('heap1')}>
@@ -444,7 +444,7 @@ function Hafta3Quiz() {
       </section>
 
       <section className="section quiz-section">
-        <h2>🔗 Union-Find (Disjoint Set)</h2>
+  <h2>Union-Find (Disjoint Set)</h2>
 
         <div className="quiz-item">
           <div className="question" onClick={() => toggleAnswer('uf1')}>
@@ -574,7 +574,7 @@ function Hafta3Quiz() {
       </section>
 
       <section className="section quiz-section">
-        <h2>🎯 Algorithm Design & Problem Solving</h2>
+  <h2>Algorithm Design &amp; Problem Solving</h2>
 
         <div className="quiz-item">
           <div className="question" onClick={() => toggleAnswer('design1')}>
@@ -585,7 +585,7 @@ function Hafta3Quiz() {
             <div className="answer">
               <strong>C:</strong>
               <ol>
-                <li><strong>Greedy work eder mi?</strong> (local optimal → global)</li>
+                <li><strong>Greedy work eder mi?</strong> (local optimal -&gt; global)</li>
                 <li><strong>DP patterns var mı?</strong> (overlapping subproblems)</li>
                 <li><strong>Graph problem mi?</strong> (shortest path, MST)</li>
                 <li><strong>Search space'te binary search?</strong> (monotonic property)</li>
@@ -755,21 +755,21 @@ function Hafta3Quiz() {
           
           <p><strong>Öğrendiğin İleri Algoritmalar:</strong></p>
           <ul>
-            <li>✅ <strong>Dynamic Programming</strong> - Memoization vs Tabulation</li>
-            <li>✅ <strong>Greedy Algorithms</strong> - Local optimal seçimler</li>
-            <li>✅ <strong>Heap & Priority Queue</strong> - Öncelik tabanlı işlemler</li>
-            <li>✅ <strong>Union-Find</strong> - Dynamic connectivity ve grup yönetimi</li>
+            <li><strong>Dynamic Programming</strong> - Memoization vs Tabulation</li>
+            <li><strong>Greedy Algorithms</strong> - Local optimal seçimler</li>
+            <li><strong>Heap &amp; Priority Queue</strong> - Öncelik tabanlı işlemler</li>
+            <li><strong>Union-Find</strong> - Dynamic connectivity ve grup yönetimi</li>
           </ul>
           
-          <p>Bu 4 teknik, <strong>algorithm design'ın en güçlü araçları</strong>! Artık karmaşık optimization problemlerini çözebilir, efficient priority systems tasarlayabilir ve dynamic graph problemlerini handle edebilirsin! 🚀🧠</p>
+          <p>Bu 4 teknik, <strong>algorithm design'ın en güçlü araçları</strong>! Artık karmaşık optimization problemlerini çözebilir, efficient priority systems tasarlayabilir ve dynamic graph problemlerini handle edebilirsin!</p>
         </div>
       </section>
 
       <Notes topicPath="/hafta3-quiz" topicTitle="Hafta 3 DSA - Soru & Cevap" />
 
       <div className="navigation-links">
-        <Link to="/hafta2-quiz" className="nav-button">← 2. Hafta Quiz</Link>
-        <Link to="/hafta4" className="nav-button">4. Hafta →</Link>
+  <Link to="/hafta2-quiz" className="nav-button">2. Hafta Quiz</Link>
+  <Link to="/hafta4" className="nav-button">4. Hafta</Link>
       </div>
     </div>
   );

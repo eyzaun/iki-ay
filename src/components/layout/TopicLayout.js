@@ -14,7 +14,7 @@ function TopicLayout({ children, title, description, canonical, backLink, topicP
       <div className="content-header">
         <h1>{title.split(' - ')[0]}</h1>
         {backLink && (
-          <Link to={backLink} className="back-link">← {backLink.split('/')[1] === 'hafta1' ? '1. Hafta\'ya Dön' : 'Geri Dön'}</Link>
+          <Link to={backLink} className="back-link">{backLink.split('/')[1] === 'hafta1' ? '1. Hafta\'ya Dön' : 'Geri Dön'}</Link>
         )}
       </div>
 

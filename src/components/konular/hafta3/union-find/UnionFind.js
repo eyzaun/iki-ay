@@ -16,7 +16,7 @@ function UnionFind() {
 
       <div className="content-header">
         <h1>Union-Find (Disjoint Set) - Grup Yönetimi</h1>
-        <Link to="/hafta3" className="back-link">← 3. Hafta'ya Dön</Link>
+  <Link to="/hafta3" className="back-link">3. Hafta'ya Dön</Link>
       </div>
 
       <section className="section">
@@ -586,8 +586,8 @@ function UnionFind() {
               </tr>
               <tr>
                 <td>Dynamic</td>
-                <td>✅</td>
-                <td>✅</td>
+                <td>Evet</td>
+                <td>Evet</td>
                 <td>Limited</td>
               </tr>
             </tbody>
@@ -615,7 +615,7 @@ function UnionFind() {
         <h2>Union-Find Ne Zaman Kullanılır?</h2>
 
         <div className="topic-card">
-          <h3>✅ Union-Find Kullan Eğer:</h3>
+          <h3>Uygun Olduğu Durumlar:</h3>
           <ul>
             <li><strong>Dynamic connectivity</strong> queries</li>
             <li><strong>Connected components</strong> bulma</li>
@@ -627,7 +627,7 @@ function UnionFind() {
         </div>
 
         <div className="topic-card">
-          <h3>❌ Union-Find Kullanma Eğer:</h3>
+          <h3>Uygun Olmadığı Durumlar:</h3>
           <ul>
             <li><strong>Path queries</strong> gerekli (shortest path)</li>
             <li><strong>Disconnection</strong> operations gerekli</li>
@@ -763,8 +763,8 @@ public void DynamicConnectivityExample()
       <Notes topicPath="/unionfind" topicTitle="Union-Find (Disjoint Set) - Grup Yönetimi" />
 
       <div className="navigation-links">
-        <Link to="/sliding-window" className="nav-button">← Sliding Window</Link>
-        <Link to="/topological-sort" className="nav-button">Topological Sort →</Link>
+  <Link to="/sliding-window" className="nav-button">Sliding Window</Link>
+  <Link to="/topological-sort" className="nav-button">Topological Sort</Link>
       </div>
     </div>
   );

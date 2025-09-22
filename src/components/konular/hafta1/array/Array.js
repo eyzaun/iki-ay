@@ -16,7 +16,7 @@ function Array() {
       
       <div className="content-header">
         <h1>Arrays (Diziler) - Programlamanın Temeli</h1>
-        <Link to="/hafta1" className="back-link">← 1. Hafta'ya Dön</Link>
+  <Link to="/hafta1" className="back-link">1. Hafta'ya Dön</Link>
       </div>
 
       <section className="section">
@@ -63,9 +63,9 @@ dynamicNumbers.Add(20);`}
         <h2>Array'in Süper Güçleri ve Zayıflıkları</h2>
 
         <div className="topic-card">
-          <h3>🚀 Süper Güçleri:</h3>
+          <h3>Süper Güçleri:</h3>
           <ol>
-            <li><strong>Işık hızında erişim:</strong> Index biliyorsan → O(1)</li>
+            <li><strong>Işık hızında erişim:</strong> Index biliyorsan -&gt; O(1)</li>
             <li><strong>Bellek dostu:</strong> Minimum yer kaplar</li>
             <li><strong>Cache friendly:</strong> Veriler yan yana olduğu için CPU çok seviyor</li>
             <li><strong>Basit:</strong> Öğrenmesi ve kullanması kolay</li>
@@ -121,7 +121,7 @@ public int FindElement(int[] array, int target)
         </div>
 
         <div className="topic-card">
-          <h3>4. Sıralı Array'de Arama - O(log n) 🔍</h3>
+          <h3>4. Sıralı Array'de Arama - O(log n)</h3>
           <CodeBlock language="csharp">
 {`// Binary Search - Çok daha hızlı!
 public int BinarySearch(int[] sortedArray, int target)
@@ -178,7 +178,7 @@ for (int i = 0; i < 10; i++)
     Console.WriteLine($"Eleman: {i}, Kapasite: {list.Capacity}");
 }
 
-// Çıktı genelde: 0 → 4 → 8 → 16
+// Çıktı genelde: 0 -> 4 -> 8 -> 16
 // Dolunca 2 katına çıkar - akıllıca!`}
           </CodeBlock>
       </section>
@@ -284,7 +284,7 @@ public int MaxSum(int[] array, int k)
         <h2>Array Ne Zaman Kullanılır?</h2>
         
         <div className="topic-card">
-          <h3>✅ Array Kullan Eğer:</h3>
+          <h3>Array Kullan Eğer:</h3>
           <ul>
             <li><strong>Hızlı erişim</strong> gerekiyorsa (index ile)</li>
             <li><strong>Bellek tasarrufu</strong> önemliyse</li>
@@ -294,7 +294,7 @@ public int MaxSum(int[] array, int k)
         </div>
 
         <div className="topic-card">
-          <h3>❌ Array Kullanma Eğer:</h3>
+          <h3>Array Kullanma Eğer:</h3>
           <ul>
             <li><strong>Sık ekleme/silme</strong> yapacaksan (ortadan)</li>
             <li><strong>Boyut çok değişkensse</strong></li>
@@ -318,8 +318,8 @@ public int MaxSum(int[] array, int k)
       <Notes topicPath="/array" topicTitle="Arrays (Diziler) - Programlamanın Temeli" />
 
       <div className="navigation-links">
-        <Link to="/big-o" className="nav-button">← Big-O</Link>
-        <Link to="/linkedlist" className="nav-button">LinkedList →</Link>
+  <Link to="/big-o" className="nav-button">Big-O</Link>
+  <Link to="/linkedlist" className="nav-button">LinkedList</Link>
       </div>
     </div>
   );

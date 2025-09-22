@@ -16,7 +16,7 @@ function Greedy() {
 
       <div className="content-header">
         <h1>Greedy Algorithms - Açgözlü Algoritmalar</h1>
-        <Link to="/hafta3" className="back-link">← 3. Hafta'ya Dön</Link>
+  <Link to="/hafta3" className="back-link">3. Hafta'ya Dön</Link>
       </div>
 
       <section className="section">
@@ -348,24 +348,24 @@ public double FractionalKnapsack(List<Item> items, int capacity)
         <h2>Greedy'nin Çalışmadığı Problemler</h2>
 
         <div className="topic-card">
-          <h3>❌ 0/1 Knapsack</h3>
+          <h3>0/1 Knapsack</h3>
           <p>Item'i bölemezsin, future consequences var!</p>
           <CodeBlock language="csharp">
 {`// Greedy yanlış: Value/weight ratio'ya göre al
 // DP doğru: Her item için al/alma kararı ver
 
-// Greedy: [60/10=6, 100/20=5, 120/30=4] → 60+100=160
-// Optimal: [100/20, 120/30] → 220 (60/10'u alma!)`}
+// Greedy: [60/10=6, 100/20=5, 120/30=4] -> 60+100=160
+// Optimal: [100/20, 120/30] -> 220 (60/10'u alma!)`}
           </CodeBlock>
         </div>
 
         <div className="topic-card">
-          <h3>❌ Coin Change (Non-standard)</h3>
+          <h3>Coin Change (Non-standard)</h3>
           <p>Greedy optimal olmayabilir!</p>
         </div>
 
         <div className="topic-card">
-          <h3>❌ Longest Common Subsequence</h3>
+          <h3>Longest Common Subsequence</h3>
           <p>Future matching'ler local choice'ı etkiler</p>
         </div>
       </section>
@@ -374,7 +374,7 @@ public double FractionalKnapsack(List<Item> items, int capacity)
         <h2>Greedy Pattern Recognition</h2>
 
         <div className="topic-card">
-          <h3>✅ Greedy Kullan Eğer:</h3>
+          <h3>Greedy Kullan Eğer:</h3>
           <ul>
             <li><strong>Local optimal = Global optimal</strong></li>
             <li><strong>Sorting yeterli</strong> (activity selection, fractional knapsack)</li>
@@ -384,7 +384,7 @@ public double FractionalKnapsack(List<Item> items, int capacity)
         </div>
 
         <div className="topic-card">
-          <h3>❌ Greedy Kullanma Eğer:</h3>
+          <h3>Greedy Kullanma Eğer:</h3>
           <ul>
             <li><strong>Future decisions</strong> local choice'ı etkiler</li>
             <li><strong>Overlapping subproblems</strong> var</li>
@@ -409,8 +409,8 @@ public double FractionalKnapsack(List<Item> items, int capacity)
       <Notes topicPath="/greedy" topicTitle="Greedy Algorithms - Açgözlü Algoritmalar" />
 
       <div className="navigation-links">
-        <Link to="/dynamic-programming" className="nav-button">← DP</Link>
-        <Link to="/sliding-window" className="nav-button">Sliding Window →</Link>
+        <Link to="/dynamic-programming" className="nav-button">DP</Link>
+        <Link to="/sliding-window" className="nav-button">Sliding Window</Link>
       </div>
     </div>
   );
