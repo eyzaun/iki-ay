@@ -2,9 +2,12 @@ import React, { useEffect } from 'react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { prismThemes, buildThemeWithFont, codeWrapperStyle } from '../../utils/themes';
 import { useCodePrefs } from '../../context/CodePrefsContext';
+import { useUITheme } from '../../context/UIThemeContext';
+import { uiThemes } from '../../theme/uiThemes';
 
 const SettingsPage = () => {
   const { fontSize, setFontSize, theme, setTheme } = useCodePrefs();
+  const { uiTheme, setUiTheme, themeNames } = useUITheme();
 
   useEffect(() => {
     // ensure scroll to top on page open
@@ -15,6 +18,20 @@ const SettingsPage = () => {
     <div className="app-container">
   <h1>Ayarlar</h1>
       <section className="section code-settings">
+        <div className="setting-group">
+          <label>
+            Uygulama Teması:
+            <select
+              value={uiTheme}
+              onChange={(e) => setUiTheme(e.target.value)}
+              className="theme-select"
+            >
+              {themeNames.map((key) => (
+                <option key={key} value={key}>{uiThemes[key]?.name || key}</option>
+              ))}
+            </select>
+          </label>
+        </div>
         <div className="setting-group">
           <label>
             Yazı Boyutu: {fontSize}px

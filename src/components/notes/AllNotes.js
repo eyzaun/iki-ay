@@ -5,6 +5,8 @@ import { useNotes } from '../../context/NotesContext';
 import { useAuth } from '../../context/AuthContext';
 import SEO from '../../seo';
 import { useCodePrefs } from '../../context/CodePrefsContext';
+import { useUITheme } from '../../context/UIThemeContext';
+import { uiThemes } from '../../theme/uiThemes';
 import CodeBlock from '../ui/CodeBlock';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
@@ -14,6 +16,8 @@ function AllNotes() {
   const { getAllNotes, loading, deleteNote, saveNote } = useNotes();
   const allNotes = getAllNotes();
   const { fontSize } = useCodePrefs();
+  const { uiTheme } = useUITheme();
+  const themeTokens = (uiThemes[uiTheme] || uiThemes.dark).tokens;
 
   // Render Quill HTML content, replacing code blocks with shared CodeBlock component (Prism)
   const renderContentWithCode = (html) => {
@@ -156,22 +160,24 @@ function AllNotes() {
   const combinedBodyHTML = useMemo(() => {
     if (!sortedNotes.length) return '';
     const parts = [];
-    parts.push(`<h1 style=\"margin:0 0 12px 0;color:#00d4ff;font-size:22px;\">Tüm Notlarım</h1>`);
+    parts.push(`<h1 style=\"margin:0 0 12px 0;color:${themeTokens['--primary']};font-size:22px;\">Tüm Notlarım</h1>`);
     const dateStr = new Date().toLocaleString('tr-TR');
-    parts.push(`<div style=\"color:#9aa0a6;font-size:12px;margin:0 0 16px 0;\">Oluşturma zamanı: ${dateStr}</div>`);
+    parts.push(`<div style=\"color:${themeTokens['--muted']};font-size:12px;margin:0 0 16px 0;\">Oluşturma zamanı: ${dateStr}</div>`);
     sortedNotes.forEach((n, idx) => {
       const safeTitle = n.topicTitle || n.topicPath || `Not ${idx + 1}`;
-      parts.push(`<h2 style=\"color:#00d4ff;font-size:18px;margin:18px 0 8px 0;\">${safeTitle}</h2>`);
-      parts.push(`<div style=\"color:#ddd;line-height:1.6;\">${n.content || ''}</div>`);
-      if (idx !== sortedNotes.length - 1) parts.push('<hr style=\"border:none;border-top:1px solid #222;margin:16px 0;\"/>');
+      parts.push(`<h2 style=\"color:${themeTokens['--primary']};font-size:18px;margin:18px 0 8px 0;\">${safeTitle}</h2>`);
+      parts.push(`<div style=\"color:${themeTokens['--text']};line-height:1.6;\">${n.content || ''}</div>`);
+      if (idx !== sortedNotes.length - 1) parts.push(`<hr style=\"border:none;border-top:1px solid ${themeTokens['--border']};margin:16px 0;\"/>`);
     });
     return parts.join('');
-  }, [sortedNotes]);
+  }, [sortedNotes, themeTokens]);
 
   const combinedFullHTML = useMemo(() => {
     const body = combinedBodyHTML || '';
-    return `<!doctype html><html lang="tr"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>Tüm Notlarım</title><style>body{background:#0f0f0f;color:#ddd;margin:20px;font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', Arial, 'Noto Sans', sans-serif;}a{color:#00d4ff}pre{background:#0f0f0f;border:1px solid #222;border-radius:4px;padding:12px;overflow:auto}code{font-family:'Fira Code','Monaco','Consolas',monospace}img{max-width:100%;height:auto;border-radius:4px}blockquote{border-left:3px solid #00d4ff;padding-left:12px;color:#ccc}</style></head><body>${body}</body></html>`;
-  }, [combinedBodyHTML]);
+    const t = themeTokens;
+    const css = `body{background:${t['--bg']};color:${t['--text']};margin:20px;font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', Arial, 'Noto Sans', sans-serif;}a{color:${t['--link'] || t['--primary']}}pre{background:${t['--surface-2']};border:1px solid ${t['--border']};border-radius:4px;padding:12px;overflow:auto}code{font-family:'Fira Code','Monaco','Consolas',monospace}img{max-width:100%;height:auto;border-radius:4px}blockquote{border-left:3px solid ${t['--primary']};padding-left:12px;color:${t['--muted']}}`;
+    return `<!doctype html><html lang="tr"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>Tüm Notlarım</title><style>${css}</style></head><body>${body}</body></html>`;
+  }, [combinedBodyHTML, themeTokens]);
 
   const [showCombined, setShowCombined] = useState(false);
 
@@ -238,13 +244,13 @@ function AllNotes() {
             {showCombined && (
               <div className="combined-note-content" style={{ '--code-font-size': `${fontSize}px` }}>
                 {/* React-rendered view with shared CodeBlock for accurate theming */}
-                <h1 style={{ margin: 0, marginBottom: 12, color: '#00d4ff', fontSize: 22 }}>Tüm Notlarım</h1>
-                <div style={{ color: '#9aa0a6', fontSize: 12, marginBottom: 16 }}>Oluşturma zamanı: {new Date().toLocaleString('tr-TR')}</div>
+                <h1 style={{ margin: 0, marginBottom: 12, color: 'var(--primary)', fontSize: 22 }}>Tüm Notlarım</h1>
+                <div style={{ color: 'var(--muted)', fontSize: 12, marginBottom: 16 }}>Oluşturma zamanı: {new Date().toLocaleString('tr-TR')}</div>
                 {sortedNotes.map((n, idx) => (
                   <div key={n.id || idx}>
-                    <h2 style={{ color: '#00d4ff', fontSize: 18, margin: '18px 0 8px 0' }}>{n.topicTitle || n.topicPath || `Not ${idx + 1}`}</h2>
+                    <h2 style={{ color: 'var(--primary)', fontSize: 18, margin: '18px 0 8px 0' }}>{n.topicTitle || n.topicPath || `Not ${idx + 1}`}</h2>
                     <div>{renderContentWithCode(n.content)}</div>
-                    {idx !== sortedNotes.length - 1 && <hr style={{ border: 'none', borderTop: '1px solid #222', margin: '16px 0' }} />}
+                    {idx !== sortedNotes.length - 1 && <hr style={{ border: 'none', borderTop: '1px solid var(--border)', margin: '16px 0' }} />}
                   </div>
                 ))}
               </div>
@@ -270,7 +276,7 @@ function AllNotes() {
                       <button onClick={() => onSaveEdit(note)} className="edit-button" disabled={!!saving[note.topicPath]}>
                         {saving[note.topicPath] ? 'Kaydediliyor…' : 'Kaydet'}
                       </button>
-                      <button onClick={() => cancelEdit(note)} className="delete-button" style={{ background: '#444' }}>
+                      <button onClick={() => cancelEdit(note)} className="delete-button" style={{ background: 'var(--surface-2)', color: 'var(--muted)', border: '1px solid var(--border)' }}>
                         Vazgeç
                       </button>
                     </>

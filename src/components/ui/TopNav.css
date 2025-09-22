@@ -6,8 +6,8 @@
   align-items: center;
   justify-content: space-between;
   padding: 10px 16px;
-  background: #0f0f0f;
-  border-bottom: 1px solid #222;
+  background: var(--header-bg);
+  border-bottom: 1px solid var(--border);
   transition: transform 180ms ease, opacity 180ms ease;
 }
 .topnav.collapsed {
@@ -20,7 +20,7 @@
   opacity: 1;
 }
 .topnav .brand a {
-  color: #00d4ff;
+  color: var(--primary);
   font-weight: 800;
   text-decoration: none;
 }
@@ -34,26 +34,26 @@
 .topnav .linklike {
   background: transparent;
   border: none;
-  color: #ddd;
+  color: var(--muted);
   padding: 8px 12px;
   border-radius: 6px;
   cursor: pointer;
   font: inherit;
 }
 .topnav .linklike:hover {
-  background: #1a1a1a;
-  color: #00d4ff;
+  background: var(--surface-2);
+  color: var(--primary);
 }
 .topnav .scroll-btn {
-  background: #121212;
-  border: 1px solid #2a2a2a;
-  color: #bbb;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  color: var(--muted);
   width: 28px;
   height: 28px;
   border-radius: 6px;
   cursor: pointer;
 }
-.topnav .scroll-btn:hover { color: #00d4ff; }
+.topnav .scroll-btn:hover { color: var(--primary); }
 .topnav .menu {
   display: flex;
   gap: 8px 12px; /* row gap, column gap */
@@ -66,23 +66,23 @@
 .topnav .scroll-btn.hidden { display: none; }
 .topnav .hamburger {
   display: none;
-  background: #1a1a1a;
-  color: #ddd;
-  border: 1px solid #2a2a2a;
+  background: var(--surface-2);
+  color: var(--muted);
+  border: 1px solid var(--border);
   border-radius: 6px;
   padding: 6px 10px;
   cursor: pointer;
 }
 .topnav .menu a {
-  color: #ddd;
+  color: var(--muted);
   text-decoration: none;
   padding: 8px 12px;
   border-radius: 6px;
 }
-.topnav .menu a:visited { color: #ddd; }
+.topnav .menu a:visited { color: var(--muted); }
 .topnav .menu a.active, .topnav .menu a:hover {
-  background: #1a1a1a;
-  color: #00d4ff;
+  background: var(--surface-2);
+  color: var(--primary);
 }
 
 /* collapse button removed */
@@ -93,9 +93,9 @@
   top: 6px;
   left: 8px;
   z-index: 900; /* let header overlay this when shown */
-  background: #0f0f0f;
-  color: #ddd;
-  border: 1px solid #2a2a2a;
+  background: var(--header-bg);
+  color: var(--muted);
+  border: 1px solid var(--border);
   border-radius: 10px;
   padding: 6px 10px;
   opacity: 0.8;
@@ -109,7 +109,7 @@
 .dropdown { position: relative; }
 .dropdown-toggle {
   background: transparent;
-  color: #ddd;
+  color: var(--muted);
   border: none;
   padding: 8px 12px;
   border-radius: 6px;
@@ -123,11 +123,11 @@
   vertical-align: middle;
 }
 .dropdown .dropdown-toggle,
-.dropdown a { color: #ddd; text-decoration: none; }
+.dropdown a { color: var(--muted); text-decoration: none; }
 .dropdown.open .dropdown-toggle,
 .dropdown-toggle:hover {
-  background: #1a1a1a;
-  color: #00d4ff;
+  background: var(--surface-2);
+  color: var(--primary);
 }
 .dropdown-menu {
   position: absolute;
@@ -135,8 +135,8 @@
   left: 0;
   min-width: unset;
   width: max-content; /* fit to content width */
-  background: #0f0f0f;
-  border: 1px solid #222;
+  background: var(--header-bg);
+  border: 1px solid var(--border);
   border-radius: 8px;
   box-shadow: 0 8px 24px rgba(0,0,0,0.35);
   padding: 6px 6px 6px 8px; /* a little extra left padding for comfortable hover */
@@ -179,8 +179,8 @@
   top: -6px;
   left: 100%;
   margin-left: 0; /* no gap */
-  background: #0f0f0f;
-  border: 1px solid #222;
+  background: var(--header-bg);
+  border: 1px solid var(--border);
   border-radius: 8px;
   box-shadow: 0 8px 24px rgba(0,0,0,0.35);
   padding: 6px;
@@ -196,7 +196,7 @@
   white-space: nowrap;
 }
 .dropdown-menu .topic-row .submenu .submenu-section {
-  border-bottom: 1px solid #333;
+  border-bottom: 1px solid var(--border);
   padding-bottom: 8px;
   margin-bottom: 8px;
   display: flex;
@@ -210,7 +210,7 @@
 }
 .dropdown-menu .topic-row .submenu .submenu-title {
   font-weight: 600;
-  color: #00d4ff;
+  color: var(--primary);
   font-size: 0.85em;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -225,19 +225,19 @@
   transition: all 0.2s ease;
 }
 .dropdown-menu .topic-row .submenu .questions-link:hover {
-  background: #1a1a1a;
+  background: var(--surface-2);
   opacity: 1;
 }
 .dropdown-menu a,
 .dropdown-menu .menuitem {
-  color: #ddd;
+  color: var(--muted);
   text-decoration: none;
   padding: 8px 10px;
   border-radius: 6px;
   display: inline-block;
 }
-.dropdown-menu a:hover { background: #1a1a1a; color: #00d4ff; }
-.dropdown-menu .topic-row:hover > .menuitem { background: #1a1a1a; color: #00d4ff; }
+.dropdown-menu a:hover { background: var(--surface-2); color: var(--primary); }
+.dropdown-menu .topic-row:hover > .menuitem { background: var(--surface-2); color: var(--primary); }
 .dropdown-menu .disabled { opacity: 0.5; cursor: not-allowed; }
 
 /* Responsive */
@@ -272,15 +272,15 @@
 .topnav .nav-button {
   background: transparent;
   border: none;
-  color: #ddd;
+  color: var(--muted);
   padding: 8px 12px;
   border-radius: 6px;
   cursor: pointer;
   font: inherit;
 }
 .topnav .nav-button:hover {
-  background: #1a1a1a;
-  color: #00d4ff;
+  background: var(--surface-2);
+  color: var(--primary);
 }
 
 /* User Menu Styles */
@@ -302,11 +302,11 @@
 }
 
 .user-info:hover {
-  background: #1a1a1a;
+  background: var(--surface-2);
 }
 
 .user-name {
-  color: #ddd;
+  color: var(--muted);
   font-size: 14px;
   max-width: 120px;
   overflow: hidden;
@@ -325,8 +325,8 @@
   position: absolute;
   top: 100%;
   right: 0;
-  background: #1a1a1a;
-  border: 1px solid #222;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
   border-radius: 6px;
   padding: 8px 0;
   min-width: 150px;
@@ -351,7 +351,7 @@
   text-align: left;
   background: none;
   border: none;
-  color: #ddd;
+  color: var(--muted);
   text-decoration: none;
   cursor: pointer;
   transition: background-color 0.2s;
@@ -359,23 +359,23 @@
 
 .user-dropdown a:hover,
 .user-dropdown button:hover {
-  background: #2a2a2a;
-  color: #00d4ff;
+  background: var(--surface-2);
+  color: var(--primary);
 }
 
 .logout-button {
-  border-top: 1px solid #222;
+  border-top: 1px solid var(--border);
   margin-top: 4px;
   padding-top: 12px;
 }
 
 .auth-link {
-  background: #00d4ff !important;
-  color: #0f0f0f !important;
+  background: var(--primary) !important;
+  color: var(--primary-contrast) !important;
   font-weight: 600;
 }
 
 .auth-link:hover {
-  background: #00a8cc !important;
-  color: #0f0f0f !important;
+  background: var(--primary-hover) !important;
+  color: var(--primary-contrast) !important;
 }

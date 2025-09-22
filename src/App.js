@@ -36,6 +36,7 @@ import Projeler from "./components/projeler/Projeler";
 import Kaynaklar from "./components/kaynaklar/Kaynaklar";
 import TopNav from "./components/ui/TopNav";
 import { CodePrefsProvider } from "./context/CodePrefsContext";
+import { UIThemeProvider } from "./context/UIThemeContext";
 import { AuthProvider } from "./context/AuthContext";
 import { NotesProvider } from "./context/NotesContext";
 import SettingsPage from "./components/settings/SettingsPage";
@@ -55,6 +56,7 @@ function App() {
     <AuthProvider>
       <NotesProvider>
         <CodePrefsProvider>
+          <UIThemeProvider>
           <Router>
             <TopNav />
             {/* Global Notes widget (launcher + overlay) */}
@@ -106,6 +108,7 @@ function App() {
           <Route path="/ayarlar" element={<SettingsPage />} />
         </Routes>
         </Router>
+        </UIThemeProvider>
       </CodePrefsProvider>
       </NotesProvider>
     </AuthProvider>

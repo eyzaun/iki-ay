@@ -75,7 +75,7 @@ function SoruTemplate({
             onChange={(value) => handleUserAnswerChange(value)}
             style={{
               fontSize: `${fontSize}px`,
-              border: '1px solid #333',
+              border: '1px solid var(--border)',
               borderRadius: '8px',
               overflow: 'hidden'
             }}
