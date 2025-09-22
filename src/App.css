@@ -2,15 +2,16 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: var(--font-sans, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif);
   background-color: var(--bg);
   color: var(--text);
-  line-height: 1.6;
+  line-height: var(--line-height-base, 1.6);
+  font-size: var(--font-size-base, 16px);
 }
 
 .app-container {
   min-height: 100vh;
-  padding: 40px;
+  padding: var(--container-pad, 40px);
   max-width: 1200px;
   margin: 0 auto;
 }
@@ -29,10 +30,10 @@ body {
 
 .section {
   margin-bottom: 50px;
-  padding: 30px;
+  padding: var(--section-pad, 30px);
   background-color: var(--surface);
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+  border-radius: var(--radius-lg, 10px);
+  box-shadow: var(--shadow-md, 0 4px 8px rgba(0, 0, 0, 0.25));
 }
 
 .section h2 {
@@ -65,7 +66,7 @@ body {
 .section pre {
   background-color: var(--surface-2);
   padding: 20px;
-  border-radius: 8px;
+  border-radius: var(--radius-md, 8px);
   overflow-x: auto;
   font-family: 'Courier New', monospace;
   font-size: 1rem;
@@ -103,13 +104,13 @@ body {
 
 .nav-link {
   display: inline-block;
-  padding: 12px 24px;
+  padding: var(--control-pad-y, 12px) var(--control-pad-x, 24px);
   background-color: var(--primary);
   color: var(--primary-contrast);
   text-decoration: none;
-  border-radius: 6px;
+  border-radius: var(--radius-sm, 6px);
   font-weight: bold;
-  transition: all 0.3s;
+  transition: all var(--duration, 250ms) var(--ease, ease);
   cursor: pointer;
 }
 
@@ -123,7 +124,7 @@ body {
 .code-settings {
   background-color: var(--surface);
   padding: 20px;
-  border-radius: 8px;
+  border-radius: var(--radius-md, 8px);
   margin-top: 20px;
 }
 
@@ -172,7 +173,7 @@ body {
   margin-top: 20px;
   padding: 15px;
   background-color: var(--surface-2);
-  border-radius: 6px;
+  border-radius: var(--radius-sm, 6px);
 }
 
 .theme-preview h5 {
@@ -189,7 +190,7 @@ body {
   margin-top: 20px;
   padding: 20px;
   background-color: var(--surface-2);
-  border-radius: 8px;
+  border-radius: var(--radius-md, 8px);
   border: 1px solid var(--border);
 }
 
@@ -204,21 +205,21 @@ body {
   margin-top: 20px;
   padding: 20px;
   background-color: var(--surface-2);
-  border-radius: 8px;
+  border-radius: var(--radius-md, 8px);
   border: 1px solid var(--border);
 }
 
 /* Toggle button */
 .toggle-answer-btn {
-  padding: 12px 24px;
+  padding: var(--control-pad-y, 12px) var(--control-pad-x, 24px);
   background-color: var(--accent);
   color: var(--text);
   border: none;
-  border-radius: 6px;
+  border-radius: var(--radius-sm, 6px);
   font-size: 16px;
   font-weight: bold;
   cursor: pointer;
-  transition: all 0.3s;
+  transition: all var(--duration, 250ms) var(--ease, ease);
 }
 
 .toggle-answer-btn:hover {
@@ -330,13 +331,13 @@ body {
 }
 
 .nav-button {
-  padding: 12px 24px;
+  padding: var(--control-pad-y, 12px) var(--control-pad-x, 24px);
   background-color: var(--primary);
   color: var(--primary-contrast);
   text-decoration: none;
-  border-radius: 6px;
+  border-radius: var(--radius-sm, 6px);
   font-weight: bold;
-  transition: all 0.3s ease;
+  transition: all var(--duration, 250ms) var(--ease, ease);
 }
 
 .nav-button:hover {
@@ -368,7 +369,7 @@ body {
 
 .quiz-item {
   background-color: var(--surface-2);
-  border-radius: 8px;
+  border-radius: var(--radius-md, 8px);
   padding: 20px;
   margin-bottom: 20px;
   border-left: 3px solid var(--primary);
@@ -384,7 +385,7 @@ body {
   justify-content: space-between;
   align-items: flex-start;
   padding: 10px;
-  border-radius: 5px;
+  border-radius: var(--radius-xs, 5px);
   transition: background-color 0.3s;
 }
 
@@ -403,7 +404,7 @@ body {
 .quiz-item .answer {
   background-color: var(--surface);
   padding: 15px;
-  border-radius: 5px;
+  border-radius: var(--radius-xs, 5px);
   border: 1px solid var(--border);
   line-height: 1.7;
   color: var(--text);
@@ -427,7 +428,7 @@ body {
 .quiz-item pre {
   background-color: var(--surface-2);
   padding: 15px;
-  border-radius: 5px;
+  border-radius: var(--radius-xs, 5px);
   overflow-x: auto;
   margin: 10px 0;
   border: 1px solid var(--border);
@@ -437,7 +438,7 @@ body {
 .quiz-item code {
   background-color: var(--surface-2);
   padding: 2px 6px;
-  border-radius: 3px;
+  border-radius: var(--radius-xs, 3px);
   font-family: 'Courier New', monospace;
   font-size: 0.9em;
   color: var(--text);
@@ -447,7 +448,7 @@ body {
   background: linear-gradient(135deg, var(--accent-gradient-start) 0%, var(--accent-gradient-end) 100%);
   color: var(--primary-contrast);
   padding: 25px;
-  border-radius: 10px;
+  border-radius: var(--radius-lg, 10px);
   text-align: center;
   margin: 30px 0;
 }

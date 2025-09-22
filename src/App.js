@@ -37,11 +37,13 @@ import Kaynaklar from "./components/kaynaklar/Kaynaklar";
 import TopNav from "./components/ui/TopNav";
 import { CodePrefsProvider } from "./context/CodePrefsContext";
 import { UIThemeProvider } from "./context/UIThemeContext";
+import { DesignLanguageProvider } from "./context/DesignLanguageContext";
 import { AuthProvider } from "./context/AuthContext";
 import { NotesProvider } from "./context/NotesContext";
 import SettingsPage from "./components/settings/SettingsPage";
 import Login from "./components/auth/Login";
 import AllNotes from "./components/notes/AllNotes";
+import "./design/design.css";
 // 3. Hafta Component'leri
 import DynamicProgramming from "./components/konular/hafta3/dynamic-programming/DynamicProgramming";
 import Greedy from "./components/konular/hafta3/greedy/Greedy";
@@ -57,6 +59,7 @@ function App() {
       <NotesProvider>
         <CodePrefsProvider>
           <UIThemeProvider>
+            <DesignLanguageProvider>
           <Router>
             <TopNav />
             {/* Global Notes widget (launcher + overlay) */}
@@ -108,6 +111,7 @@ function App() {
           <Route path="/ayarlar" element={<SettingsPage />} />
         </Routes>
         </Router>
+            </DesignLanguageProvider>
         </UIThemeProvider>
       </CodePrefsProvider>
       </NotesProvider>

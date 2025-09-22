@@ -1,0 +1,77 @@
+/* Design Language Overrides (scoped by html.dl-*) */
+
+/* Minimalist: flat, no shadows, tight radii */
+html.dl-minimal .section,
+html.dl-minimal .theme-preview,
+html.dl-minimal .user-code-preview,
+html.dl-minimal .answer-content,
+html.dl-minimal .dropdown-menu,
+html.dl-minimal .quiz-item,
+html.dl-minimal .nav-link,
+html.dl-minimal .nav-button {
+  border-radius: var(--radius-md);
+  box-shadow: none !important;
+  background-image: none !important;
+}
+html.dl-minimal .topnav,
+html.dl-minimal .dropdown-menu,
+html.dl-minimal .user-dropdown {
+  box-shadow: none !important;
+}
+html.dl-minimal .quiz-summary,
+html.dl-minimal .quiz-highlight { box-shadow: none !important; }
+html.dl-minimal .nav-link,
+html.dl-minimal .nav-button { text-transform: none; letter-spacing: 0; }
+
+/* Modern Gradient: emphasize gradient highlight and larger radii */
+html.dl-gradient .section,
+html.dl-gradient .theme-preview,
+html.dl-gradient .user-code-preview,
+html.dl-gradient .answer-content,
+html.dl-gradient .dropdown-menu,
+html.dl-gradient .quiz-item,
+html.dl-gradient .nav-link,
+html.dl-gradient .nav-button {
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+}
+html.dl-gradient .quiz-summary,
+html.dl-gradient .quiz-highlight {
+  border-radius: var(--radius-xl);
+  position: relative;
+  overflow: hidden;
+}
+/* subtle animated sheen */
+html.dl-gradient .quiz-highlight::after {
+  content: "";
+  position: absolute;
+  inset: -20%;
+  background: radial-gradient(ellipse at 20% 0%, rgba(255,255,255,0.06), transparent 40%),
+              radial-gradient(ellipse at 80% 100%, rgba(255,255,255,0.05), transparent 40%);
+  pointer-events: none;
+}
+
+/* Glassmorphism: frosted panels and stronger depth */
+html.dl-glass .dropdown-menu,
+html.dl-glass .user-dropdown,
+html.dl-glass .section,
+html.dl-glass .theme-preview,
+html.dl-glass .user-code-preview,
+html.dl-glass .answer-content {
+  background: var(--glass-bg) !important;
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+}
+html.dl-glass .topnav {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  box-shadow: var(--glass-shadow);
+}
+html.dl-glass .nav-link,
+html.dl-glass .nav-button {
+  background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
+  box-shadow: var(--glass-shadow);
+}
