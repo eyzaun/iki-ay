@@ -1,5 +1,7 @@
 # iki-ay
 
+aktif site linki: https://iki-ay.web.app/
+
 React ile geliştirilmiş, konu anlatımları ve kişisel notlar için hazırlanmış bir çalışma uygulaması. Firebase ile kimlik doğrulama ve not kaydı, PWA desteği ve ayarlanabilir kod blokları içerir.
 
 ## Başlarken
